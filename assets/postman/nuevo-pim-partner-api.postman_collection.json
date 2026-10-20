@@ -1,0 +1,1469 @@
+{
+  "info": {
+    "_postman_id": "a7f3b1c0-9d4e-4e8f-8c1a-1f3b7c9e5d20",
+    "name": "Nuevo PIM · Catalogación por API (sandbox)",
+    "description": "Colección de la API de terceros del Nuevo PIM de Liverpool · `/partner/v1`\n\n**Qué contiene** · los 8 pasos para catalogar (3 una sola vez + 6 por producto) + los flujos de corrección, lotes, imágenes, modificaciones post-publicación y recuperación de eventos. Cada request lleva un response de ejemplo tomado del §4 de la propuesta técnica.\n\n**Variables ligadas** · el `proposalId` que devuelve el paso 7 se usa en el paso 8 automáticamente; igual con `batchId`, `categoryId`, `suggestionId` y `webhookId` (vía test scripts).\n\n**MOCK EN VIVO** · hay un mock server público en Postman cloud que responde con los JSON del contrato. Para usarlo, cambia la variable `baseUrl` (y `idpUrl`) a:\n\n```\nhttps://3a61a8b4-2327-49c1-8111-2896745b047e.mock.pstmn.io\n```\n\nLuego dale **Send** a cualquier request y verás el ejemplo del §4 como respuesta. Health-check: `GET /partner/v1/me` devuelve `partnerId: SELLER-DEMO-01`.\n\n**Qué NO es** · no es un contrato final. Hay 7 decisiones pendientes documentadas en https://crruizp.github.io/nuevo-pim-storyboards/decisiones-contrato-api.html\n\n**Playground visual** · https://crruizp.github.io/nuevo-pim-storyboards/playground.html",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pim.liverpool.mx",
+      "type": "string"
+    },
+    {
+      "key": "idpUrl",
+      "value": "https://idp.liverpool.mx",
+      "type": "string"
+    },
+    {
+      "key": "clientId",
+      "value": "CLI-DEMO-01",
+      "type": "string"
+    },
+    {
+      "key": "clientSecret",
+      "value": "<client_secret>",
+      "type": "string"
+    },
+    {
+      "key": "accessToken",
+      "value": "eyJ...ejemplo",
+      "type": "string"
+    },
+    {
+      "key": "business",
+      "value": "MKP",
+      "type": "string"
+    },
+    {
+      "key": "suggestionId",
+      "value": "SUG-DEMO-0001",
+      "type": "string"
+    },
+    {
+      "key": "categoryId",
+      "value": "CAT-DEMO-0412",
+      "type": "string"
+    },
+    {
+      "key": "proposalId",
+      "value": "PROP-000123",
+      "type": "string"
+    },
+    {
+      "key": "batchId",
+      "value": "BATCH-000045",
+      "type": "string"
+    },
+    {
+      "key": "webhookId",
+      "value": "WHK-DEMO-01",
+      "type": "string"
+    },
+    {
+      "key": "externalRef",
+      "value": "DEMO-PB20",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "00 · Prerequisitos (una sola vez por sesión)",
+      "description": "Los 3 pasos que se hacen al arrancar la sesión del integrador. El resto se hace por producto.",
+      "item": [
+        {
+          "name": "1 · POST /oauth/token · pedir un token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                },
+                {
+                  "key": "client_id",
+                  "value": "{{clientId}}"
+                },
+                {
+                  "key": "client_secret",
+                  "value": "{{clientSecret}}"
+                },
+                {
+                  "key": "scope",
+                  "value": "catalog.read suggestions.use proposals.write media.write products.modify webhooks.manage"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{idpUrl}}/oauth/token",
+              "host": [
+                "{{idpUrl}}"
+              ],
+              "path": [
+                "oauth",
+                "token"
+              ]
+            },
+            "description": "Token de 15 minutos. Lo da el proveedor de identidad corporativo (no la API del PIM)."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "if (body.access_token) {",
+                  "  pm.collectionVariables.set('accessToken', body.access_token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "200 OK · token emitido",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": []
+                },
+                "url": {
+                  "raw": "{{idpUrl}}/oauth/token",
+                  "host": [
+                    "{{idpUrl}}"
+                  ],
+                  "path": [
+                    "oauth",
+                    "token"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"eyJ...ejemplo\",\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 900,\n  \"scope\": \"catalog.read suggestions.use proposals.write media.write products.modify webhooks.manage\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "2 · GET /me · quién soy, qué puedo, mis límites",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "X-Request-Id",
+                "value": "REQ-DEMO-0001"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "me"
+              ]
+            },
+            "description": "Devuelve negocios, tiendas, scopes, ambiente, límites y el consumo del día."
+          },
+          "response": [
+            {
+              "name": "200 OK · consumidor activo",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "me"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"partnerId\": \"SELLER-DEMO-01\",\n    \"type\": \"SELLER\",\n    \"status\": \"ACTIVE\",\n    \"supplierId\": null,\n    \"shopIds\": [\"SHOP-DEMO-01\"],\n    \"businesses\": [\"MKP\"],\n    \"scopes\": [\n      \"catalog.read\",\n      \"suggestions.use\",\n      \"proposals.write\",\n      \"media.write\",\n      \"products.modify\",\n      \"webhooks.manage\"\n    ],\n    \"env\": \"SANDBOX\",\n    \"limits\": {\n      \"readsPerMinute\": 600,\n      \"writesPerMinute\": 60,\n      \"suggestionsPerMinute\": 30,\n      \"maxItemsPerBatch\": 1000,\n      \"maxBatchesInProcess\": 2,\n      \"newProductsPerDay\": 100\n    },\n    \"usage\": {\n      \"newProductsToday\": 0,\n      \"batchesInProcess\": 0\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "3 · POST /webhooks · suscribirse a avisos",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "00000000-0000-4000-8000-000000000001"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://{host-del-seller}/avisos-pim\",\n  \"events\": [\n    \"proposal.received\",\n    \"proposal.correction_required\",\n    \"proposal.accepted\",\n    \"product.sku_created\",\n    \"product.publication_sent\",\n    \"product.published\",\n    \"product.updated\",\n    \"batch.completed\"\n  ],\n  \"description\": \"Avisos para el orquestador de pruebas\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/webhooks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "webhooks"
+              ]
+            },
+            "description": "La respuesta trae, una sola vez, el `secret` para verificar la firma HMAC-SHA256."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "if (body.data && body.data.webhookId) {",
+                  "  pm.collectionVariables.set('webhookId', body.data.webhookId);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "201 Created · suscripción activa",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "webhooks"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"webhookId\": \"WHK-DEMO-01\",\n    \"secret\": \"<webhook_secret>\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "01 · Catalogación de un producto (happy path)",
+      "description": "El flujo síncrono: 1 producto que entra limpio y queda en IN_APPROVAL.",
+      "item": [
+        {
+          "name": "4 · GET /categories/discovery · predecir categoría",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/categories/discovery?business={{business}}&q=bateria portatil 20000 mAh",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "categories",
+                "discovery"
+              ],
+              "query": [
+                {
+                  "key": "business",
+                  "value": "{{business}}"
+                },
+                {
+                  "key": "q",
+                  "value": "bateria portatil 20000 mAh"
+                }
+              ]
+            },
+            "description": "Devuelve de 1 a 3 categorías con `confidence`. Mismo patrón que `domain_discovery` de Mercado Libre."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "if (body.data && body.data.suggestionId) pm.collectionVariables.set('suggestionId', body.data.suggestionId);",
+                  "if (body.data && body.data.results && body.data.results[0]) pm.collectionVariables.set('categoryId', body.data.results[0].categoryId);"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "200 OK · 2 sugerencias",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/categories/discovery?business={{business}}&q=bateria portatil 20000 mAh",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "categories",
+                    "discovery"
+                  ],
+                  "query": [
+                    {
+                      "key": "business",
+                      "value": "{{business}}"
+                    },
+                    {
+                      "key": "q",
+                      "value": "bateria portatil 20000 mAh"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"suggestionId\": \"SUG-DEMO-0001\",\n    \"results\": [\n      {\n        \"categoryId\": \"CAT-DEMO-0412\",\n        \"categoryName\": \"Baterías externas\",\n        \"domainId\": \"POWER_BANKS\",\n        \"confidence\": 0.91,\n        \"attributes\": [\n          { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" },\n          { \"id\": \"MODEL\", \"value_name\": \"PB-DEMO-20\" }\n        ]\n      },\n      {\n        \"categoryId\": \"CAT-DEMO-0415\",\n        \"categoryName\": \"Cargadores de pared\",\n        \"domainId\": \"WALL_CHARGERS\",\n        \"confidence\": 0.47,\n        \"attributes\": []\n      }\n    ],\n    \"itemGroup\": \"IG-DEMO-0101\",\n    \"webCategory\": \"Electrónica / Accesorios para celular\",\n    \"expiresAt\": \"2026-11-02T17:00:00Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "5 · GET /categories/{id} · bajar plantilla",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/categories/{{categoryId}}?business={{business}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "categories",
+                "{{categoryId}}"
+              ],
+              "query": [
+                {
+                  "key": "business",
+                  "value": "{{business}}"
+                }
+              ]
+            },
+            "description": "Atributos, valores cerrados, obligatoriedad por negocio y versión de la plantilla."
+          },
+          "response": [
+            {
+              "name": "200 OK · plantilla con 5 atributos",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/categories/{{categoryId}}?business={{business}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "categories",
+                    "{{categoryId}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "business",
+                      "value": "{{business}}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"categoryId\": \"CAT-DEMO-0412\",\n    \"name\": \"Baterías externas\",\n    \"domainId\": \"POWER_BANKS\",\n    \"version\": 7,\n    \"effectiveFrom\": \"2026-10-01T00:00:00Z\",\n    \"attributes\": [\n      { \"id\": \"BRAND\", \"name\": \"Marca\", \"value_type\": \"list\", \"tags\": { \"required\": true }, \"values\": [ { \"id\": \"MARCADEMO\", \"name\": \"Marca Demo\" } ], \"attribute_group_id\": \"BASICOS\", \"filledBy\": \"SUPPLIER\" },\n      { \"id\": \"CAPACIDAD\", \"name\": \"Capacidad\", \"value_type\": \"number_unit\", \"allowed_units\": [ { \"id\": \"MAH\", \"name\": \"mAh\" } ], \"tags\": { \"required\": true }, \"attribute_group_id\": \"BASICOS\", \"filledBy\": \"SUPPLIER\" },\n      { \"id\": \"TIPO_CONECTOR\", \"name\": \"Tipo de conector\", \"value_type\": \"list\", \"tags\": { \"required\": true, \"multivalued\": true }, \"values\": [ { \"id\": \"USB_C\", \"name\": \"USB-C\" }, { \"id\": \"USB_A\", \"name\": \"USB-A\" } ], \"attribute_group_id\": \"BASICOS\", \"filledBy\": \"SUPPLIER\" },\n      { \"id\": \"COLOR\", \"name\": \"Color\", \"value_type\": \"list\", \"tags\": { \"required\": true, \"allow_variations\": true }, \"values\": [ { \"id\": \"NEGRO\", \"name\": \"Negro\" }, { \"id\": \"BLANCO\", \"name\": \"Blanco\" } ], \"attribute_group_id\": \"BASICOS\", \"filledBy\": \"SUPPLIER\", \"acceptedOnlyAtCreation\": true },\n      { \"id\": \"GTIN\", \"name\": \"GTIN\", \"value_type\": \"string\", \"tags\": { \"variation_attribute\": true, \"conditional_required\": true }, \"attribute_group_id\": \"BASICOS\", \"filledBy\": \"SUPPLIER\" }\n    ],\n    \"imageRules\": { \"mainImageRequired\": true, \"maxPicturesPerVariation\": 20 },\n    \"calculatedFields\": [\"TITULO_WEB\"]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "6 · POST /validations · probar sin crear nada",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"business\": \"{{business}}\",\n  \"items\": [\n    {\n      \"externalRef\": \"{{externalRef}}\",\n      \"categoryId\": \"{{categoryId}}\",\n      \"categoryVersion\": 7,\n      \"title\": \"PB-DEMO-20 Marca Demo\",\n      \"attributes\": [\n        { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" },\n        { \"id\": \"CAPACIDAD\", \"value_name\": \"20000 mAh\", \"value_struct\": { \"number\": 20000, \"unit\": \"MAH\" } },\n        { \"id\": \"TIPO_CONECTOR\", \"value_id\": \"USB_C\", \"value_name\": \"USB-C\" }\n      ],\n      \"variations\": [\n        { \"externalRef\": \"DEMO-PB20-NEG\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"NEGRO\", \"value_name\": \"Negro\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000015\" } ] },\n        { \"externalRef\": \"DEMO-PB20-BLA\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"BLANCO\", \"value_name\": \"Blanco\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000022\" } ] }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/validations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "validations"
+              ]
+            },
+            "description": "Hasta 100 productos. Devuelve errores campo por campo y qué pasaría al mandarlo."
+          },
+          "response": [
+            {
+              "name": "200 OK · pasa con 1 warning",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/validations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "validations"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"results\": [\n      {\n        \"externalRef\": \"DEMO-PB20\",\n        \"valid\": true,\n        \"outcome\": \"WOULD_CREATE\",\n        \"completeness\": 0.95,\n        \"photoResponsibility\": \"SUPPLIER\",\n        \"categoryVersion\": 7,\n        \"calculated\": { \"TITULO_WEB\": \"Batería externa Marca Demo PB-DEMO-20\" },\n        \"errors\": [],\n        \"warnings\": [\n          { \"attribute\": \"MATERIAL\", \"code\": \"RECOMMENDED_MISSING\", \"message\": \"Recomendado para esta plantilla\" }\n        ]\n      }\n    ]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "7 · GET /products/search · ¿ya existe?",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/products/search?business={{business}}&status=active&product_identifier=2000000000015",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "products",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "business",
+                  "value": "{{business}}"
+                },
+                {
+                  "key": "status",
+                  "value": "active"
+                },
+                {
+                  "key": "product_identifier",
+                  "value": "2000000000015"
+                }
+              ]
+            },
+            "description": "Devuelve `allowedAction`: CREATE_PROPOSAL, CREATE_OFFER, MULTI_OFFER, STOCK_OUT_OFFER, REQUEST_EAN_RELEASE o NOT_ALLOWED."
+          },
+          "response": [
+            {
+              "name": "200 OK · no existe (allowedAction implícito = CREATE_PROPOSAL)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/products/search?business={{business}}&product_identifier=2000000000015",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "products",
+                    "search"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"query\": { \"productIdentifier\": \"2000000000015\", \"status\": \"active\" },\n    \"results\": []\n  }\n}"
+            },
+            {
+              "name": "200 OK · existe · allowedAction = MULTI_OFFER",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/products/search?business={{business}}&product_identifier=2000000000039",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "products",
+                    "search"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"query\": { \"productIdentifier\": \"2000000000039\", \"status\": \"active\" },\n    \"results\": [\n      {\n        \"id\": \"PRD-DEMO-0009\",\n        \"status\": \"active\",\n        \"name\": \"Batería externa 20,000 mAh\",\n        \"sku\": \"1000000009\",\n        \"catalog\": \"MARKETPLACE\",\n        \"ownedByYou\": false,\n        \"allowedAction\": \"MULTI_OFFER\",\n        \"offer\": {\n          \"offerType\": \"MULTI_OFFER\",\n          \"miraklStatus\": \"ACKNOWLEDGED\",\n          \"acknowledgedAt\": \"2026-10-28T17:05:12Z\"\n        }\n      }\n    ]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "8 · POST /proposals · crear un producto",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "00000000-0000-4000-8000-000000000002"
+              },
+              {
+                "key": "X-Request-Id",
+                "value": "REQ-DEMO-0002"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"business\": \"{{business}}\",\n  \"externalRef\": \"{{externalRef}}\",\n  \"categoryId\": \"{{categoryId}}\",\n  \"categoryVersion\": 7,\n  \"acceptedSuggestionId\": \"{{suggestionId}}\",\n  \"title\": \"PB-DEMO-20 Marca Demo\",\n  \"description\": \"Batería portátil de 20,000 mAh con carga rápida USB-C y dos puertos\",\n  \"attributes\": [\n    { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" },\n    { \"id\": \"MODEL\", \"value_name\": \"PB-DEMO-20\" },\n    { \"id\": \"CAPACIDAD\", \"value_name\": \"20000 mAh\", \"value_struct\": { \"number\": 20000, \"unit\": \"MAH\" } },\n    { \"id\": \"TIPO_CONECTOR\", \"value_id\": \"USB_C\", \"value_name\": \"USB-C\" }\n  ],\n  \"variations\": [\n    { \"externalRef\": \"DEMO-PB20-NEG\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"NEGRO\", \"value_name\": \"Negro\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000015\" } ], \"pictures\": [ { \"source\": \"https://{host-del-seller}/imagenes/pb-demo-20-neg-1.jpg\" } ] },\n    { \"externalRef\": \"DEMO-PB20-BLA\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"BLANCO\", \"value_name\": \"Blanco\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000022\" } ] }\n  ],\n  \"logistics\": {\n    \"package\": { \"heightCm\": 3, \"widthCm\": 8, \"lengthCm\": 15, \"grossWeightKg\": 0.45, \"netWeightKg\": 0.4 }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/proposals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "proposals"
+              ]
+            },
+            "description": "Síncrono. Devuelve 201 con `proposalId` y estado `IN_APPROVAL`."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "if (body.data && body.data.proposalId) pm.collectionVariables.set('proposalId', body.data.proposalId);"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "201 Created · IN_APPROVAL",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"proposalId\": \"PROP-000123\",\n    \"externalRef\": \"DEMO-PB20\",\n    \"status\": \"IN_APPROVAL\",\n    \"correctionDueAt\": null,\n    \"links\": { \"self\": \"/partner/v1/proposals/PROP-000123\" }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "9 · GET /proposals/{id} · consultar estado",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "proposals",
+                "{{proposalId}}"
+              ]
+            },
+            "description": "Trae motivos, acciones pendientes, SKU por variante y canales."
+          },
+          "response": [
+            {
+              "name": "200 OK · PUBLISHED",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals",
+                    "{{proposalId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"proposalId\": \"PROP-000123\",\n    \"externalRef\": \"DEMO-PB20\",\n    \"business\": \"MKP\",\n    \"status\": \"PUBLISHED\",\n    \"version\": 12,\n    \"correctionDueAt\": null,\n    \"reasons\": [],\n    \"requiredActions\": [],\n    \"variants\": [\n      { \"externalRef\": \"DEMO-PB20-NEG\", \"sku\": \"1000000001\", \"ean\": \"2000000000015\" },\n      { \"externalRef\": \"DEMO-PB20-BLA\", \"sku\": \"1000000002\", \"ean\": \"2000000000022\" }\n    ],\n    \"channels\": [\n      { \"channel\": \"STORE\", \"status\": \"PUBLISHED\", \"publishedAt\": \"2026-11-03T10:12:00Z\" },\n      { \"channel\": \"MIRAKL\", \"status\": \"PUBLISHED\", \"publishedAt\": \"2026-11-03T10:20:00Z\" }\n    ]\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02 · Catalogación en lote",
+      "description": "Flujo asíncrono: hasta 1,000 productos por POST. El PIM acusa en el momento y procesa en segundo plano.",
+      "item": [
+        {
+          "name": "8b · POST /batches · mandar hasta 1,000",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "00000000-0000-4000-8000-000000000003"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"business\": \"{{business}}\",\n  \"items\": [\n    {\n      \"externalRef\": \"DEMO-PB20\",\n      \"categoryId\": \"{{categoryId}}\",\n      \"categoryVersion\": 7,\n      \"title\": \"PB-DEMO-20 Marca Demo\",\n      \"attributes\": [\n        { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" },\n        { \"id\": \"TIPO_CONECTOR\", \"value_id\": \"USB_C\", \"value_name\": \"USB-C\" }\n      ],\n      \"variations\": [\n        { \"externalRef\": \"DEMO-PB20-NEG\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"NEGRO\", \"value_name\": \"Negro\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000015\" } ] }\n      ]\n    },\n    {\n      \"externalRef\": \"DEMO-PB10\",\n      \"categoryId\": \"{{categoryId}}\",\n      \"categoryVersion\": 7,\n      \"title\": \"Batería externa de 10,000 mAh\",\n      \"attributes\": [\n        { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" }\n      ],\n      \"variations\": [\n        { \"externalRef\": \"DEMO-PB10-NEG\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"NEGRO\", \"value_name\": \"Negro\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000046\" } ] }\n      ]\n    },\n    {\n      \"externalRef\": \"DEMO-PB05\",\n      \"categoryId\": \"{{categoryId}}\",\n      \"categoryVersion\": 7,\n      \"title\": \"Batería externa de 5,000 mAh\",\n      \"attributes\": [\n        { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" }\n      ],\n      \"variations\": [\n        { \"externalRef\": \"DEMO-PB05-BLA\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"BLANCO\", \"value_name\": \"Blanco\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000039X\" } ] }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/batches",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "batches"
+              ]
+            },
+            "description": "202 con `batchId`. El resultado por producto llega por `batch.completed` y se consulta con GET /batches/{id}/items."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "if (body.data && body.data.batchId) pm.collectionVariables.set('batchId', body.data.batchId);"
+                ]
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "202 Accepted · 3 recibidos",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/batches",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "batches"
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"batchId\": \"BATCH-000045\",\n    \"received\": 3,\n    \"status\": \"RECEIVED\",\n    \"links\": { \"self\": \"/partner/v1/batches/BATCH-000045\" }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "10 · GET /batches/{id}/items · resultado por producto",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/batches/{{batchId}}/items?page=1&size=50",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "batches",
+                "{{batchId}}",
+                "items"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "50"
+                }
+              ]
+            },
+            "description": "Cada producto queda ligado a su `externalRef`, no a su posición. Lo que falló se reenvía con la misma referencia."
+          },
+          "response": [
+            {
+              "name": "200 OK · 2 creados, 1 con corrección",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/batches/{{batchId}}/items",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "batches",
+                    "{{batchId}}",
+                    "items"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"batchId\": \"BATCH-000045\",\n    \"status\": \"COMPLETED\",\n    \"counts\": { \"received\": 3, \"created\": 2, \"correction_required\": 1, \"failed\": 0 },\n    \"items\": [\n      { \"externalRef\": \"DEMO-PB20\", \"proposalId\": \"PROP-000123\", \"outcome\": \"CREATED\", \"status\": \"IN_APPROVAL\" },\n      { \"externalRef\": \"DEMO-PB10\", \"proposalId\": \"PROP-000124\", \"outcome\": \"CREATED\", \"status\": \"IN_APPROVAL\" },\n      {\n        \"externalRef\": \"DEMO-PB05\",\n        \"proposalId\": null,\n        \"outcome\": \"CORRECTION_REQUIRED\",\n        \"status\": \"CORRECTION_REQUIRED\",\n        \"errors\": [\n          { \"variantRef\": \"DEMO-PB05-BLA\", \"attribute\": \"GTIN\", \"code\": \"EAN_CHECK_DIGIT\", \"message\": \"El dígito verificador no corresponde a un EAN-13\", \"value\": \"2000000000039X\" }\n        ]\n      }\n    ]\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "03 · Correcciones y modificaciones",
+      "description": "PATCH para corregir una propuesta antes del SKU; POST /modifications para cambiar un producto ya publicado.",
+      "item": [
+        {
+          "name": "PATCH /proposals/{id} · corregir solo lo pedido",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/merge-patch+json"
+              },
+              {
+                "key": "If-Match",
+                "value": "\"4\""
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "00000000-0000-4000-8000-000000000004"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Batería externa de 20,000 mAh con carga rápida USB-C\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "proposals",
+                "{{proposalId}}"
+              ]
+            },
+            "description": "Merge Patch (RFC 7396). Solo los campos a cambiar. Si alguien cambió la propuesta antes, responde 409."
+          },
+          "response": [
+            {
+              "name": "200 OK · corregido",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals",
+                    "{{proposalId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"proposalId\": \"PROP-000123\",\n    \"status\": \"IN_APPROVAL\",\n    \"version\": 5,\n    \"correctionDueAt\": null\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET /products/{id}/permissions · ¿qué puedo cambiar?",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/products/{{proposalId}}/permissions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "products",
+                "{{proposalId}}",
+                "permissions"
+              ]
+            },
+            "description": "Matriz de qué es editable, qué pide aprobación y qué es de solo lectura."
+          },
+          "response": [
+            {
+              "name": "200 OK · con 3 grupos",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/products/{{proposalId}}/permissions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "products",
+                    "{{proposalId}}",
+                    "permissions"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"isContentOwner\": true,\n    \"fieldGroups\": [\n      { \"group\": \"TEXTOS\", \"access\": \"editable\" },\n      { \"group\": \"ATRIBUTOS\", \"access\": \"requiresApproval\" },\n      { \"group\": \"SKU_EAN_NEGOCIO\", \"access\": \"readOnly\" }\n    ],\n    \"actions\": [\"ADD_VARIANT\", \"CHANGE_MEDIA\"]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "POST /products/{id}/modifications · mandar un cambio",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "00000000-0000-4000-8000-000000000007"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"changes\": {\n    \"description\": \"Batería portátil de 20,000 mAh con dos puertos USB-C de carga rápida y protección contra sobrecarga.\",\n    \"attributes\": [\n      { \"id\": \"MATERIAL\", \"value_id\": \"ALUMINIO\", \"value_name\": \"Aluminio\" }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/products/{{proposalId}}/modifications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "products",
+                "{{proposalId}}",
+                "modifications"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "202 Accepted · modificación en revisión",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/products/{{proposalId}}/modifications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "products",
+                    "{{proposalId}}",
+                    "modifications"
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"modificationId\": \"MOD-DEMO-0001\",\n    \"status\": \"IN_APPROVAL\",\n    \"links\": { \"self\": \"/partner/v1/modifications/MOD-DEMO-0001\" }\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "04 · Imágenes",
+      "description": "Solo si la foto no tiene URL pública. Si la tiene, va en `pictures.source` del alta.",
+      "item": [
+        {
+          "name": "POST /media/uploads · pedir URL de subida",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "00000000-0000-4000-8000-000000000005"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"files\": [\n    {\n      \"fileName\": \"pb-demo-20-bla-1.jpg\",\n      \"contentType\": \"image/jpeg\",\n      \"size\": 482133,\n      \"sha256\": \"0000000000000000000000000000000000000000000000000000000000000000\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/media/uploads",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "media",
+                "uploads"
+              ]
+            },
+            "description": "URL presignada; el archivo se sube con PUT antes de 15 minutos."
+          },
+          "response": [
+            {
+              "name": "200 OK · URL presignada",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/media/uploads",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "media",
+                    "uploads"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"files\": [\n      {\n        \"fileName\": \"pb-demo-20-bla-1.jpg\",\n        \"mediaId\": \"MED-DEMO-0002\",\n        \"uploadUrl\": \"https://{host-de-almacenamiento}/subidas/MED-DEMO-0002?firma=ejemplo\",\n        \"expiresAt\": \"2026-11-02T18:45:00Z\"\n      }\n    ]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "PUT /proposals/{id}/media · fijar imágenes por variante",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "00000000-0000-4000-8000-000000000006"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    { \"url\": \"https://{host-del-seller}/imagenes/pb-demo-20-neg-1.jpg\", \"type\": \"PRINCIPAL\", \"order\": 1, \"variantRef\": \"DEMO-PB20-NEG\", \"publish\": true },\n    { \"mediaId\": \"MED-DEMO-0002\", \"type\": \"PRINCIPAL\", \"order\": 1, \"variantRef\": \"DEMO-PB20-BLA\", \"publish\": true }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/media",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "proposals",
+                "{{proposalId}}",
+                "media"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK · media fijada",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/media",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals",
+                    "{{proposalId}}",
+                    "media"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"proposalId\": \"PROP-000123\",\n    \"items\": [\n      { \"variantRef\": \"DEMO-PB20-NEG\", \"type\": \"PRINCIPAL\", \"order\": 1, \"publish\": true },\n      { \"variantRef\": \"DEMO-PB20-BLA\", \"mediaId\": \"MED-DEMO-0002\", \"type\": \"PRINCIPAL\", \"order\": 1, \"publish\": true }\n    ]\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "05 · Recuperación de avisos",
+      "description": "Cuando el consumidor estuvo caído y los webhooks se perdieron, aquí se recuperan en orden.",
+      "item": [
+        {
+          "name": "GET /events?cursor= · feed de respaldo",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/events?cursor=EVT-000104&types=proposal.accepted,product.sku_created",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "events"
+              ],
+              "query": [
+                {
+                  "key": "cursor",
+                  "value": "EVT-000104"
+                },
+                {
+                  "key": "types",
+                  "value": "proposal.accepted,product.sku_created"
+                }
+              ]
+            },
+            "description": "Lista los últimos 30 días desde el cursor. Es el respaldo cuando el webhook no llegó."
+          },
+          "response": [
+            {
+              "name": "200 OK · 2 eventos",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/events?cursor=EVT-000104",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "events"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"events\": [\n      { \"eventId\": \"EVT-000105\", \"type\": \"proposal.accepted\", \"occurredAt\": \"2026-11-02T18:00:00Z\", \"partnerId\": \"SELLER-DEMO-01\", \"business\": \"MKP\", \"proposalId\": \"PROP-000123\", \"externalRef\": \"DEMO-PB20\", \"status\": \"ACCEPTED\", \"previousStatus\": \"IN_APPROVAL\", \"version\": 6 },\n      { \"eventId\": \"EVT-000106\", \"type\": \"product.sku_created\", \"occurredAt\": \"2026-11-02T18:12:40Z\", \"partnerId\": \"SELLER-DEMO-01\", \"business\": \"MKP\", \"proposalId\": \"PROP-000123\", \"externalRef\": \"DEMO-PB20\", \"status\": \"SKU_CREATED\", \"previousStatus\": \"ACCEPTED\", \"version\": 7 }\n    ],\n    \"nextCursor\": \"EVT-000106\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
