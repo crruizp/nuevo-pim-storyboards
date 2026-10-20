@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "a7f3b1c0-9d4e-4e8f-8c1a-1f3b7c9e5d20",
     "name": "Nuevo PIM · Catalogación por API (sandbox)",
-    "description": "Colección de la API de terceros del Nuevo PIM de Liverpool · `/partner/v1`\n\n**Qué contiene** · los 8 pasos para catalogar (3 una sola vez + 6 por producto) + los flujos de corrección, lotes, imágenes, modificaciones post-publicación y recuperación de eventos. Cada request lleva un response de ejemplo tomado del §4 de la propuesta técnica.\n\n**Variables ligadas** · el `proposalId` que devuelve el paso 7 se usa en el paso 8 automáticamente; igual con `batchId`, `categoryId`, `suggestionId` y `webhookId` (vía test scripts).\n\n**MOCK EN VIVO** · hay un mock server público en Postman cloud que responde con los JSON del contrato. Para usarlo, cambia la variable `baseUrl` (y `idpUrl`) a:\n\n```\nhttps://3a61a8b4-2327-49c1-8111-2896745b047e.mock.pstmn.io\n```\n\nLuego dale **Send** a cualquier request y verás el ejemplo del §4 como respuesta. Health-check: `GET /partner/v1/me` devuelve `partnerId: SELLER-DEMO-01`.\n\n**Qué NO es** · no es un contrato final. Hay 7 decisiones pendientes documentadas en https://crruizp.github.io/nuevo-pim-storyboards/decisiones-contrato-api.html\n\n**Playground visual** · https://crruizp.github.io/nuevo-pim-storyboards/playground.html",
+    "description": "Colección de la API de terceros del Nuevo PIM de Liverpool · `/partner/v1`\n\n**Qué contiene** · los 37 endpoints del ciclo de vida para catalogar (3 una sola vez + 6 por producto) + los flujos de corrección, lotes, imágenes, modificaciones post-publicación y recuperación de eventos. Cada request lleva un response de ejemplo tomado del §4 de la propuesta técnica.\n\n**Variables ligadas** · el `proposalId` que devuelve el paso 7 se usa en el paso 8 automáticamente; igual con `batchId`, `categoryId`, `suggestionId` y `webhookId` (vía test scripts).\n\n**MOCK EN VIVO** · hay un mock server público en Postman cloud que responde con los JSON del contrato. Para usarlo, cambia la variable `baseUrl` (y `idpUrl`) a:\n\n```\nhttps://3a61a8b4-2327-49c1-8111-2896745b047e.mock.pstmn.io\n```\n\nLos requests marcados como mock vivo ya responden en Postman Cloud; los demás incluyen el ejemplo contractual en la colección y quedan pendientes de publicación en ese mock. Health-check: `GET /partner/v1/me` devuelve `partnerId: SELLER-DEMO-01`.\n\n**Qué NO es** · no es un contrato final. Hay 7 decisiones pendientes documentadas en https://crruizp.github.io/nuevo-pim-storyboards/decisiones-contrato-api.html\n\n**Playground visual** · https://crruizp.github.io/nuevo-pim-storyboards/playground.html",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -64,6 +64,26 @@
     {
       "key": "externalRef",
       "value": "DEMO-PB20",
+      "type": "string"
+    },
+    {
+      "key": "productId",
+      "value": "PRD-20261103-7A4F2",
+      "type": "string"
+    },
+    {
+      "key": "modificationId",
+      "value": "MOD-DEMO-0001",
+      "type": "string"
+    },
+    {
+      "key": "variantId",
+      "value": "VAR-001",
+      "type": "string"
+    },
+    {
+      "key": "requestId",
+      "value": "REQ-DEMO-0001",
       "type": "string"
     }
   ],
@@ -1460,6 +1480,1187 @@
                 }
               ],
               "body": "{\n  \"success\": true,\n  \"data\": {\n    \"events\": [\n      { \"eventId\": \"EVT-000105\", \"type\": \"proposal.accepted\", \"occurredAt\": \"2026-11-02T18:00:00Z\", \"partnerId\": \"SELLER-DEMO-01\", \"business\": \"MKP\", \"proposalId\": \"PROP-000123\", \"externalRef\": \"DEMO-PB20\", \"status\": \"ACCEPTED\", \"previousStatus\": \"IN_APPROVAL\", \"version\": 6 },\n      { \"eventId\": \"EVT-000106\", \"type\": \"product.sku_created\", \"occurredAt\": \"2026-11-02T18:12:40Z\", \"partnerId\": \"SELLER-DEMO-01\", \"business\": \"MKP\", \"proposalId\": \"PROP-000123\", \"externalRef\": \"DEMO-PB20\", \"status\": \"SKU_CREATED\", \"previousStatus\": \"ACCEPTED\", \"version\": 7 }\n    ],\n    \"nextCursor\": \"EVT-000106\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "06 · Cobertura complementaria del contrato",
+      "item": [
+        {
+          "name": "1 · GET /partner/v1/categories/{categoryId}/schema",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/categories/{{categoryId}}/schema",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "200 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/categories/{{categoryId}}/schema",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"title\": \"LVP · Refrigeradores Top-mount 251–350 L\",\n  \"version\": 7,\n  \"type\": \"object\",\n  \"required\": [\"business\", \"externalRef\", \"categoryId\", \"templateVersion\", \"base\", \"attributes\", \"variants\"],\n  \"properties\": {\n    \"attributes\": {\n      \"type\": \"array\",\n      \"contains\": [\n        { \"properties\": { \"id\": { \"const\": \"BRAND\" } }, \"required\": [\"value_id\"] },\n        { \"properties\": { \"id\": { \"const\": \"CAPACIDAD_TOTAL\" },\n          \"value_struct\": { \"properties\": { \"number\": { \"type\": \"number\", \"minimum\": 100, \"maximum\": 999 }, \"unit\": { \"const\": \"L\" } } } } }\n      ]\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "2 · GET /partner/v1/categories/changes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/categories/changes",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "200 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/categories/changes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"changes\": [\n    { \"templateId\": \"LVP-ELE-REF-TOP-300\",\n      \"newVersion\": 8, \"previousVersion\": 7,\n      \"effectiveFrom\": \"2027-01-01T00:00:00Z\",\n      \"fields\": [\n        { \"op\": \"added\", \"attribute\": \"COLOR_INTERIOR\",\n          \"required\": false, \"recommended\": true,\n          \"message\": \"Nuevo atributo opcional para la foto comparativa\" }\n      ] }\n  ],\n  \"nextCursor\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "3 · POST /partner/v1/brand-requests",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "br-seller-20261103-001"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"brand\": \"Nueva Marca S.A.\",\n  \"evidence\": [\n    { \"type\": \"TRADEMARK\", \"url\": \"https://seller.example/evidencia/registro-marca.pdf\" },\n    { \"type\": \"DISTRIBUTION_LETTER\", \"url\": \"https://seller.example/evidencia/carta-distribucion.pdf\" }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/brand-requests",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "201 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "br-seller-20261103-001"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"brand\": \"Nueva Marca S.A.\",\n  \"evidence\": [\n    { \"type\": \"TRADEMARK\", \"url\": \"https://seller.example/evidencia/registro-marca.pdf\" },\n    { \"type\": \"DISTRIBUTION_LETTER\", \"url\": \"https://seller.example/evidencia/carta-distribucion.pdf\" }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/brand-requests",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "201",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"br-20261103-00042\",\n  \"brand\": \"Nueva Marca S.A.\",\n  \"status\": \"PENDING_REVIEW\",\n  \"reviewArea\": \"GOBIERNO_DE_DATOS\",\n  \"estimatedResponse\": \"2-5 días hábiles\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "4 · POST /partner/v1/media/batches",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "bmed-mabe-20261103-001"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"manifestUrl\": \"https://cdn.mabe.example/manifiestos/fotos-nov-2026.csv\" }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/media/batches",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "202 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "bmed-mabe-20261103-001"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{ \"manifestUrl\": \"https://cdn.mabe.example/manifiestos/fotos-nov-2026.csv\" }"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/media/batches",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "202",
+              "code": 202,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batchId\": \"bmed-20261103-00007\",\n  \"status\": \"VALIDATING\",\n  \"receivedFiles\": 1850,\n  \"manifestChecksum\": \"sha256:9f4c…b1\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "5 · GET /partner/v1/batches/{batchId}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/batches/{{batchId}}",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "200 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/batches/{{batchId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batchId\": \"bat-20261103-00042\",\n  \"status\": \"COMPLETED\",\n  \"summary\": { \"received\": 2, \"valid\": 2, \"created\": 2, \"already_exists\": 0, \"with_errors\": 0 },\n  \"startedAt\":  \"2026-11-03T15:10:12Z\",\n  \"finishedAt\": \"2026-11-03T15:11:48Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "6 · POST /partner/v1/proposals/{proposalId}/variants",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "If-Match",
+                "value": "\"1\""
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "var-mabe-20261103-003"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalRef\": \"MABE-RMA300FJMRE0-BLANCO\",\n  \"ean\": \"07501234567913\",\n  \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"BLANCO\", \"value_name\": \"Blanco\" } ],\n  \"pictures\": [\n    { \"source\": \"https://cdn.mabe.example/rma300/blanco-01-principal.jpg\", \"type\": \"PRINCIPAL\", \"order\": 1 }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/variants",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "201 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "If-Match",
+                    "value": "\"1\""
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "var-mabe-20261103-003"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalRef\": \"MABE-RMA300FJMRE0-BLANCO\",\n  \"ean\": \"07501234567913\",\n  \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"BLANCO\", \"value_name\": \"Blanco\" } ],\n  \"pictures\": [\n    { \"source\": \"https://cdn.mabe.example/rma300/blanco-01-principal.jpg\", \"type\": \"PRINCIPAL\", \"order\": 1 }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/variants",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "201",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"variantId\": \"var-20261103-9H7K2\",\n  \"externalRef\": \"MABE-RMA300FJMRE0-BLANCO\",\n  \"ean\": \"07501234567913\",\n  \"status\": \"PENDING_SKU\",\n  \"proposalId\": \"prp-20261103-7A4F2\",\n  \"proposalVersionAfter\": 2\n}"
+            }
+          ]
+        },
+        {
+          "name": "7 · DELETE /partner/v1/proposals/{proposalId}/variants/{variantId}",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+              },
+              {
+                "key": "If-Match",
+                "value": "\"2\""
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/variants/{{variantId}}",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "204 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+                  },
+                  {
+                    "key": "If-Match",
+                    "value": "\"2\""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/variants/{{variantId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "204",
+              "code": 204,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "(sin cuerpo — confirmación de borrado. El EAN 07501234567906 queda liberado)"
+            }
+          ]
+        },
+        {
+          "name": "8 · POST /partner/v1/proposals/{proposalId}/cancel",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "can-mabe-20261103-001"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"reason\": \"Cambio de modelo; reenviamos con el nuevo SKU del proveedor\" }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/cancel",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "200 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "can-mabe-20261103-001"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{ \"reason\": \"Cambio de modelo; reenviamos con el nuevo SKU del proveedor\" }"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/cancel",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"proposalId\": \"prp-20261103-7A4F2\",\n  \"status\": \"CANCELLED\",\n  \"cancelledAt\": \"2026-11-03T19:02:00Z\",\n  \"releasedEans\": [\"07501234567890\", \"07501234567906\"]\n}"
+            }
+          ]
+        },
+        {
+          "name": "9 · GET /partner/v1/products/{id}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/products/{{productId}}",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "200 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/products/{{productId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"productId\": \"PRD-20261103-7A4F2\",\n  \"status\": \"PUBLISHED\",\n  \"webCategory\": \"linea-blanca/refrigeradores/top-mount\",\n  \"base\": { \"title\": \"Refrigerador Mabe 300 L Top Mount Acero Inoxidable\", \"description\": \"…\" },\n  \"variants\": [\n    { \"sku\": \"sku-RMA300-INOX\",  \"ean\": \"07501234567890\",\n      \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"INOX\",  \"value_name\": \"Acero inoxidable\" } ],\n      \"pictures\": [ { \"source\": \"https://cdn.mabe.example/rma300/inox-01-principal.jpg\", \"type\": \"PRINCIPAL\", \"order\": 1 } ] },\n    { \"sku\": \"sku-RMA300-NEGRO\", \"ean\": \"07501234567906\",\n      \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"NEGRO\", \"value_name\": \"Negro\" } ],\n      \"pictures\": [ { \"source\": \"https://cdn.mabe.example/rma300/negro-01-principal.jpg\", \"type\": \"PRINCIPAL\", \"order\": 1 } ] }\n  ],\n  \"channels\": [\n    { \"channel\": \"STORE\", \"status\": \"PUBLISHED\", \"publishedAt\": \"2026-11-04T10:12:00Z\" }\n  ],\n  \"version\": 3\n}"
+            }
+          ]
+        },
+        {
+          "name": "10 · GET /partner/v1/products/{id}/channels",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/channels",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "200 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/channels",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"productId\": \"PRD-20261103-7A4F2\",\n  \"channels\": [\n    { \"channel\": \"STORE\", \"status\": \"PUBLISHED\",\n      \"sentAt\": \"2026-11-04T10:08:33Z\", \"publishedAt\": \"2026-11-04T10:12:00Z\",\n      \"url\": \"https://www.liverpool.com.mx/tienda/pdp/refrigerador-mabe-300l/PRD-20261103-7A4F2\" }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "11 · GET /partner/v1/proposals/{id}/history",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/proposals/{{{proposalId}}}/history",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "200 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals/{{{proposalId}}}/history",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"proposalId\": \"prp-20261103-7A4F2\",\n  \"transitions\": [\n    { \"at\": \"2026-11-03T15:04:00Z\", \"from\": null,          \"to\": \"RECEIVED\"       },\n    { \"at\": \"2026-11-03T15:04:12Z\", \"from\": \"RECEIVED\",    \"to\": \"VALIDATING\"     },\n    { \"at\": \"2026-11-03T15:04:22Z\", \"from\": \"VALIDATING\",  \"to\": \"IN_APPROVAL\"    },\n    { \"at\": \"2026-11-03T18:12:40Z\", \"from\": \"IN_APPROVAL\", \"to\": \"ACCEPTED\",       \"area\": \"COMPRAS\" },\n    { \"at\": \"2026-11-03T18:25:11Z\", \"from\": \"ACCEPTED\",    \"to\": \"SKU_CREATED\"    },\n    { \"at\": \"2026-11-03T18:40:03Z\", \"from\": \"SKU_CREATED\", \"to\": \"IN_PREPARATION\", \"area\": \"QA\" },\n    { \"at\": \"2026-11-04T10:08:33Z\", \"from\": \"IN_PREPARATION\", \"to\": \"PUBLISHING\"  },\n    { \"at\": \"2026-11-04T10:12:00Z\", \"from\": \"PUBLISHING\",  \"to\": \"PUBLISHED\",      \"channel\": \"STORE\" }\n  ],\n  \"fieldChanges\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "12 · PUT /partner/v1/products/{id}/media",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "If-Match",
+                "value": "\"2\""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    { \"variantRef\": \"sku-RMA300-INOX\",\n      \"pictures\": [\n        { \"source\": \"https://cdn.mabe.example/rma300/inox-01-principal.jpg\", \"type\": \"PRINCIPAL\", \"order\": 1, \"publish\": true }\n      ] },\n    { \"variantRef\": \"sku-RMA300-NEGRO\",\n      \"pictures\": [\n        { \"source\": \"https://cdn.mabe.example/rma300/negro-01-principal.jpg\", \"type\": \"PRINCIPAL\", \"order\": 1, \"publish\": true }\n      ] }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/media",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "200 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "If-Match",
+                    "value": "\"2\""
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    { \"variantRef\": \"sku-RMA300-INOX\",\n      \"pictures\": [\n        { \"source\": \"https://cdn.mabe.example/rma300/inox-01-principal.jpg\", \"type\": \"PRINCIPAL\", \"order\": 1, \"publish\": true }\n      ] },\n    { \"variantRef\": \"sku-RMA300-NEGRO\",\n      \"pictures\": [\n        { \"source\": \"https://cdn.mabe.example/rma300/negro-01-principal.jpg\", \"type\": \"PRINCIPAL\", \"order\": 1, \"publish\": true }\n      ] }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/media",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"productId\": \"PRD-20261103-7A4F2\",\n  \"mediaCount\": 2,\n  \"validated\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "13 · POST /partner/v1/modifications/batches",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "modb-mabe-20261112-001"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    { \"productId\": \"PRD-20261103-7A4F2\", \"ifMatch\": \"4\",\n      \"changes\": [ { \"path\": \"/attributes/GARANTIA_MESES\", \"op\": \"replace\",\n        \"value\": { \"value_struct\": { \"number\": 36, \"unit\": \"mes\" } } } ] },\n    { \"productId\": \"PRD-20261105-8B3C4\", \"ifMatch\": \"2\",\n      \"changes\": [ { \"path\": \"/attributes/GARANTIA_MESES\", \"op\": \"replace\",\n        \"value\": { \"value_struct\": { \"number\": 36, \"unit\": \"mes\" } } } ] }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/modifications/batches",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "202 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "modb-mabe-20261112-001"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    { \"productId\": \"PRD-20261103-7A4F2\", \"ifMatch\": \"4\",\n      \"changes\": [ { \"path\": \"/attributes/GARANTIA_MESES\", \"op\": \"replace\",\n        \"value\": { \"value_struct\": { \"number\": 36, \"unit\": \"mes\" } } } ] },\n    { \"productId\": \"PRD-20261105-8B3C4\", \"ifMatch\": \"2\",\n      \"changes\": [ { \"path\": \"/attributes/GARANTIA_MESES\", \"op\": \"replace\",\n        \"value\": { \"value_struct\": { \"number\": 36, \"unit\": \"mes\" } } } ] }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/modifications/batches",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "202",
+              "code": 202,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batchId\": \"modb-20261112-00003\",\n  \"received\": 2,\n  \"status\": \"VALIDATING\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "14 · GET /partner/v1/modifications/{id}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/modifications/{{modificationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "200 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/modifications/{{modificationId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"modificationId\": \"mod-20261112-9C21E\",\n  \"status\": \"APPLIED\",\n  \"productId\": \"PRD-20261103-7A4F2\",\n  \"steps\": [\n    { \"at\": \"2026-11-12T09:14:02Z\", \"from\": null,                 \"to\": \"IN_MODIFICATION\" },\n    { \"at\": \"2026-11-12T09:14:11Z\", \"from\": \"IN_MODIFICATION\",    \"to\": \"QA_IA_REVIEW\"    },\n    { \"at\": \"2026-11-12T09:15:48Z\", \"from\": \"QA_IA_REVIEW\",       \"to\": \"APPLIED\",         \"area\": \"QA_IA\" }\n  ],\n  \"appliedChanges\": [\n    { \"path\": \"/base/description\",            \"appliedAt\": \"2026-11-12T09:14:02Z\" },\n    { \"path\": \"/attributes/GARANTIA_MESES\",   \"appliedAt\": \"2026-11-12T09:15:48Z\" }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "15 · GET /partner/v1/receipts/{requestId}",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/receipts/{{requestId}}",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "200 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/receipts/{{requestId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"req-20261103-000045\",\n  \"idempotencyKey\": \"prp-mabe-20261103-001\",\n  \"operation\": \"POST /partner/v1/proposals\",\n  \"status\": 201,\n  \"resourceId\": \"prp-20261103-7A4F2\",\n  \"receivedAt\": \"2026-11-03T15:04:00Z\",\n  \"respondedAt\": \"2026-11-03T15:04:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "16 · GET /partner/v1/webhooks",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/webhooks",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "200 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/webhooks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    { \"webhookId\": \"wh-mabe-prod-01\",\n      \"url\": \"https://integraciones.mabe.example/liverpool/webhooks\",\n      \"events\": [\"proposal.*\", \"product.*\", \"batch.completed\", \"template.changed\"],\n      \"status\": \"ACTIVE\",\n      \"lastDeliveryAt\": \"2026-11-04T10:12:01Z\" }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "17 · PATCH /partner/v1/webhooks/{id}",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"url\": \"https://integraciones.mabe.example/liverpool/webhooks/v2\" }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "200 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{ \"url\": \"https://integraciones.mabe.example/liverpool/webhooks/v2\" }"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"webhookId\": \"wh-mabe-prod-01\",\n  \"url\": \"https://integraciones.mabe.example/liverpool/webhooks/v2\",\n  \"status\": \"ACTIVE\",\n  \"updatedAt\": \"2026-11-03T15:03:02Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "18 · DELETE /partner/v1/webhooks/{id}",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "204 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "204",
+              "code": 204,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "(sin cuerpo — confirmación. Deja de recibir avisos; las entregas en vuelo se completan)"
+            }
+          ]
+        },
+        {
+          "name": "19 · POST /partner/v1/webhooks/{id}/test",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}/test",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "200 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"delivery\": { \"status\": 200, \"latencyMs\": 118, \"receivedAt\": \"2026-11-03T15:03:02Z\" }\n}"
+            }
+          ]
+        },
+        {
+          "name": "20 · GET /partner/v1/webhooks/{id}/deliveries",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}/deliveries",
+              "host": [
+                "{{baseUrl}}"
+              ]
+            },
+            "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+          },
+          "response": [
+            {
+              "name": "200 · ejemplo de contrato",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}/deliveries",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    { \"deliveryId\": \"dlv-01JA7Z2M\", \"eventId\": \"evt-01JA7Y1R\", \"type\": \"product.published\",\n      \"attempts\": [\n        { \"at\": \"2026-11-04T10:12:04Z\", \"status\": 504, \"error\": \"Gateway Timeout\" },\n        { \"at\": \"2026-11-04T10:12:34Z\", \"status\": 200 }\n      ],\n      \"status\": \"DELIVERED\" }\n  ]\n}"
             }
           ]
         }
