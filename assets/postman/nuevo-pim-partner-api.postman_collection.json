@@ -2,18 +2,18 @@
   "info": {
     "_postman_id": "a7f3b1c0-9d4e-4e8f-8c1a-1f3b7c9e5d20",
     "name": "Nuevo PIM · Catalogación por API (sandbox)",
-    "description": "Colección de la API de terceros del Nuevo PIM de Liverpool · `/partner/v1`\n\n**Qué contiene** · los 37 endpoints del ciclo de vida para catalogar (3 una sola vez + 6 por producto) + los flujos de corrección, lotes, imágenes, modificaciones post-publicación y recuperación de eventos. Cada request lleva un response de ejemplo tomado del §4 de la propuesta técnica.\n\n**Variables ligadas** · el `proposalId` que devuelve el paso 7 se usa en el paso 8 automáticamente; igual con `batchId`, `categoryId`, `suggestionId` y `webhookId` (vía test scripts).\n\n**MOCK EN VIVO** · hay un mock server público en Postman cloud que responde con los JSON del contrato. Para usarlo, cambia la variable `baseUrl` (y `idpUrl`) a:\n\n```\nhttps://3a61a8b4-2327-49c1-8111-2896745b047e.mock.pstmn.io\n```\n\nLos requests marcados como mock vivo ya responden en Postman Cloud; los demás incluyen el ejemplo contractual en la colección y quedan pendientes de publicación en ese mock. Health-check: `GET /partner/v1/me` devuelve `partnerId: SELLER-DEMO-01`.\n\n**Qué NO es** · no es un contrato final. Hay 7 decisiones pendientes documentadas en https://crruizp.github.io/nuevo-pim-storyboards/decisiones-contrato-api.html\n\n**Playground visual** · https://crruizp.github.io/nuevo-pim-storyboards/playground.html",
+    "description": "Colección de la API de terceros del Nuevo PIM de Liverpool · `/partner/v1`\n\n**Qué contiene** · los 37 endpoints del ciclo de vida para catalogar (3 una sola vez + 6 por producto) + los flujos de corrección, lotes, imágenes, modificaciones post-publicación y recuperación de eventos. Cada request lleva un response de ejemplo tomado del §4 de la propuesta técnica.\n\n**Variables ligadas** · el `proposalId` que devuelve el paso 7 se usa en el paso 8 automáticamente; igual con `batchId`, `categoryId`, `suggestionId` y `webhookId` (vía test scripts).\n\n**MOCK EN VIVO** · hay un mock server público en Postman cloud que responde con los JSON del contrato. Para usarlo, cambia la variable `baseUrl` (y `idpUrl`) a:\n\n```\nhttps://75d6e481-577f-4f80-9431-f734b175ab8c.mock.pstmn.io\n```\n\nLos 37 requests incluyen su ejemplo contractual y están publicados y responden en este mock de Postman Cloud. Health-check: `GET /partner/v1/me` devuelve `partnerId: SELLER-DEMO-01`.\n\n**Qué NO es** · no es un contrato final. Hay 7 decisiones pendientes documentadas en https://crruizp.github.io/nuevo-pim-storyboards/decisiones-contrato-api.html\n\n**Playground visual** · https://crruizp.github.io/nuevo-pim-storyboards/playground.html",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
     {
       "key": "baseUrl",
-      "value": "https://api.pim.liverpool.mx",
+      "value": "https://75d6e481-577f-4f80-9431-f734b175ab8c.mock.pstmn.io",
       "type": "string"
     },
     {
       "key": "idpUrl",
-      "value": "https://idp.liverpool.mx",
+      "value": "https://75d6e481-577f-4f80-9431-f734b175ab8c.mock.pstmn.io",
       "type": "string"
     },
     {
@@ -1502,6 +1502,13 @@
               "raw": "{{baseUrl}}/partner/v1/categories/{{categoryId}}/schema",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "categories",
+                "{{categoryId}}",
+                "schema"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -1521,6 +1528,13 @@
                   "raw": "{{baseUrl}}/partner/v1/categories/{{categoryId}}/schema",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "categories",
+                    "{{categoryId}}",
+                    "schema"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -1552,6 +1566,12 @@
               "raw": "{{baseUrl}}/partner/v1/categories/changes",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "categories",
+                "changes"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -1571,6 +1591,12 @@
                   "raw": "{{baseUrl}}/partner/v1/categories/changes",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "categories",
+                    "changes"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -1614,6 +1640,11 @@
               "raw": "{{baseUrl}}/partner/v1/brand-requests",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "brand-requests"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -1645,6 +1676,11 @@
                   "raw": "{{baseUrl}}/partner/v1/brand-requests",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "brand-requests"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -1688,6 +1724,12 @@
               "raw": "{{baseUrl}}/partner/v1/media/batches",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "media",
+                "batches"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -1719,6 +1761,12 @@
                   "raw": "{{baseUrl}}/partner/v1/media/batches",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "media",
+                    "batches"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -1750,6 +1798,12 @@
               "raw": "{{baseUrl}}/partner/v1/batches/{{batchId}}",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "batches",
+                "{{batchId}}"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -1769,6 +1823,12 @@
                   "raw": "{{baseUrl}}/partner/v1/batches/{{batchId}}",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "batches",
+                    "{{batchId}}"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -1816,6 +1876,13 @@
               "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/variants",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "proposals",
+                "{{proposalId}}",
+                "variants"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -1851,6 +1918,13 @@
                   "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/variants",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals",
+                    "{{proposalId}}",
+                    "variants"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -1886,6 +1960,14 @@
               "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/variants/{{variantId}}",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "proposals",
+                "{{proposalId}}",
+                "variants",
+                "{{variantId}}"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -1909,6 +1991,14 @@
                   "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/variants/{{variantId}}",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals",
+                    "{{proposalId}}",
+                    "variants",
+                    "{{variantId}}"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -1952,6 +2042,13 @@
               "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/cancel",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "proposals",
+                "{{proposalId}}",
+                "cancel"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -1983,6 +2080,13 @@
                   "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/cancel",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals",
+                    "{{proposalId}}",
+                    "cancel"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2014,6 +2118,12 @@
               "raw": "{{baseUrl}}/partner/v1/products/{{productId}}",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "products",
+                "{{productId}}"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2033,6 +2143,12 @@
                   "raw": "{{baseUrl}}/partner/v1/products/{{productId}}",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "products",
+                    "{{productId}}"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2064,6 +2180,13 @@
               "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/channels",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "products",
+                "{{productId}}",
+                "channels"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2083,6 +2206,13 @@
                   "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/channels",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "products",
+                    "{{productId}}",
+                    "channels"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2111,9 +2241,16 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/partner/v1/proposals/{{{proposalId}}}/history",
+              "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/history",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "proposals",
+                "{{proposalId}}",
+                "history"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2130,9 +2267,16 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{baseUrl}}/partner/v1/proposals/{{{proposalId}}}/history",
+                  "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}/history",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals",
+                    "{{proposalId}}",
+                    "history"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2176,6 +2320,13 @@
               "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/media",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "products",
+                "{{productId}}",
+                "media"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2207,6 +2358,13 @@
                   "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/media",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "products",
+                    "{{productId}}",
+                    "media"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2250,6 +2408,12 @@
               "raw": "{{baseUrl}}/partner/v1/modifications/batches",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "modifications",
+                "batches"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2281,6 +2445,12 @@
                   "raw": "{{baseUrl}}/partner/v1/modifications/batches",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "modifications",
+                    "batches"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2312,6 +2482,12 @@
               "raw": "{{baseUrl}}/partner/v1/modifications/{{modificationId}}",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "modifications",
+                "{{modificationId}}"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2331,6 +2507,12 @@
                   "raw": "{{baseUrl}}/partner/v1/modifications/{{modificationId}}",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "modifications",
+                    "{{modificationId}}"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2362,6 +2544,12 @@
               "raw": "{{baseUrl}}/partner/v1/receipts/{{requestId}}",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "receipts",
+                "{{requestId}}"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2381,6 +2569,12 @@
                   "raw": "{{baseUrl}}/partner/v1/receipts/{{requestId}}",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "receipts",
+                    "{{requestId}}"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2412,6 +2606,11 @@
               "raw": "{{baseUrl}}/partner/v1/webhooks",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "webhooks"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2431,6 +2630,11 @@
                   "raw": "{{baseUrl}}/partner/v1/webhooks",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "webhooks"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2470,6 +2674,12 @@
               "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "webhooks",
+                "{{webhookId}}"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2497,6 +2707,12 @@
                   "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "webhooks",
+                    "{{webhookId}}"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2528,6 +2744,12 @@
               "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "webhooks",
+                "{{webhookId}}"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2547,6 +2769,12 @@
                   "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "webhooks",
+                    "{{webhookId}}"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2578,6 +2806,13 @@
               "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}/test",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "webhooks",
+                "{{webhookId}}",
+                "test"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2597,6 +2832,13 @@
                   "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}/test",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "webhooks",
+                    "{{webhookId}}",
+                    "test"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2628,6 +2870,13 @@
               "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}/deliveries",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                "partner",
+                "v1",
+                "webhooks",
+                "{{webhookId}}",
+                "deliveries"
               ]
             },
             "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
@@ -2647,6 +2896,13 @@
                   "raw": "{{baseUrl}}/partner/v1/webhooks/{{webhookId}}/deliveries",
                   "host": [
                     "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "webhooks",
+                    "{{webhookId}}",
+                    "deliveries"
                   ]
                 },
                 "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
