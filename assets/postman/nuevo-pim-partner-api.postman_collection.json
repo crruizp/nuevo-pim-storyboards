@@ -671,7 +671,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"query\": { \"productIdentifier\": \"2000000000039\", \"status\": \"active\" },\n    \"results\": [\n      {\n        \"id\": \"PRD-DEMO-0009\",\n        \"status\": \"active\",\n        \"name\": \"Batería externa 20,000 mAh\",\n        \"sku\": \"1000000009\",\n        \"catalog\": \"MARKETPLACE\",\n        \"ownedByYou\": false,\n        \"allowedAction\": \"MULTI_OFFER\",\n        \"offer\": {\n          \"offerType\": \"MULTI_OFFER\",\n          \"miraklStatus\": \"ACKNOWLEDGED\",\n          \"acknowledgedAt\": \"2026-10-28T17:05:12Z\"\n        }\n      }\n    ]\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"query\": { \"productIdentifier\": \"2000000000039\", \"status\": \"active\" },\n    \"results\": [\n      {\n        \"id\": \"PRD-DEMO-0009\",\n        \"status\": \"active\",\n        \"name\": \"Batería externa 20,000 mAh\",\n        \"sku\": \"1000000009\",\n        \"catalog\": \"MARKETPLACE\",\n        \"ownedByYou\": false,\n        \"allowedAction\": \"MULTI_OFFER\",\n        \"offer\": {\n          \"offerType\": \"MULTI_OFFER\",\n          \"vendorCenterStatus\": \"ACKNOWLEDGED\",\n          \"acknowledgedAt\": \"2026-10-28T17:05:12Z\"\n        }\n      }\n    ]\n  }\n}"
             }
           ]
         },
@@ -824,7 +824,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"proposalId\": \"PROP-000123\",\n    \"externalRef\": \"DEMO-PB20\",\n    \"business\": \"MKP\",\n    \"status\": \"PUBLISHED\",\n    \"version\": 12,\n    \"correctionDueAt\": null,\n    \"reasons\": [],\n    \"requiredActions\": [],\n    \"variants\": [\n      { \"externalRef\": \"DEMO-PB20-NEG\", \"sku\": \"1000000001\", \"ean\": \"2000000000015\" },\n      { \"externalRef\": \"DEMO-PB20-BLA\", \"sku\": \"1000000002\", \"ean\": \"2000000000022\" }\n    ],\n    \"channels\": [\n      { \"channel\": \"STORE\", \"status\": \"PUBLISHED\", \"publishedAt\": \"2026-11-03T10:12:00Z\" },\n      { \"channel\": \"MIRAKL\", \"status\": \"PUBLISHED\", \"publishedAt\": \"2026-11-03T10:20:00Z\" }\n    ]\n  }\n}"
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"proposalId\": \"PROP-000123\",\n    \"externalRef\": \"DEMO-PB20\",\n    \"business\": \"MKP\",\n    \"status\": \"PUBLISHED\",\n    \"version\": 12,\n    \"correctionDueAt\": null,\n    \"reasons\": [],\n    \"requiredActions\": [],\n    \"variants\": [\n      { \"externalRef\": \"DEMO-PB20-NEG\", \"sku\": \"1000000001\", \"ean\": \"2000000000015\" },\n      { \"externalRef\": \"DEMO-PB20-BLA\", \"sku\": \"1000000002\", \"ean\": \"2000000000022\" }\n    ],\n    \"channels\": [\n      { \"channel\": \"STORE\", \"status\": \"PUBLISHED\", \"publishedAt\": \"2026-11-03T10:12:00Z\" },\n      { \"channel\": \"VENDOR_CENTER\", \"status\": \"PUBLISHED\", \"publishedAt\": \"2026-11-03T10:20:00Z\" }\n    ]\n  }\n}"
             }
           ]
         }
