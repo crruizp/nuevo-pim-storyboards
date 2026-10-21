@@ -13,6 +13,15 @@ Motion graphics explicativos del Nuevo PIM de Liverpool, servidos como página e
 
 Ambos videos son **mudos** y están pensados para proyectar en una reunión y narrar en vivo (cada escena deja 10 s en pantalla para explicar).
 
+La sección **Flujos API** (`/playground/`) presenta el discovery funcional de catalogación:
+
+- ocho etapas previas a la ejecución;
+- requests conceptuales en tablas y responses ilustrativos en ventanas emergentes;
+- happy path, coincidencia alta, modificación, corrección y concurrencia;
+- decisiones contractuales pendientes, separadas de lo ya planteado.
+
+Los ejemplos de response no representan todavía endpoints, payloads ni códigos definitivos.
+
 ## Estructura del repo
 
 ```
