@@ -160,6 +160,25 @@
     openExample(button,endpoint);
   },true);
 
+  const simuladorPath = '/nuevo-pim-storyboards/simulador/';
+  const labelSimulatorNavigation = () => document.querySelectorAll('a[href="/nuevo-pim-storyboards/playground/"],a[href="/nuevo-pim-storyboards/simulador/"]').forEach(link => {
+    link.setAttribute('href',simuladorPath);
+    const walker = document.createTreeWalker(link,NodeFilter.SHOW_TEXT);
+    let node;
+    while((node = walker.nextNode())){
+      if(node.nodeValue.includes('Playground')) node.nodeValue = node.nodeValue.replace('Playground','Simulador API');
+    }
+  });
+
+  document.addEventListener('click',event => {
+    const link = event.target.closest(`a[href="${simuladorPath}"]`);
+    if(!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    window.location.assign(`${simuladorPath}?v=simulador-api-20261020`);
+  },true);
+
   const labelEndpoints = () => document.querySelectorAll('button[aria-expanded]').forEach(original => {
     if(original.dataset.apiModalBound) return;
     // The exported React page delegates the old inline/cURL interaction from its
@@ -192,6 +211,10 @@
     hint.textContent = 'Ver request y response';
     button.appendChild(hint);
   });
+  labelSimulatorNavigation();
   labelEndpoints();
-  new MutationObserver(labelEndpoints).observe(document.body,{childList:true,subtree:true});
+  new MutationObserver(() => {
+    labelSimulatorNavigation();
+    labelEndpoints();
+  }).observe(document.body,{childList:true,subtree:true});
 })();
