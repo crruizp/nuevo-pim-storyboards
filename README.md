@@ -13,7 +13,7 @@ Motion graphics explicativos del Nuevo PIM de Liverpool, servidos como página e
 
 Ambos videos son **mudos** y están pensados para proyectar en una reunión y narrar en vivo (cada escena deja 10 s en pantalla para explicar).
 
-La sección **Flujos API** (`/playground/`) presenta el discovery funcional de catalogación:
+La sección **Simulador API** (`/simulador/`) presenta el discovery funcional de catalogación:
 
 - ocho etapas previas a la ejecución;
 - requests conceptuales en tablas y responses ilustrativos en ventanas emergentes;
@@ -21,6 +21,8 @@ La sección **Flujos API** (`/playground/`) presenta el discovery funcional de c
 - decisiones contractuales pendientes, separadas de lo ya planteado.
 
 Los ejemplos de response no representan todavía endpoints, payloads ni códigos definitivos.
+
+La vista **Flujo guiado** (`/flujo-guiado/`) está pensada para exposición ejecutiva y técnica. Recorre el proceso por actores y decisiones, incluye una narración sugerida y permite cambiar entre alta nueva, producto existente, corrección y modificación de un publicado. El **Simulador API** conserva la ejecución técnica como respaldo de la explicación.
 
 ## Estructura del repo
 

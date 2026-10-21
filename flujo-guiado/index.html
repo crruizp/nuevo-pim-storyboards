@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Presentación guiada del ciclo de catalogación por API del Nuevo PIM.">
+  <title>Flujo guiado · Catalogación por API · Nuevo PIM</title>
+  <link rel="icon" href="/nuevo-pim-storyboards/icon.svg">
+  <link rel="stylesheet" href="./presentacion.css?v=20261021b">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/nuevo-pim-storyboards/" aria-label="Nuevo PIM, inicio"><span>P</span> Nuevo PIM <small>· Liverpool</small></a>
+    <nav aria-label="Navegación principal">
+      <a href="/nuevo-pim-storyboards/etapas/">8 etapas</a>
+      <a href="/nuevo-pim-storyboards/simulador/">Simulador técnico</a>
+      <a class="active" href="./">Flujo guiado</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">MODO PRESENTACIÓN · DISCOVERY</p>
+        <h1 id="page-title">Cómo catalogamos sin crear duplicados.</h1>
+        <p class="lead">Primero entendemos y validamos el producto. Sólo después decidimos si corresponde <strong>crear, reutilizar, corregir o actualizar</strong>.</p>
+      </div>
+      <aside class="status-note">
+        <span>Propuesta en definición</span>
+        <p>Los endpoints y payloads son ejemplos de trabajo; el contrato aún debe ratificarse.</p>
+      </aside>
+    </section>
+
+    <section class="scenario-bar" aria-label="Escenario de presentación">
+      <div>
+        <p class="section-label">Elige el relato</p>
+        <div class="scenario-tabs" role="tablist">
+          <button class="scenario-tab active" role="tab" aria-selected="true" data-scenario="new">Alta nueva</button>
+          <button class="scenario-tab" role="tab" aria-selected="false" data-scenario="existing">Ya existe</button>
+          <button class="scenario-tab" role="tab" aria-selected="false" data-scenario="correction">Requiere corrección</button>
+          <button class="scenario-tab" role="tab" aria-selected="false" data-scenario="modify">Modificar publicado</button>
+        </div>
+      </div>
+      <div class="scenario-outcome" id="scenarioOutcome"></div>
+    </section>
+
+    <section class="presentation-shell">
+      <aside class="stage-rail" aria-label="Etapas del ciclo">
+        <div class="rail-head">
+          <p class="section-label">Ciclo de vida</p>
+          <strong id="progressText">1 de 10</strong>
+        </div>
+        <div class="progress"><span id="progressBar"></span></div>
+        <ol id="stageList"></ol>
+      </aside>
+
+      <article class="scene" aria-live="polite">
+        <header class="scene-head">
+          <div>
+            <span class="stage-chip" id="stageChip"></span>
+            <p class="scene-kicker" id="sceneKicker"></p>
+            <h2 id="sceneTitle"></h2>
+          </div>
+          <span class="scene-number" id="sceneNumber"></span>
+        </header>
+
+        <div class="actor-flow" id="actorFlow" aria-label="Interacción entre actores"></div>
+
+        <div class="scene-grid">
+          <section class="explanation-card">
+            <p class="section-label">Qué ocurre</p>
+            <p class="explanation" id="sceneExplanation"></p>
+            <div class="endpoint-list" id="endpointList"></div>
+          </section>
+          <section class="result-card">
+            <p class="section-label">Resultado para continuar</p>
+            <strong id="sceneResult"></strong>
+            <div class="correlation" id="correlation"></div>
+          </section>
+        </div>
+
+        <section class="decision-card" id="decisionCard" hidden>
+          <div class="decision-icon">?</div>
+          <div><p class="section-label">Decisión</p><h3 id="decisionTitle"></h3><p id="decisionText"></p></div>
+        </section>
+
+        <section class="speaker-note">
+          <div><p class="section-label">Cómo explicarlo</p><p id="speakerNote"></p></div>
+          <button class="detail-button" id="openDetail">Ver entrada y salida</button>
+        </section>
+
+        <footer class="controls">
+          <button id="prevStep" class="secondary">← Anterior</button>
+          <span class="keyboard-help">Usa ← → para avanzar</span>
+          <button id="nextStep" class="primary">Siguiente →</button>
+        </footer>
+      </article>
+    </section>
+
+    <section class="closing">
+      <p class="eyebrow">MENSAJE DE CIERRE</p>
+      <h2>La API no sustituye el gobierno del producto: lo hace visible y trazable.</h2>
+      <div class="closing-points">
+        <span>Evita duplicados antes del alta</span><span>Valida sin crear</span><span>Notifica de forma asíncrona</span><span>Permite recuperar y auditar</span>
+      </div>
+      <a href="https://jmlagunasa.github.io/documentacion-pim/catalogacion-por-api-ciclo-de-vida.html#e1" target="_blank" rel="noreferrer">Abrir documento funcional de referencia ↗</a>
+    </section>
+  </main>
+
+  <dialog id="detailDialog" class="detail-dialog" aria-labelledby="detailTitle">
+    <div class="dialog-shell">
+      <header><div><p class="section-label">Ejemplo funcional</p><h2 id="detailTitle"></h2></div><button id="closeDetail" aria-label="Cerrar">×</button></header>
+      <p class="dialog-purpose" id="detailPurpose"></p>
+      <div class="io-grid">
+        <section><h3>Entrada</h3><div class="field-table" id="requestFields"></div></section>
+        <section><h3>Salida</h3><div class="field-table" id="responseFields"></div></section>
+      </div>
+      <p class="dialog-foot">Los colores conectan el dato que se genera con el paso que lo reutiliza. Ejemplo ilustrativo sujeto a ratificación.</p>
+    </div>
+  </dialog>
+
+  <script src="./presentacion.js?v=20261021b"></script>
+</body>
+</html>
