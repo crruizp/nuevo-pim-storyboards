@@ -1,0 +1,583 @@
+<!DOCTYPE html><html lang="es" class="dark"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/nuevo-pim-storyboards/_next/static/css/47c29f15b7193bca.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/nuevo-pim-storyboards/_next/static/chunks/webpack-04c592677def6eb2.js"/><script src="/nuevo-pim-storyboards/_next/static/chunks/fd9d1056-53ee6bf1a22db8b4.js" async=""></script><script src="/nuevo-pim-storyboards/_next/static/chunks/117-b301d1b7f79b7e45.js" async=""></script><script src="/nuevo-pim-storyboards/_next/static/chunks/main-app-d2fa1cc0887b1641.js" async=""></script><script src="/nuevo-pim-storyboards/_next/static/chunks/app/diagramas/page-a100b5e1405af1ca.js" async=""></script><script src="/nuevo-pim-storyboards/_next/static/chunks/c15bf2b0-19ff368ffb2158b2.js" async=""></script><script src="/nuevo-pim-storyboards/_next/static/chunks/498-4d7ac2a3e533a08d.js" async=""></script><script src="/nuevo-pim-storyboards/_next/static/chunks/789-21c17f012a7b1ba6.js" async=""></script><script src="/nuevo-pim-storyboards/_next/static/chunks/app/layout-9eff0063aa73ffef.js" async=""></script><title>Diagramas de secuencia · Nuevo PIM · Liverpool</title><meta name="description" content="19 recorridos del contrato de catalogación por API en Mermaid, renderizados en vivo. 1 general + 18 casos (Principales, Excepción, Error, Operación, Negocio)."/><meta property="og:title" content="Nuevo PIM · Liverpool · Catalogación por API"/><meta property="og:description" content="8 etapas · 37 endpoints · mock Postman en vivo. Simulador interactivo del contrato /partner/v1."/><meta property="og:url" content="https://crruizp.github.io/nuevo-pim-storyboards/"/><meta property="og:site_name" content="Nuevo PIM · Liverpool"/><meta property="og:locale" content="es_MX"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Nuevo PIM · Liverpool · Catalogación por API"/><meta name="twitter:description" content="8 etapas · 37 endpoints · mock Postman en vivo. Simulador interactivo del contrato /partner/v1."/><link rel="icon" href="/nuevo-pim-storyboards/icon.svg"/><script src="/nuevo-pim-storyboards/_next/static/chunks/polyfills-42372ed130431b0a.js" noModule=""></script></head><body class="min-h-screen antialiased"><header class="fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 border-transparent bg-ink-950/40 py-5 backdrop-blur-sm"><div class="container-page flex items-center justify-between gap-2 sm:gap-6"><a class="group inline-flex items-center gap-3 transition active:scale-95" aria-label="Nuevo PIM · Inicio" href="/nuevo-pim-storyboards/"><span class="inline-flex h-7 w-7 items-center justify-center rounded-md bg-rosa text-[11px] font-bold text-white shadow-[0_0_18px_rgba(225,0,152,0.5)] transition-transform group-hover:scale-110">P</span><span class="hidden text-sm font-medium text-neutral-200 sm:inline">Nuevo PIM · <span class="text-neutral-500">Liverpool</span></span></a><nav class="flex items-center gap-0 text-[11px] sm:gap-1 sm:text-sm" aria-label="Navegación principal"><a class="relative rounded-full px-2 py-1.5 transition-colors duration-150 ease-out sm:px-3 text-neutral-300 hover:bg-ink-700/70 hover:text-white" href="/nuevo-pim-storyboards/">Inicio</a><a class="relative rounded-full px-2 py-1.5 transition-colors duration-150 ease-out sm:px-3 text-neutral-300 hover:bg-ink-700/70 hover:text-white" href="/nuevo-pim-storyboards/etapas/">8 etapas</a><a class="relative rounded-full px-2 py-1.5 transition-colors duration-150 ease-out sm:px-3 text-neutral-300 hover:bg-ink-700/70 hover:text-white" href="/nuevo-pim-storyboards/simulador/">Simulador API</a><a aria-current="page" class="relative rounded-full px-2 py-1.5 transition-colors duration-150 ease-out sm:px-3 bg-rosa/15 text-rosa-200" href="/nuevo-pim-storyboards/diagramas/">Diagramas<span aria-hidden="true" class="absolute inset-x-3 -bottom-px h-px bg-rosa"></span></a><a class="relative rounded-full px-2 py-1.5 transition-colors duration-150 ease-out sm:px-3 text-neutral-300 hover:bg-ink-700/70 hover:text-white" href="/nuevo-pim-storyboards/decisiones/">Decisiones</a></nav></div></header><main><section class="container-page pt-28 pb-10"><span class="kicker">Diagramas de secuencia</span><h1 class="mt-5 text-4xl font-bold tracking-tight sm:text-5xl">19 recorridos del contrato <span class="text-rosa">en vivo</span></h1><p class="mt-5 max-w-3xl text-neutral-400">1 vista general del ciclo de las 8 etapas + 18 casos agrupados en 5 secciones. Cada diagrama cita su sección en<!-- --> <code class="rounded bg-ink-800 px-1.5 py-0.5 text-[12px] text-rosa-200">contratos-api.md</code>. Fuente única:<!-- --> <code class="rounded bg-ink-800 px-1.5 py-0.5 text-[12px] text-neutral-300">docs/sequences/*.mmd</code>. Mismo contenido disponible en el<!-- --> <a class="text-rosa underline underline-offset-2 hover:text-rosa-200" href="https://miro.com/app/board/uXjVEW8goI0=/" target="_blank" rel="noopener noreferrer">board de Miro</a>.</p><nav class="mt-10 flex flex-wrap gap-2" aria-label="Índice de diagramas"><a href="#cat-general" class="rounded-full border border-ink-600 bg-ink-900/50 px-3 py-1.5 text-xs text-neutral-300 transition-colors hover:border-rosa/60 hover:text-white">General<!-- --> <span class="text-neutral-600">· <!-- -->1</span></a><a href="#cat-principales" class="rounded-full border border-ink-600 bg-ink-900/50 px-3 py-1.5 text-xs text-neutral-300 transition-colors hover:border-rosa/60 hover:text-white">Principales<!-- --> <span class="text-neutral-600">· <!-- -->3</span></a><a href="#cat-excepcion" class="rounded-full border border-ink-600 bg-ink-900/50 px-3 py-1.5 text-xs text-neutral-300 transition-colors hover:border-rosa/60 hover:text-white">Excepción<!-- --> <span class="text-neutral-600">· <!-- -->3</span></a><a href="#cat-error" class="rounded-full border border-ink-600 bg-ink-900/50 px-3 py-1.5 text-xs text-neutral-300 transition-colors hover:border-rosa/60 hover:text-white">Error<!-- --> <span class="text-neutral-600">· <!-- -->6</span></a><a href="#cat-operacion" class="rounded-full border border-ink-600 bg-ink-900/50 px-3 py-1.5 text-xs text-neutral-300 transition-colors hover:border-rosa/60 hover:text-white">Operación<!-- --> <span class="text-neutral-600">· <!-- -->3</span></a><a href="#cat-negocio" class="rounded-full border border-ink-600 bg-ink-900/50 px-3 py-1.5 text-xs text-neutral-300 transition-colors hover:border-rosa/60 hover:text-white">Negocio<!-- --> <span class="text-neutral-600">· <!-- -->3</span></a></nav><p class="mt-6 text-xs text-neutral-500">Cargando mermaid.js desde CDN…</p></section><section id="cat-general" class="container-page mb-16 scroll-mt-24"><header class="mb-6 border-b border-ink-700 pb-3"><h2 class="text-2xl font-bold tracking-tight sm:text-3xl">General<!-- --> <span class="text-sm font-normal text-neutral-500">· <!-- -->1</span></h2><p class="mt-1 text-sm text-neutral-500">El ciclo completo de las 8 etapas en un recorrido.</p></header><div class="grid gap-6"><article id="00-general" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">general</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">00-general.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §1, §2, §3</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: general
+%% categoria: General
+%% contratos: contratos-api.md §1, §2, §3
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Socio Comercial
+    participant API as PIM Partner API
+    participant WFL as Workflows PIM
+    actor BO as Backoffice QA
+    participant WH as Webhook Socio
+
+    rect rgb(240, 248, 255)
+    Note over PRT,API: Etapa 1 · Preparar
+    PRT-&gt;&gt;API: GET /me/scopes
+    API--&gt;&gt;PRT: 200 (scopes, limits)
+    end
+
+    rect rgb(240, 248, 255)
+    Note over PRT,API: Etapa 2 · Validar plantilla
+    PRT-&gt;&gt;API: POST /validations
+    API--&gt;&gt;PRT: 200 (valid, warnings)
+    end
+
+    rect rgb(240, 248, 255)
+    Note over PRT,API: Etapa 3 · Crear propuesta(s)
+    PRT-&gt;&gt;API: POST /proposals
+    API-&gt;&gt;WFL: enqueue(batchId)
+    API--&gt;&gt;PRT: 202 (batchId, trackingUrl)
+    end
+
+    rect rgb(255, 243, 205)
+    Note over WFL,BO: Etapa 4 · Procesamiento + QA
+    WFL-&gt;&gt;WFL: validaciones automáticas
+    WFL-&gt;&gt;BO: ítems a revisar
+    BO--&gt;&gt;WFL: aprueba / corrección / rechazo
+    end
+
+    rect rgb(222, 237, 255)
+    Note over API,WH: Etapa 5 · Resultado por ítem (webhook)
+    API-&gt;&gt;WH: webhook batch.item.result
+    WH--&gt;&gt;API: 200
+    end
+
+    alt result = CORRECTION_REQUIRED
+      rect rgb(255, 243, 205)
+      Note over PRT,API: Etapa 6 · Ciclo de corrección
+      PRT-&gt;&gt;API: GET /proposals/{id}
+      PRT-&gt;&gt;API: PATCH /proposals/{id}
+      API--&gt;&gt;PRT: 200
+      end
+    end
+
+    rect rgb(222, 237, 255)
+    Note over API,WH: Etapa 7 · Publicación SKU (webhook)
+    API-&gt;&gt;WH: webhook sku.published
+    WH--&gt;&gt;API: 200
+    end
+
+    rect rgb(240, 248, 255)
+    Note over PRT,API: Etapa 8 · Modificaciones + eventos
+    PRT-&gt;&gt;API: POST /products/{id}/modifications
+    API--&gt;&gt;PRT: 202
+    PRT-&gt;&gt;API: GET /events?cursor
+    API--&gt;&gt;PRT: 200 (events, nextCursor)
+    end
+</pre></div></article></div></section><section id="cat-principales" class="container-page mb-16 scroll-mt-24"><header class="mb-6 border-b border-ink-700 pb-3"><h2 class="text-2xl font-bold tracking-tight sm:text-3xl">Principales<!-- --> <span class="text-sm font-normal text-neutral-500">· <!-- -->3</span></h2><p class="mt-1 text-sm text-neutral-500">Flujos felices (single, lote de 4) y catalogación directa LVP.</p></header><div class="grid gap-6"><article id="01-happy-single" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">happy-single</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">principales/01-happy-single.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §2.1, §2.3</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: happy-single
+%% categoria: Principal
+%% contratos: contratos-api.md §2.1, §2.3
+%% mock-variantes: [&quot;POST /validations → default&quot;, &quot;POST /proposals → default&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Socio Comercial
+    participant API as PIM Partner API
+    participant WFL as Workflows PIM
+    participant WH as Webhook Socio
+
+    PRT-&gt;&gt;API: POST /validations (Idempotency-Key)
+    API--&gt;&gt;PRT: 200 (valid, templateVersion)
+
+    PRT-&gt;&gt;API: POST /proposals (1 ítem)
+    API-&gt;&gt;WFL: enqueue(batchId)
+    API--&gt;&gt;PRT: 202 (batchId, trackingUrl)
+
+    rect rgb(255, 243, 205)
+    WFL-&gt;&gt;WFL: validaciones automáticas OK
+    end
+
+    rect rgb(222, 237, 255)
+    API-&gt;&gt;WH: webhook batch.item.result (CREATED)
+    WH--&gt;&gt;API: 200
+    API-&gt;&gt;WH: webhook sku.published (productId, sku)
+    WH--&gt;&gt;API: 200
+    end
+
+    Note over PRT: SKU en línea. Lead time típico: minutos.
+</pre></div></article><article id="02-batch-4-mix" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">batch-4-mix</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">principales/02-batch-4-mix.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §2.2 (batch results), §2.5 (webhooks)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: batch-4-mix
+%% categoria: Principal
+%% contratos: contratos-api.md §2.2 (batch results), §2.5 (webhooks)
+%% mock-variantes: [&quot;GET /batches/{id}/items → lote-4-mix&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Socio Comercial
+    participant API as PIM Partner API
+    participant WFL as Workflows PIM
+    actor BO as Backoffice QA
+    participant WH as Webhook Socio
+
+    Note over PRT,API: Batch de 4 ítems que ejercitan los 4 result del contrato §2.2
+
+    PRT-&gt;&gt;API: POST /proposals (4 ítems)
+    API--&gt;&gt;PRT: 202 (batchId=lote-4-mix)
+
+    rect rgb(255, 243, 205)
+    WFL-&gt;&gt;WFL: valida ítem 1 (OK)
+    WFL-&gt;&gt;BO: ítem 2 (requiere revisión)
+    BO--&gt;&gt;WFL: pide corrección
+    WFL-&gt;&gt;WFL: valida ítem 3 (duplicado)
+    WFL-&gt;&gt;WFL: valida ítem 4 (sin ownership)
+    end
+
+    PRT-&gt;&gt;API: GET /batches/{id}/items (variante lote-4-mix)
+
+    rect rgb(222, 237, 255)
+    API--&gt;&gt;PRT: 200 item1=CREATED, item2=CORRECTION_REQUIRED, item3=ALREADY_EXISTS, item4=REJECTED
+    end
+
+    rect rgb(222, 237, 255)
+    API-&gt;&gt;WH: webhook batch.item.result x4 (uno por result)
+    WH--&gt;&gt;API: 200 x4
+    end
+</pre></div></article><article id="03-provider-mercaderias" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">provider-mercaderias</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">principales/03-provider-mercaderias.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §1 (X-Business), §3.2 (contentOwner)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: provider-mercaderias
+%% categoria: Principal
+%% contratos: contratos-api.md §1 (X-Business), §3.2 (contentOwner)
+%% mock-variantes: [&quot;POST /proposals → provider-mercaderias&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Mercaderías (LVP interno)
+    participant API as PIM Partner API
+    participant WFL as Workflows PIM
+    participant WH as Webhook Socio
+
+    Note over PRT,API: Catalogación directa Liverpool: X-Business=LVP, sin reglas de marketplace
+
+    PRT-&gt;&gt;API: POST /proposals (X-Business: LVP, Idempotency-Key)
+    API-&gt;&gt;WFL: enqueue + skip brand-check
+    API--&gt;&gt;PRT: 202 (batchId)
+
+    rect rgb(222, 237, 255)
+    WFL-&gt;&gt;WFL: valida (sin brand-blocked, sin scope-missing)
+    API-&gt;&gt;WH: webhook batch.item.result (CREATED)
+    WH--&gt;&gt;API: 200
+    end
+
+    rect rgb(222, 237, 255)
+    API-&gt;&gt;WH: webhook sku.published (sku interno LVP)
+    WH--&gt;&gt;API: 200
+    end
+
+    Note over PRT: contentOwner=liverpool-direct por default
+</pre></div></article></div></section><section id="cat-excepcion" class="container-page mb-16 scroll-mt-24"><header class="mb-6 border-b border-ink-700 pb-3"><h2 class="text-2xl font-bold tracking-tight sm:text-3xl">Excepción<!-- --> <span class="text-sm font-normal text-neutral-500">· <!-- -->3</span></h2><p class="mt-1 text-sm text-neutral-500">ALREADY_EXISTS como ruta alterna (no terminal) y ciclo de corrección.</p></header><div class="grid gap-6"><article id="04-already-exists" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">already-exists</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">excepcion/04-already-exists.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §1 (código de error), §2.2 (batch results)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: already-exists
+%% categoria: Excepción
+%% contratos: contratos-api.md §1 (código de error), §2.2 (batch results)
+%% mock-variantes: [&quot;POST /proposals → already-exists&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Socio Comercial
+    participant API as PIM Partner API
+    participant PIM as PIM core
+
+    PRT-&gt;&gt;API: POST /proposals (EAN duplicado, Idempotency-Key)
+    API-&gt;&gt;PIM: lookup EAN
+    PIM--&gt;&gt;API: existe (productId=PRD-xxx, status=published)
+
+    rect rgb(255, 230, 230)
+    API--&gt;&gt;PRT: 409 ALREADY_EXISTS (existingProductId, nextAction)
+    end
+
+    Note over PRT: El socio debe decidir: ignorar, pedir ownership transfer, o postear oferta sobre producto existente (ver caso 05)
+</pre></div></article><article id="05-already-exists-multi-offer" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">already-exists-multi-offer</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">excepcion/05-already-exists-multi-offer.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §1 (códigos de error), §2.2 (batch results), §3.1 (offer-targets)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: already-exists-multi-offer
+%% categoria: Excepción
+%% contratos: contratos-api.md §1 (códigos de error), §2.2 (batch results), §3.1 (offer-targets)
+%% mock-variantes: [&quot;POST /proposals → already-exists-multi-offer&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Socio Comercial (Mirakl)
+    participant API as PIM Partner API
+    participant MOCK as Mock Postman
+    participant PIM as PIM core
+    participant WH as Webhook Socio
+
+    Note over PRT,API: Precondición: el EAN ya existe en PIM, el socio opera otra oferta.
+    Note over PRT,API: 409 ALREADY_EXISTS NO es rechazo (contratos-api.md §1)
+
+    PRT-&gt;&gt;API: POST /proposals (Idempotency-Key, X-Request-Id, x-mock-response-name)
+    activate API
+    API-&gt;&gt;MOCK: resuelve variante por header
+    MOCK--&gt;&gt;API: ejemplo already-exists-multi-offer
+
+    rect rgb(255, 230, 230)
+    API-&gt;&gt;PIM: lookup EAN 7501234567890
+    PIM--&gt;&gt;API: existingProductId=PRD-123
+    end
+
+    API--&gt;&gt;PRT: 409 ALREADY_EXISTS (offer-targets, miraklStatus, nextAction)
+    deactivate API
+
+    Note over PRT: El socio NO reintenta. Cambia de ruta a oferta sobre producto existente.
+
+    rect rgb(240, 248, 255)
+    PRT-&gt;&gt;API: POST /offers (productId=PRD-123, price, stock, sku-partner)
+    API--&gt;&gt;PRT: 202 (offerId, trackingUrl)
+    PRT-&gt;&gt;API: GET /offers/{offerId}
+    API--&gt;&gt;PRT: 200 (status=pending_review)
+    end
+
+    rect rgb(222, 237, 255)
+    API-&gt;&gt;WH: POST webhook offer.linked
+    WH--&gt;&gt;API: 200
+    end
+</pre></div></article><article id="06-correction-cycle" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">correction-cycle</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">excepcion/06-correction-cycle.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §2.4 (comentarios de corrección), §2.6 (ETag/If-Match)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: correction-cycle
+%% categoria: Excepción
+%% contratos: contratos-api.md §2.4 (comentarios de corrección), §2.6 (ETag/If-Match)
+%% mock-variantes: [&quot;GET /proposals/{id} → with-comments&quot;, &quot;PATCH /proposals/{id} → default&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Socio Comercial
+    participant API as PIM Partner API
+    actor BO as Backoffice QA
+    participant WH as Webhook Socio
+
+    PRT-&gt;&gt;API: POST /proposals (ítem, Idempotency-Key)
+    API--&gt;&gt;PRT: 202 (proposalId)
+
+    rect rgb(255, 243, 205)
+    BO-&gt;&gt;API: revisa ítem, pide corrección (campo faltante)
+    API-&gt;&gt;WH: webhook batch.item.result (CORRECTION_REQUIRED, comments)
+    WH--&gt;&gt;API: 200
+    end
+
+    PRT-&gt;&gt;API: GET /proposals/{id} (ver comments + ETag)
+    API--&gt;&gt;PRT: 200 (proposal + comments + ETag)
+
+    rect rgb(255, 243, 205)
+    PRT-&gt;&gt;API: PATCH /proposals/{id} (If-Match: etag, cambios)
+    API--&gt;&gt;PRT: 200 (nuevo ETag, status=re-validating)
+    end
+
+    BO-&gt;&gt;API: re-revisa, aprueba
+
+    rect rgb(222, 237, 255)
+    API-&gt;&gt;WH: webhook batch.item.result (CREATED)
+    WH--&gt;&gt;API: 200
+    end
+</pre></div></article></div></section><section id="cat-error" class="container-page mb-16 scroll-mt-24"><header class="mb-6 border-b border-ink-700 pb-3"><h2 class="text-2xl font-bold tracking-tight sm:text-3xl">Error<!-- --> <span class="text-sm font-normal text-neutral-500">· <!-- -->6</span></h2><p class="mt-1 text-sm text-neutral-500">Códigos 4xx del contrato §1: BRAND_BLOCKED, SCOPE_MISSING, RATE_LIMITED, VERSION_CONFLICT, NOT_CONTENT_OWNER, IDEMPOTENCY_MISMATCH.</p></header><div class="grid gap-6"><article id="07-brand-blocked" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">brand-blocked</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">error/07-brand-blocked.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §1 (código BRAND_BLOCKED)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: brand-blocked
+%% categoria: Error
+%% contratos: contratos-api.md §1 (código BRAND_BLOCKED)
+%% mock-variantes: [&quot;POST /proposals → brand-blocked&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Socio Comercial
+    participant API as PIM Partner API
+    participant WFL as Workflows PIM
+
+    PRT-&gt;&gt;API: POST /proposals (brand=X-Prohibida, x-mock-response-name=brand-blocked)
+    API-&gt;&gt;WFL: valida brand allowlist
+    WFL--&gt;&gt;API: brand bloqueada (política comercial)
+
+    rect rgb(255, 230, 230)
+    API--&gt;&gt;PRT: 422 BRAND_BLOCKED (brand, reason, allowedBrands)
+    end
+
+    Note over PRT: Flujo terminal. El socio cambia brand o solicita alta en el catálogo (contratos-api.md §1)
+</pre></div></article><article id="08-scope-missing" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">scope-missing</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">error/08-scope-missing.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §1 (código SCOPE_MISSING), §1.2 (scopes)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: scope-missing
+%% categoria: Error
+%% contratos: contratos-api.md §1 (código SCOPE_MISSING), §1.2 (scopes)
+%% mock-variantes: [&quot;POST /validations → scope-missing&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Socio Comercial
+    participant API as PIM Partner API
+
+    PRT-&gt;&gt;API: GET /me/scopes
+    API--&gt;&gt;PRT: 200 (scopes=[products:read])
+
+    PRT-&gt;&gt;API: POST /validations (requiere products:write, x-mock-response-name=scope-missing)
+
+    rect rgb(255, 230, 230)
+    API--&gt;&gt;PRT: 403 SCOPE_MISSING (required=[products:write], granted=[products:read])
+    end
+
+    Note over PRT: Elevación de scope por canal manual (no automatizable). contratos-api.md §1
+</pre></div></article><article id="09-rate-limited" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">rate-limited</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">error/09-rate-limited.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §1 (código RATE_LIMITED), §1.3 (headers Retry-After)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: rate-limited
+%% categoria: Error
+%% contratos: contratos-api.md §1 (código RATE_LIMITED), §1.3 (headers Retry-After)
+%% mock-variantes: [&quot;POST /validations → rate-limited&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Socio Comercial
+    participant API as PIM Partner API
+
+    loop ráfaga de requests
+    PRT-&gt;&gt;API: POST /validations (xN en menos de 60s)
+    API--&gt;&gt;PRT: 200
+    end
+
+    PRT-&gt;&gt;API: POST /validations (N+1, x-mock-response-name=rate-limited)
+
+    rect rgb(255, 230, 230)
+    API--&gt;&gt;PRT: 429 RATE_LIMITED (limit, windowResetAt, header Retry-After: 42)
+    end
+
+    Note over PRT: El cliente DEBE respetar Retry-After antes de reintentar
+
+    PRT-&gt;&gt;PRT: espera 42s
+    PRT-&gt;&gt;API: POST /validations
+    API--&gt;&gt;PRT: 200
+</pre></div></article><article id="10-version-conflict" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">version-conflict</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">error/10-version-conflict.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §1 (código VERSION_CONFLICT), §2.6 (ETag/If-Match)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: version-conflict
+%% categoria: Error
+%% contratos: contratos-api.md §1 (código VERSION_CONFLICT), §2.6 (ETag/If-Match)
+%% mock-variantes: [&quot;PATCH /proposals/{id} → version-conflict&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Socio Comercial
+    participant API as PIM Partner API
+    actor BO as Backoffice QA
+
+    PRT-&gt;&gt;API: GET /proposals/{id}
+    API--&gt;&gt;PRT: 200 (ETag=abc)
+
+    rect rgb(255, 243, 205)
+    BO-&gt;&gt;API: PATCH /proposals/{id} (concurrente, nuevo ETag=def)
+    end
+
+    PRT-&gt;&gt;API: PATCH /proposals/{id} (If-Match: abc, x-mock-response-name=version-conflict)
+
+    rect rgb(255, 230, 230)
+    API--&gt;&gt;PRT: 409 VERSION_CONFLICT (currentETag=def, youSent=abc)
+    end
+
+    PRT-&gt;&gt;API: GET /proposals/{id} (refresca)
+    API--&gt;&gt;PRT: 200 (ETag=def)
+    PRT-&gt;&gt;API: PATCH /proposals/{id} (If-Match: def)
+    API--&gt;&gt;PRT: 200
+</pre></div></article><article id="11-permissions-not-owner" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">permissions-not-owner</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">error/11-permissions-not-owner.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §1 (código NOT_CONTENT_OWNER), §3.2 (contentOwner)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: permissions-not-owner
+%% categoria: Error
+%% contratos: contratos-api.md §1 (código NOT_CONTENT_OWNER), §3.2 (contentOwner)
+%% mock-variantes: [&quot;GET /products/{id}/permissions → permissions-not-owner&quot;, &quot;POST /products/{id}/modifications → not-content-owner&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Socio Comercial
+    participant API as PIM Partner API
+
+    PRT-&gt;&gt;API: GET /products/{id}/permissions (x-mock-response-name=permissions-not-owner)
+
+    rect rgb(255, 230, 230)
+    API--&gt;&gt;PRT: 200 (contentOwner=false, canModify=[precio, stock], canNotModify=[titulo, imagenes, atributos])
+    end
+
+    PRT-&gt;&gt;API: POST /products/{id}/modifications (modifica titulo)
+
+    rect rgb(255, 230, 230)
+    API--&gt;&gt;PRT: 403 NOT_CONTENT_OWNER (field=titulo, owner=liverpool-marketplace)
+    end
+
+    Note over PRT: Content ownership es ortogonal a seller ownership (contratos-api.md §3.2)
+</pre></div></article><article id="12-idempotency-replay" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">idempotency-replay</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">error/12-idempotency-replay.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §1 (código IDEMPOTENCY_MISMATCH), §1.4 (Idempotency-Key)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: idempotency-replay
+%% categoria: Error
+%% contratos: contratos-api.md §1 (código IDEMPOTENCY_MISMATCH), §1.4 (Idempotency-Key)
+%% mock-variantes: [&quot;POST /proposals → idempotency-replay&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Socio Comercial
+    participant API as PIM Partner API
+
+    PRT-&gt;&gt;API: POST /proposals (Idempotency-Key: K1, body=A)
+    API--&gt;&gt;PRT: 202 (proposalId, batchId, resourceHash=H1)
+
+    PRT-&gt;&gt;API: POST /proposals (Idempotency-Key: K1, body=A) [reintento, mismo body]
+    API--&gt;&gt;PRT: 202 (mismo proposalId, cache hit)
+
+    PRT-&gt;&gt;API: POST /proposals (Idempotency-Key: K1, body=B) [body cambió, x-mock-response-name=idempotency-replay]
+
+    rect rgb(255, 230, 230)
+    API--&gt;&gt;PRT: 409 IDEMPOTENCY_MISMATCH (storedHash=H1, receivedHash=H2)
+    end
+</pre></div></article></div></section><section id="cat-operacion" class="container-page mb-16 scroll-mt-24"><header class="mb-6 border-b border-ink-700 pb-3"><h2 class="text-2xl font-bold tracking-tight sm:text-3xl">Operación<!-- --> <span class="text-sm font-normal text-neutral-500">· <!-- -->3</span></h2><p class="mt-1 text-sm text-neutral-500">Media con signed URL, modificaciones con pending/applied, reconciliación por cursor.</p></header><div class="grid gap-6"><article id="13-media-signed-url" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">media-signed-url</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">operacion/13-media-signed-url.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §4 (media), §4.1 (signed URL)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: media-signed-url
+%% categoria: Operación
+%% contratos: contratos-api.md §4 (media), §4.1 (signed URL)
+%% mock-variantes: [&quot;POST /media → signed-url&quot;, &quot;POST /media/{id}/notify → default&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Socio Comercial
+    participant API as PIM Partner API
+    participant S3 as Storage firmado
+
+    PRT-&gt;&gt;API: POST /media (contentType, size, md5)
+
+    rect rgb(222, 237, 255)
+    API--&gt;&gt;PRT: 201 (uploadUrl, mediaId, expiresIn=600)
+    end
+
+    PRT-&gt;&gt;S3: PUT uploadUrl (bytes)
+    S3--&gt;&gt;PRT: 200
+
+    PRT-&gt;&gt;API: POST /media/{id}/notify
+    API--&gt;&gt;PRT: 200 (mediaId lista para usar)
+
+    PRT-&gt;&gt;API: POST /proposals (incluye mediaId en imagenes)
+    API--&gt;&gt;PRT: 202
+</pre></div></article><article id="14-modification-pending-qa" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">modification-pending-qa</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">operacion/14-modification-pending-qa.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §3.3 (modifications), §3.4 (pending vs applied)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: modification-pending-qa
+%% categoria: Operación
+%% contratos: contratos-api.md §3.3 (modifications), §3.4 (pending vs applied)
+%% mock-variantes: [&quot;POST /products/{id}/modifications → pending-applied&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Socio Comercial
+    participant API as PIM Partner API
+    actor BO as Backoffice QA
+    participant WH as Webhook Socio
+
+    PRT-&gt;&gt;API: POST /products/{id}/modifications (If-Match, cambios)
+
+    rect rgb(255, 243, 205)
+    API--&gt;&gt;PRT: 202 (pending=[titulo], applied=[stock, precio], modificationId)
+    end
+
+    Note over PRT,API: Precio y stock se aplican inmediato. Título y atributos requieren revisión.
+
+    rect rgb(255, 243, 205)
+    BO-&gt;&gt;API: revisa pending items
+    BO-&gt;&gt;API: aprueba titulo
+    end
+
+    rect rgb(222, 237, 255)
+    API-&gt;&gt;WH: webhook product.modification.resolved (modificationId, approved, rejected)
+    WH--&gt;&gt;API: 200
+    end
+</pre></div></article><article id="15-events-recovery-cursor" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">events-recovery-cursor</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">operacion/15-events-recovery-cursor.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §5 (events), §5.1 (cursor + nextCursor)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: events-recovery-cursor
+%% categoria: Operación
+%% contratos: contratos-api.md §5 (events), §5.1 (cursor + nextCursor)
+%% mock-variantes: [&quot;GET /events → paginated-cursor&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Socio Comercial
+    participant API as PIM Partner API
+
+    Note over PRT,API: Reconciliación tras downtime del endpoint webhook del socio
+
+    PRT-&gt;&gt;API: GET /events?cursor=last_known (limit=100)
+    API--&gt;&gt;PRT: 200 (events, nextCursor=c1, hasMore=true)
+
+    PRT-&gt;&gt;PRT: procesa 100 eventos
+
+    PRT-&gt;&gt;API: GET /events?cursor=c1
+    API--&gt;&gt;PRT: 200 (events, nextCursor=c2, hasMore=true)
+
+    PRT-&gt;&gt;PRT: procesa 100 eventos
+
+    PRT-&gt;&gt;API: GET /events?cursor=c2
+    API--&gt;&gt;PRT: 200 (events, nextCursor=null, hasMore=false)
+
+    Note over PRT: PRT guarda c2 como cursor para la próxima reconciliación
+</pre></div></article></div></section><section id="cat-negocio" class="container-page mb-16 scroll-mt-24"><header class="mb-6 border-b border-ink-700 pb-3"><h2 class="text-2xl font-bold tracking-tight sm:text-3xl">Negocio<!-- --> <span class="text-sm font-normal text-neutral-500">· <!-- -->3</span></h2><p class="mt-1 text-sm text-neutral-500">Las 3 configuraciones de negocio: LVP directo, Marketplace (Mirakl), Agregador multi-seller.</p></header><div class="grid gap-6"><article id="16-liverpool-direct" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">liverpool-direct</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">negocio/16-liverpool-direct.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §1 (X-Business=LVP), §3.2 (contentOwner)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: liverpool-direct
+%% categoria: Negocio
+%% contratos: contratos-api.md §1 (X-Business=LVP), §3.2 (contentOwner)
+%% mock-variantes: [&quot;GET /me/scopes → liverpool-direct&quot;, &quot;POST /proposals → provider-mercaderias&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Mercaderías Liverpool
+    participant API as PIM Partner API
+    participant WFL as Workflows PIM
+
+    PRT-&gt;&gt;API: GET /me/scopes (X-Business: LVP)
+    API--&gt;&gt;PRT: 200 (businesses=[LVP], scopes=[products:write, modifications:write], limits=comercio-directo)
+
+    PRT-&gt;&gt;API: POST /proposals (X-Business: LVP, sin brand allowlist)
+    API--&gt;&gt;PRT: 202 (batchId, prioridad LVP)
+
+    rect rgb(240, 248, 255)
+    WFL-&gt;&gt;WFL: valida sin reglas de marketplace
+    end
+
+    API-&gt;&gt;API: publica directo al catálogo maestro
+
+    Note over PRT: contentOwner=liverpool-direct por default
+</pre></div></article><article id="17-marketplace-mirakl" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">marketplace-mirakl</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">negocio/17-marketplace-mirakl.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §1 (X-Business=MKP), §3.1 (miraklShopId), §3.5 (offer linking)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: marketplace-mirakl
+%% categoria: Negocio
+%% contratos: contratos-api.md §1 (X-Business=MKP), §3.1 (miraklShopId), §3.5 (offer linking)
+%% mock-variantes: [&quot;GET /me/scopes → marketplace-mirakl&quot;, &quot;POST /offers → default&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Seller Mirakl
+    participant API as PIM Partner API
+    participant MKL as Mirakl Operator
+    participant WH as Webhook Socio
+
+    PRT-&gt;&gt;API: GET /me/scopes (X-Business: MKP)
+    API--&gt;&gt;PRT: 200 (businesses=[MKP], scopes=[products:propose, offers:write], limits=marketplace)
+
+    PRT-&gt;&gt;API: POST /proposals (X-Business: MKP, incluye miraklShopId)
+    API--&gt;&gt;PRT: 202 (batchId, miraklStatus=PENDING_REVIEW)
+
+    rect rgb(255, 243, 205)
+    API-&gt;&gt;MKL: push a Mirakl Operator Panel
+    MKL--&gt;&gt;API: aprueba producto
+    end
+
+    rect rgb(222, 237, 255)
+    API-&gt;&gt;WH: webhook product.ready_for_offer (productId, miraklStatus=WAITING_OFFER)
+    WH--&gt;&gt;API: 200
+    end
+
+    PRT-&gt;&gt;API: POST /offers (productId, price, stock)
+    API--&gt;&gt;PRT: 202 (offerId)
+
+    rect rgb(222, 237, 255)
+    API-&gt;&gt;WH: webhook offer.linked (status=active)
+    WH--&gt;&gt;API: 200
+    end
+</pre></div></article><article id="18-marketplace-aggregator" class="scroll-mt-24 rounded-xl border border-ink-700 bg-ink-900/40 p-5 sm:p-6"><header class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h3 class="text-lg font-semibold text-neutral-100">marketplace-aggregator</h3><p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500"><code class="text-neutral-600">negocio/18-marketplace-aggregator.mmd</code><span>cita:<!-- --> <code class="text-rosa-200">contratos-api.md §1 (X-Business=AGG), §2.7 (perSellerBatchIds)</code></span><span class="text-neutral-600">actualizado <!-- -->2026-10-22</span></p></div><button type="button" class="shrink-0 rounded-md border px-2.5 py-1 text-[11px] font-medium transition-colors border-ink-600 text-neutral-400 hover:border-neutral-500 hover:text-neutral-200" aria-pressed="false">ver source .mmd</button></header><div class="overflow-x-auto rounded-lg bg-ink-950 p-4"><pre class="mermaid">%% caso: marketplace-aggregator
+%% categoria: Negocio
+%% contratos: contratos-api.md §1 (X-Business=AGG), §2.7 (perSellerBatchIds)
+%% mock-variantes: [&quot;POST /proposals → aggregator-fanout&quot;, &quot;GET /batches/{id}/items → aggregator-filtered&quot;]
+%% actualizado: 2026-10-22
+
+sequenceDiagram
+    autonumber
+    actor PRT as Agregador Multi-Seller
+    participant API as PIM Partner API
+    participant AGG as Workflows Agregador
+
+    Note over PRT,API: Un agregador gestiona N shops bajo un solo token (sellerIds)
+
+    PRT-&gt;&gt;API: POST /proposals (X-Business: AGG, body con sellerId por ítem)
+
+    rect rgb(240, 248, 255)
+    API-&gt;&gt;AGG: fan-out por sellerId
+    AGG-&gt;&gt;AGG: aplica scope y límites por seller
+    end
+
+    API--&gt;&gt;PRT: 202 (batchId, perSellerBatchIds)
+
+    PRT-&gt;&gt;API: GET /batches/{id}/items?sellerId=s1
+    API--&gt;&gt;PRT: 200 (items de s1)
+
+    Note over PRT: El agregador reconcilia resultados por seller y propaga al dashboard final
+</pre></div></article></div></section></main><footer class="border-t border-ink-700 bg-ink-950 py-8"><div class="container-page flex items-center justify-between gap-4"><span class="kicker">Nuevo PIM · Liverpool</span><span class="font-mono text-[10px] uppercase tracking-[0.18em] text-neutral-600">Discovery</span></div></footer><script src="/nuevo-pim-storyboards/_next/static/chunks/webpack-04c592677def6eb2.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0]);self.__next_f.push([2,null])</script><script>self.__next_f.push([1,"1:HL[\"/nuevo-pim-storyboards/_next/static/css/47c29f15b7193bca.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"2:I[2846,[],\"\"]\n4:I[7558,[\"361\",\"static/chunks/app/diagramas/page-a100b5e1405af1ca.js\"],\"MermaidRenderer\"]\na:I[4707,[],\"\"]\nb:I[6423,[],\"\"]\nc:I[9815,[\"922\",\"static/chunks/c15bf2b0-19ff368ffb2158b2.js\",\"498\",\"static/chunks/498-4d7ac2a3e533a08d.js\",\"789\",\"static/chunks/789-21c17f012a7b1ba6.js\",\"185\",\"static/chunks/app/layout-9eff0063aa73ffef.js\"],\"SmoothScrollProvider\"]\nd:I[2426,[\"922\",\"static/chunks/c15bf2b0-19ff368ffb2158b2.js\",\"498\",\"static/chunks/498-4d7ac2a3e533a08d.js\",\"789\",\"static/chunks/789-21c17f012a7b1ba6.js\",\"185\",\"static/chunks/app/layout-9eff0063aa73ffef.js\"],\"Nav\"]\nf:I[1060,[],\"\"]\n5:T71d,%% caso: general\n%% categoria: General\n%% contratos: contratos-api.md §1, §2, §3\n%% actualizado: 2026-10-22\n\nsequenceDiagram\n    autonumber\n    actor PRT as Socio Comercial\n    participant API as PIM Partner API\n    participant WFL as Workflows PIM\n    actor BO as Backoffice QA\n    participant WH as Webhook Socio\n\n    rect rgb(240, 248, 255)\n    Note over PRT,API: Etapa 1 · Preparar\n    PRT-\u003e\u003eAPI: GET /me/scopes\n    API--\u003e\u003ePRT: 200 (scopes, limits)\n    end\n\n    rect rgb(240, 248, 255)\n    Note over PRT,API: Etapa 2 · Validar plantilla\n    PRT-\u003e\u003eAPI: POST /validations\n    API--\u003e\u003ePRT: 200 (valid, warnings)\n    end\n\n    rect rgb(240, 248, 255)\n    Note over PRT,API: Etapa 3 · Crear propuesta(s)\n    PRT-\u003e\u003eAPI: POST /proposals\n    API-\u003e\u003eWFL: enqueue(batchId)\n    API--\u003e\u003ePRT: 202 (batchId, trackingUrl)\n    end\n\n    rect rgb(255, 243, 205)\n    Note over WFL,BO: Etapa 4 · Procesamiento + QA\n    WFL-\u003e\u003eWFL: validaciones automáticas\n    WFL-\u003e\u003eBO: ítems a revisar\n    BO--\u003e\u003eWFL: aprueba / corrección / rechazo\n    end\n\n    rect rgb(222, 237, 255)\n    Note over API,WH: Etapa 5 · Resultado por ítem (webhook)\n    API-\u003e\u003eWH: webhook batch.item.result\n    WH--\u003e\u003eAPI: 200\n    end\n\n    alt result = CORRECTION_REQUIRED\n      rect rgb(255, 243, 205)\n      Note over PRT,API: Etapa 6 · Ciclo de corrección\n      PRT-\u003e\u003eAPI: GET /proposals/{id}\n      PRT-\u003e\u003eAPI: PATCH /proposals/{id}\n      API--\u003e\u003ePRT: 200\n      end\n    end\n\n    rect rg"])</script><script>self.__next_f.push([1,"b(222, 237, 255)\n    Note over API,WH: Etapa 7 · Publicación SKU (webhook)\n    API-\u003e\u003eWH: webhook sku.published\n    WH--\u003e\u003eAPI: 200\n    end\n\n    rect rgb(240, 248, 255)\n    Note over PRT,API: Etapa 8 · Modificaciones + eventos\n    PRT-\u003e\u003eAPI: POST /products/{id}/modifications\n    API--\u003e\u003ePRT: 202\n    PRT-\u003e\u003eAPI: GET /events?cursor\n    API--\u003e\u003ePRT: 200 (events, nextCursor)\n    end\n6:T470,%% caso: batch-4-mix\n%% categoria: Principal\n%% contratos: contratos-api.md §2.2 (batch results), §2.5 (webhooks)\n%% mock-variantes: [\"GET /batches/{id}/items → lote-4-mix\"]\n%% actualizado: 2026-10-22\n\nsequenceDiagram\n    autonumber\n    actor PRT as Socio Comercial\n    participant API as PIM Partner API\n    participant WFL as Workflows PIM\n    actor BO as Backoffice QA\n    participant WH as Webhook Socio\n\n    Note over PRT,API: Batch de 4 ítems que ejercitan los 4 result del contrato §2.2\n\n    PRT-\u003e\u003eAPI: POST /proposals (4 ítems)\n    API--\u003e\u003ePRT: 202 (batchId=lote-4-mix)\n\n    rect rgb(255, 243, 205)\n    WFL-\u003e\u003eWFL: valida ítem 1 (OK)\n    WFL-\u003e\u003eBO: ítem 2 (requiere revisión)\n    BO--\u003e\u003eWFL: pide corrección\n    WFL-\u003e\u003eWFL: valida ítem 3 (duplicado)\n    WFL-\u003e\u003eWFL: valida ítem 4 (sin ownership)\n    end\n\n    PRT-\u003e\u003eAPI: GET /batches/{id}/items (variante lote-4-mix)\n\n    rect rgb(222, 237, 255)\n    API--\u003e\u003ePRT: 200 item1=CREATED, item2=CORRECTION_REQUIRED, item3=ALREADY_EXISTS, item4=REJECTED\n    end\n\n    rect rgb(222, 237, 255)\n    API-\u003e\u003eWH: webhook batch.item.result x4 (uno por result)\n    WH--\u003e\u003eAPI: 200 x4\n    end\n7:T5d1,%% caso: already-exists-multi-offer\n%% categoria: Excepción\n%% contratos: contratos-api.md §1 (códigos de error), §2.2 (batch results), §3.1 (offer-targets)\n%% mock-variantes: [\"POST /proposals → already-exists-multi-offer\"]\n%% actualizado: 2026-10-22\n\nsequenceDiagram\n    autonumber\n    actor PRT as Socio Comercial (Mirakl)\n    participant API as PIM Partner API\n    participant MOCK as Mock Postman\n    participant PIM as PIM core\n    participant WH as Webhook Socio\n\n    Note over PRT,API: Precondición: el"])</script><script>self.__next_f.push([1," EAN ya existe en PIM, el socio opera otra oferta.\n    Note over PRT,API: 409 ALREADY_EXISTS NO es rechazo (contratos-api.md §1)\n\n    PRT-\u003e\u003eAPI: POST /proposals (Idempotency-Key, X-Request-Id, x-mock-response-name)\n    activate API\n    API-\u003e\u003eMOCK: resuelve variante por header\n    MOCK--\u003e\u003eAPI: ejemplo already-exists-multi-offer\n\n    rect rgb(255, 230, 230)\n    API-\u003e\u003ePIM: lookup EAN 7501234567890\n    PIM--\u003e\u003eAPI: existingProductId=PRD-123\n    end\n\n    API--\u003e\u003ePRT: 409 ALREADY_EXISTS (offer-targets, miraklStatus, nextAction)\n    deactivate API\n\n    Note over PRT: El socio NO reintenta. Cambia de ruta a oferta sobre producto existente.\n\n    rect rgb(240, 248, 255)\n    PRT-\u003e\u003eAPI: POST /offers (productId=PRD-123, price, stock, sku-partner)\n    API--\u003e\u003ePRT: 202 (offerId, trackingUrl)\n    PRT-\u003e\u003eAPI: GET /offers/{offerId}\n    API--\u003e\u003ePRT: 200 (status=pending_review)\n    end\n\n    rect rgb(222, 237, 255)\n    API-\u003e\u003eWH: POST webhook offer.linked\n    WH--\u003e\u003eAPI: 200\n    end\n8:T45d,%% caso: correction-cycle\n%% categoria: Excepción\n%% contratos: contratos-api.md §2.4 (comentarios de corrección), §2.6 (ETag/If-Match)\n%% mock-variantes: [\"GET /proposals/{id} → with-comments\", \"PATCH /proposals/{id} → default\"]\n%% actualizado: 2026-10-22\n\nsequenceDiagram\n    autonumber\n    actor PRT as Socio Comercial\n    participant API as PIM Partner API\n    actor BO as Backoffice QA\n    participant WH as Webhook Socio\n\n    PRT-\u003e\u003eAPI: POST /proposals (ítem, Idempotency-Key)\n    API--\u003e\u003ePRT: 202 (proposalId)\n\n    rect rgb(255, 243, 205)\n    BO-\u003e\u003eAPI: revisa ítem, pide corrección (campo faltante)\n    API-\u003e\u003eWH: webhook batch.item.result (CORRECTION_REQUIRED, comments)\n    WH--\u003e\u003eAPI: 200\n    end\n\n    PRT-\u003e\u003eAPI: GET /proposals/{id} (ver comments + ETag)\n    API--\u003e\u003ePRT: 200 (proposal + comments + ETag)\n\n    rect rgb(255, 243, 205)\n    PRT-\u003e\u003eAPI: PATCH /proposals/{id} (If-Match: etag, cambios)\n    API--\u003e\u003ePRT: 200 (nuevo ETag, status=re-validating)\n    end\n\n    BO-\u003e\u003eAPI: re-revisa, aprueba\n\n    rect rgb(222, 237, 255)\n    API-\u003e\u003eWH: webhook batch.it"])</script><script>self.__next_f.push([1,"em.result (CREATED)\n    WH--\u003e\u003eAPI: 200\n    end\n9:T490,%% caso: marketplace-mirakl\n%% categoria: Negocio\n%% contratos: contratos-api.md §1 (X-Business=MKP), §3.1 (miraklShopId), §3.5 (offer linking)\n%% mock-variantes: [\"GET /me/scopes → marketplace-mirakl\", \"POST /offers → default\"]\n%% actualizado: 2026-10-22\n\nsequenceDiagram\n    autonumber\n    actor PRT as Seller Mirakl\n    participant API as PIM Partner API\n    participant MKL as Mirakl Operator\n    participant WH as Webhook Socio\n\n    PRT-\u003e\u003eAPI: GET /me/scopes (X-Business: MKP)\n    API--\u003e\u003ePRT: 200 (businesses=[MKP], scopes=[products:propose, offers:write], limits=marketplace)\n\n    PRT-\u003e\u003eAPI: POST /proposals (X-Business: MKP, incluye miraklShopId)\n    API--\u003e\u003ePRT: 202 (batchId, miraklStatus=PENDING_REVIEW)\n\n    rect rgb(255, 243, 205)\n    API-\u003e\u003eMKL: push a Mirakl Operator Panel\n    MKL--\u003e\u003eAPI: aprueba producto\n    end\n\n    rect rgb(222, 237, 255)\n    API-\u003e\u003eWH: webhook product.ready_for_offer (productId, miraklStatus=WAITING_OFFER)\n    WH--\u003e\u003eAPI: 200\n    end\n\n    PRT-\u003e\u003eAPI: POST /offers (productId, price, stock)\n    API--\u003e\u003ePRT: 202 (offerId)\n\n    rect rgb(222, 237, 255)\n    API-\u003e\u003eWH: webhook offer.linked (status=active)\n    WH--\u003e\u003eAPI: 200\n    end\n10:[]\n"])</script><script>self.__next_f.push([1,"0:[\"$\",\"$L2\",null,{\"buildId\":\"kfowLEoJl7W-I72OBUg_l\",\"assetPrefix\":\"/nuevo-pim-storyboards\",\"urlParts\":[\"\",\"diagramas\",\"\"],\"initialTree\":[\"\",{\"children\":[\"diagramas\",{\"children\":[\"__PAGE__\",{}]}]},\"$undefined\",\"$undefined\",true],\"initialSeedData\":[\"\",{\"children\":[\"diagramas\",{\"children\":[\"__PAGE__\",{},[[\"$L3\",[\"$\",\"$L4\",null,{\"diagrams\":[{\"slug\":\"00-general\",\"title\":\"Ciclo general · 8 etapas\",\"category\":\"general\",\"pathLabel\":\"00-general.mmd\",\"source\":\"$5\",\"metadata\":{\"caso\":\"general\",\"categoria\":\"General\",\"contratos\":\"contratos-api.md §1, §2, §3\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"01-happy-single\",\"title\":\"happy single\",\"category\":\"principales\",\"pathLabel\":\"principales/01-happy-single.mmd\",\"source\":\"%% caso: happy-single\\n%% categoria: Principal\\n%% contratos: contratos-api.md §2.1, §2.3\\n%% mock-variantes: [\\\"POST /validations → default\\\", \\\"POST /proposals → default\\\"]\\n%% actualizado: 2026-10-22\\n\\nsequenceDiagram\\n    autonumber\\n    actor PRT as Socio Comercial\\n    participant API as PIM Partner API\\n    participant WFL as Workflows PIM\\n    participant WH as Webhook Socio\\n\\n    PRT-\u003e\u003eAPI: POST /validations (Idempotency-Key)\\n    API--\u003e\u003ePRT: 200 (valid, templateVersion)\\n\\n    PRT-\u003e\u003eAPI: POST /proposals (1 ítem)\\n    API-\u003e\u003eWFL: enqueue(batchId)\\n    API--\u003e\u003ePRT: 202 (batchId, trackingUrl)\\n\\n    rect rgb(255, 243, 205)\\n    WFL-\u003e\u003eWFL: validaciones automáticas OK\\n    end\\n\\n    rect rgb(222, 237, 255)\\n    API-\u003e\u003eWH: webhook batch.item.result (CREATED)\\n    WH--\u003e\u003eAPI: 200\\n    API-\u003e\u003eWH: webhook sku.published (productId, sku)\\n    WH--\u003e\u003eAPI: 200\\n    end\\n\\n    Note over PRT: SKU en línea. Lead time típico: minutos.\\n\",\"metadata\":{\"caso\":\"happy-single\",\"categoria\":\"Principal\",\"contratos\":\"contratos-api.md §2.1, §2.3\",\"mock-variantes\":\"[\\\"POST /validations → default\\\", \\\"POST /proposals → default\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"02-batch-4-mix\",\"title\":\"batch 4 mix\",\"category\":\"principales\",\"pathLabel\":\"principales/02-batch-4-mix.mmd\",\"source\":\"$6\",\"metadata\":{\"caso\":\"batch-4-mix\",\"categoria\":\"Principal\",\"contratos\":\"contratos-api.md §2.2 (batch results), §2.5 (webhooks)\",\"mock-variantes\":\"[\\\"GET /batches/{id}/items → lote-4-mix\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"03-provider-mercaderias\",\"title\":\"provider mercaderias\",\"category\":\"principales\",\"pathLabel\":\"principales/03-provider-mercaderias.mmd\",\"source\":\"%% caso: provider-mercaderias\\n%% categoria: Principal\\n%% contratos: contratos-api.md §1 (X-Business), §3.2 (contentOwner)\\n%% mock-variantes: [\\\"POST /proposals → provider-mercaderias\\\"]\\n%% actualizado: 2026-10-22\\n\\nsequenceDiagram\\n    autonumber\\n    actor PRT as Mercaderías (LVP interno)\\n    participant API as PIM Partner API\\n    participant WFL as Workflows PIM\\n    participant WH as Webhook Socio\\n\\n    Note over PRT,API: Catalogación directa Liverpool: X-Business=LVP, sin reglas de marketplace\\n\\n    PRT-\u003e\u003eAPI: POST /proposals (X-Business: LVP, Idempotency-Key)\\n    API-\u003e\u003eWFL: enqueue + skip brand-check\\n    API--\u003e\u003ePRT: 202 (batchId)\\n\\n    rect rgb(222, 237, 255)\\n    WFL-\u003e\u003eWFL: valida (sin brand-blocked, sin scope-missing)\\n    API-\u003e\u003eWH: webhook batch.item.result (CREATED)\\n    WH--\u003e\u003eAPI: 200\\n    end\\n\\n    rect rgb(222, 237, 255)\\n    API-\u003e\u003eWH: webhook sku.published (sku interno LVP)\\n    WH--\u003e\u003eAPI: 200\\n    end\\n\\n    Note over PRT: contentOwner=liverpool-direct por default\\n\",\"metadata\":{\"caso\":\"provider-mercaderias\",\"categoria\":\"Principal\",\"contratos\":\"contratos-api.md §1 (X-Business), §3.2 (contentOwner)\",\"mock-variantes\":\"[\\\"POST /proposals → provider-mercaderias\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"04-already-exists\",\"title\":\"already exists\",\"category\":\"excepcion\",\"pathLabel\":\"excepcion/04-already-exists.mmd\",\"source\":\"%% caso: already-exists\\n%% categoria: Excepción\\n%% contratos: contratos-api.md §1 (código de error), §2.2 (batch results)\\n%% mock-variantes: [\\\"POST /proposals → already-exists\\\"]\\n%% actualizado: 2026-10-22\\n\\nsequenceDiagram\\n    autonumber\\n    actor PRT as Socio Comercial\\n    participant API as PIM Partner API\\n    participant PIM as PIM core\\n\\n    PRT-\u003e\u003eAPI: POST /proposals (EAN duplicado, Idempotency-Key)\\n    API-\u003e\u003ePIM: lookup EAN\\n    PIM--\u003e\u003eAPI: existe (productId=PRD-xxx, status=published)\\n\\n    rect rgb(255, 230, 230)\\n    API--\u003e\u003ePRT: 409 ALREADY_EXISTS (existingProductId, nextAction)\\n    end\\n\\n    Note over PRT: El socio debe decidir: ignorar, pedir ownership transfer, o postear oferta sobre producto existente (ver caso 05)\\n\",\"metadata\":{\"caso\":\"already-exists\",\"categoria\":\"Excepción\",\"contratos\":\"contratos-api.md §1 (código de error), §2.2 (batch results)\",\"mock-variantes\":\"[\\\"POST /proposals → already-exists\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"05-already-exists-multi-offer\",\"title\":\"already exists multi offer\",\"category\":\"excepcion\",\"pathLabel\":\"excepcion/05-already-exists-multi-offer.mmd\",\"source\":\"$7\",\"metadata\":{\"caso\":\"already-exists-multi-offer\",\"categoria\":\"Excepción\",\"contratos\":\"contratos-api.md §1 (códigos de error), §2.2 (batch results), §3.1 (offer-targets)\",\"mock-variantes\":\"[\\\"POST /proposals → already-exists-multi-offer\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"06-correction-cycle\",\"title\":\"correction cycle\",\"category\":\"excepcion\",\"pathLabel\":\"excepcion/06-correction-cycle.mmd\",\"source\":\"$8\",\"metadata\":{\"caso\":\"correction-cycle\",\"categoria\":\"Excepción\",\"contratos\":\"contratos-api.md §2.4 (comentarios de corrección), §2.6 (ETag/If-Match)\",\"mock-variantes\":\"[\\\"GET /proposals/{id} → with-comments\\\", \\\"PATCH /proposals/{id} → default\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"07-brand-blocked\",\"title\":\"brand blocked\",\"category\":\"error\",\"pathLabel\":\"error/07-brand-blocked.mmd\",\"source\":\"%% caso: brand-blocked\\n%% categoria: Error\\n%% contratos: contratos-api.md §1 (código BRAND_BLOCKED)\\n%% mock-variantes: [\\\"POST /proposals → brand-blocked\\\"]\\n%% actualizado: 2026-10-22\\n\\nsequenceDiagram\\n    autonumber\\n    actor PRT as Socio Comercial\\n    participant API as PIM Partner API\\n    participant WFL as Workflows PIM\\n\\n    PRT-\u003e\u003eAPI: POST /proposals (brand=X-Prohibida, x-mock-response-name=brand-blocked)\\n    API-\u003e\u003eWFL: valida brand allowlist\\n    WFL--\u003e\u003eAPI: brand bloqueada (política comercial)\\n\\n    rect rgb(255, 230, 230)\\n    API--\u003e\u003ePRT: 422 BRAND_BLOCKED (brand, reason, allowedBrands)\\n    end\\n\\n    Note over PRT: Flujo terminal. El socio cambia brand o solicita alta en el catálogo (contratos-api.md §1)\\n\",\"metadata\":{\"caso\":\"brand-blocked\",\"categoria\":\"Error\",\"contratos\":\"contratos-api.md §1 (código BRAND_BLOCKED)\",\"mock-variantes\":\"[\\\"POST /proposals → brand-blocked\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"08-scope-missing\",\"title\":\"scope missing\",\"category\":\"error\",\"pathLabel\":\"error/08-scope-missing.mmd\",\"source\":\"%% caso: scope-missing\\n%% categoria: Error\\n%% contratos: contratos-api.md §1 (código SCOPE_MISSING), §1.2 (scopes)\\n%% mock-variantes: [\\\"POST /validations → scope-missing\\\"]\\n%% actualizado: 2026-10-22\\n\\nsequenceDiagram\\n    autonumber\\n    actor PRT as Socio Comercial\\n    participant API as PIM Partner API\\n\\n    PRT-\u003e\u003eAPI: GET /me/scopes\\n    API--\u003e\u003ePRT: 200 (scopes=[products:read])\\n\\n    PRT-\u003e\u003eAPI: POST /validations (requiere products:write, x-mock-response-name=scope-missing)\\n\\n    rect rgb(255, 230, 230)\\n    API--\u003e\u003ePRT: 403 SCOPE_MISSING (required=[products:write], granted=[products:read])\\n    end\\n\\n    Note over PRT: Elevación de scope por canal manual (no automatizable). contratos-api.md §1\\n\",\"metadata\":{\"caso\":\"scope-missing\",\"categoria\":\"Error\",\"contratos\":\"contratos-api.md §1 (código SCOPE_MISSING), §1.2 (scopes)\",\"mock-variantes\":\"[\\\"POST /validations → scope-missing\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"09-rate-limited\",\"title\":\"rate limited\",\"category\":\"error\",\"pathLabel\":\"error/09-rate-limited.mmd\",\"source\":\"%% caso: rate-limited\\n%% categoria: Error\\n%% contratos: contratos-api.md §1 (código RATE_LIMITED), §1.3 (headers Retry-After)\\n%% mock-variantes: [\\\"POST /validations → rate-limited\\\"]\\n%% actualizado: 2026-10-22\\n\\nsequenceDiagram\\n    autonumber\\n    actor PRT as Socio Comercial\\n    participant API as PIM Partner API\\n\\n    loop ráfaga de requests\\n    PRT-\u003e\u003eAPI: POST /validations (xN en menos de 60s)\\n    API--\u003e\u003ePRT: 200\\n    end\\n\\n    PRT-\u003e\u003eAPI: POST /validations (N+1, x-mock-response-name=rate-limited)\\n\\n    rect rgb(255, 230, 230)\\n    API--\u003e\u003ePRT: 429 RATE_LIMITED (limit, windowResetAt, header Retry-After: 42)\\n    end\\n\\n    Note over PRT: El cliente DEBE respetar Retry-After antes de reintentar\\n\\n    PRT-\u003e\u003ePRT: espera 42s\\n    PRT-\u003e\u003eAPI: POST /validations\\n    API--\u003e\u003ePRT: 200\\n\",\"metadata\":{\"caso\":\"rate-limited\",\"categoria\":\"Error\",\"contratos\":\"contratos-api.md §1 (código RATE_LIMITED), §1.3 (headers Retry-After)\",\"mock-variantes\":\"[\\\"POST /validations → rate-limited\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"10-version-conflict\",\"title\":\"version conflict\",\"category\":\"error\",\"pathLabel\":\"error/10-version-conflict.mmd\",\"source\":\"%% caso: version-conflict\\n%% categoria: Error\\n%% contratos: contratos-api.md §1 (código VERSION_CONFLICT), §2.6 (ETag/If-Match)\\n%% mock-variantes: [\\\"PATCH /proposals/{id} → version-conflict\\\"]\\n%% actualizado: 2026-10-22\\n\\nsequenceDiagram\\n    autonumber\\n    actor PRT as Socio Comercial\\n    participant API as PIM Partner API\\n    actor BO as Backoffice QA\\n\\n    PRT-\u003e\u003eAPI: GET /proposals/{id}\\n    API--\u003e\u003ePRT: 200 (ETag=abc)\\n\\n    rect rgb(255, 243, 205)\\n    BO-\u003e\u003eAPI: PATCH /proposals/{id} (concurrente, nuevo ETag=def)\\n    end\\n\\n    PRT-\u003e\u003eAPI: PATCH /proposals/{id} (If-Match: abc, x-mock-response-name=version-conflict)\\n\\n    rect rgb(255, 230, 230)\\n    API--\u003e\u003ePRT: 409 VERSION_CONFLICT (currentETag=def, youSent=abc)\\n    end\\n\\n    PRT-\u003e\u003eAPI: GET /proposals/{id} (refresca)\\n    API--\u003e\u003ePRT: 200 (ETag=def)\\n    PRT-\u003e\u003eAPI: PATCH /proposals/{id} (If-Match: def)\\n    API--\u003e\u003ePRT: 200\\n\",\"metadata\":{\"caso\":\"version-conflict\",\"categoria\":\"Error\",\"contratos\":\"contratos-api.md §1 (código VERSION_CONFLICT), §2.6 (ETag/If-Match)\",\"mock-variantes\":\"[\\\"PATCH /proposals/{id} → version-conflict\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"11-permissions-not-owner\",\"title\":\"permissions not owner\",\"category\":\"error\",\"pathLabel\":\"error/11-permissions-not-owner.mmd\",\"source\":\"%% caso: permissions-not-owner\\n%% categoria: Error\\n%% contratos: contratos-api.md §1 (código NOT_CONTENT_OWNER), §3.2 (contentOwner)\\n%% mock-variantes: [\\\"GET /products/{id}/permissions → permissions-not-owner\\\", \\\"POST /products/{id}/modifications → not-content-owner\\\"]\\n%% actualizado: 2026-10-22\\n\\nsequenceDiagram\\n    autonumber\\n    actor PRT as Socio Comercial\\n    participant API as PIM Partner API\\n\\n    PRT-\u003e\u003eAPI: GET /products/{id}/permissions (x-mock-response-name=permissions-not-owner)\\n\\n    rect rgb(255, 230, 230)\\n    API--\u003e\u003ePRT: 200 (contentOwner=false, canModify=[precio, stock], canNotModify=[titulo, imagenes, atributos])\\n    end\\n\\n    PRT-\u003e\u003eAPI: POST /products/{id}/modifications (modifica titulo)\\n\\n    rect rgb(255, 230, 230)\\n    API--\u003e\u003ePRT: 403 NOT_CONTENT_OWNER (field=titulo, owner=liverpool-marketplace)\\n    end\\n\\n    Note over PRT: Content ownership es ortogonal a seller ownership (contratos-api.md §3.2)\\n\",\"metadata\":{\"caso\":\"permissions-not-owner\",\"categoria\":\"Error\",\"contratos\":\"contratos-api.md §1 (código NOT_CONTENT_OWNER), §3.2 (contentOwner)\",\"mock-variantes\":\"[\\\"GET /products/{id}/permissions → permissions-not-owner\\\", \\\"POST /products/{id}/modifications → not-content-owner\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"12-idempotency-replay\",\"title\":\"idempotency replay\",\"category\":\"error\",\"pathLabel\":\"error/12-idempotency-replay.mmd\",\"source\":\"%% caso: idempotency-replay\\n%% categoria: Error\\n%% contratos: contratos-api.md §1 (código IDEMPOTENCY_MISMATCH), §1.4 (Idempotency-Key)\\n%% mock-variantes: [\\\"POST /proposals → idempotency-replay\\\"]\\n%% actualizado: 2026-10-22\\n\\nsequenceDiagram\\n    autonumber\\n    actor PRT as Socio Comercial\\n    participant API as PIM Partner API\\n\\n    PRT-\u003e\u003eAPI: POST /proposals (Idempotency-Key: K1, body=A)\\n    API--\u003e\u003ePRT: 202 (proposalId, batchId, resourceHash=H1)\\n\\n    PRT-\u003e\u003eAPI: POST /proposals (Idempotency-Key: K1, body=A) [reintento, mismo body]\\n    API--\u003e\u003ePRT: 202 (mismo proposalId, cache hit)\\n\\n    PRT-\u003e\u003eAPI: POST /proposals (Idempotency-Key: K1, body=B) [body cambió, x-mock-response-name=idempotency-replay]\\n\\n    rect rgb(255, 230, 230)\\n    API--\u003e\u003ePRT: 409 IDEMPOTENCY_MISMATCH (storedHash=H1, receivedHash=H2)\\n    end\\n\",\"metadata\":{\"caso\":\"idempotency-replay\",\"categoria\":\"Error\",\"contratos\":\"contratos-api.md §1 (código IDEMPOTENCY_MISMATCH), §1.4 (Idempotency-Key)\",\"mock-variantes\":\"[\\\"POST /proposals → idempotency-replay\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"13-media-signed-url\",\"title\":\"media signed url\",\"category\":\"operacion\",\"pathLabel\":\"operacion/13-media-signed-url.mmd\",\"source\":\"%% caso: media-signed-url\\n%% categoria: Operación\\n%% contratos: contratos-api.md §4 (media), §4.1 (signed URL)\\n%% mock-variantes: [\\\"POST /media → signed-url\\\", \\\"POST /media/{id}/notify → default\\\"]\\n%% actualizado: 2026-10-22\\n\\nsequenceDiagram\\n    autonumber\\n    actor PRT as Socio Comercial\\n    participant API as PIM Partner API\\n    participant S3 as Storage firmado\\n\\n    PRT-\u003e\u003eAPI: POST /media (contentType, size, md5)\\n\\n    rect rgb(222, 237, 255)\\n    API--\u003e\u003ePRT: 201 (uploadUrl, mediaId, expiresIn=600)\\n    end\\n\\n    PRT-\u003e\u003eS3: PUT uploadUrl (bytes)\\n    S3--\u003e\u003ePRT: 200\\n\\n    PRT-\u003e\u003eAPI: POST /media/{id}/notify\\n    API--\u003e\u003ePRT: 200 (mediaId lista para usar)\\n\\n    PRT-\u003e\u003eAPI: POST /proposals (incluye mediaId en imagenes)\\n    API--\u003e\u003ePRT: 202\\n\",\"metadata\":{\"caso\":\"media-signed-url\",\"categoria\":\"Operación\",\"contratos\":\"contratos-api.md §4 (media), §4.1 (signed URL)\",\"mock-variantes\":\"[\\\"POST /media → signed-url\\\", \\\"POST /media/{id}/notify → default\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"14-modification-pending-qa\",\"title\":\"modification pending qa\",\"category\":\"operacion\",\"pathLabel\":\"operacion/14-modification-pending-qa.mmd\",\"source\":\"%% caso: modification-pending-qa\\n%% categoria: Operación\\n%% contratos: contratos-api.md §3.3 (modifications), §3.4 (pending vs applied)\\n%% mock-variantes: [\\\"POST /products/{id}/modifications → pending-applied\\\"]\\n%% actualizado: 2026-10-22\\n\\nsequenceDiagram\\n    autonumber\\n    actor PRT as Socio Comercial\\n    participant API as PIM Partner API\\n    actor BO as Backoffice QA\\n    participant WH as Webhook Socio\\n\\n    PRT-\u003e\u003eAPI: POST /products/{id}/modifications (If-Match, cambios)\\n\\n    rect rgb(255, 243, 205)\\n    API--\u003e\u003ePRT: 202 (pending=[titulo], applied=[stock, precio], modificationId)\\n    end\\n\\n    Note over PRT,API: Precio y stock se aplican inmediato. Título y atributos requieren revisión.\\n\\n    rect rgb(255, 243, 205)\\n    BO-\u003e\u003eAPI: revisa pending items\\n    BO-\u003e\u003eAPI: aprueba titulo\\n    end\\n\\n    rect rgb(222, 237, 255)\\n    API-\u003e\u003eWH: webhook product.modification.resolved (modificationId, approved, rejected)\\n    WH--\u003e\u003eAPI: 200\\n    end\\n\",\"metadata\":{\"caso\":\"modification-pending-qa\",\"categoria\":\"Operación\",\"contratos\":\"contratos-api.md §3.3 (modifications), §3.4 (pending vs applied)\",\"mock-variantes\":\"[\\\"POST /products/{id}/modifications → pending-applied\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"15-events-recovery-cursor\",\"title\":\"events recovery cursor\",\"category\":\"operacion\",\"pathLabel\":\"operacion/15-events-recovery-cursor.mmd\",\"source\":\"%% caso: events-recovery-cursor\\n%% categoria: Operación\\n%% contratos: contratos-api.md §5 (events), §5.1 (cursor + nextCursor)\\n%% mock-variantes: [\\\"GET /events → paginated-cursor\\\"]\\n%% actualizado: 2026-10-22\\n\\nsequenceDiagram\\n    autonumber\\n    actor PRT as Socio Comercial\\n    participant API as PIM Partner API\\n\\n    Note over PRT,API: Reconciliación tras downtime del endpoint webhook del socio\\n\\n    PRT-\u003e\u003eAPI: GET /events?cursor=last_known (limit=100)\\n    API--\u003e\u003ePRT: 200 (events, nextCursor=c1, hasMore=true)\\n\\n    PRT-\u003e\u003ePRT: procesa 100 eventos\\n\\n    PRT-\u003e\u003eAPI: GET /events?cursor=c1\\n    API--\u003e\u003ePRT: 200 (events, nextCursor=c2, hasMore=true)\\n\\n    PRT-\u003e\u003ePRT: procesa 100 eventos\\n\\n    PRT-\u003e\u003eAPI: GET /events?cursor=c2\\n    API--\u003e\u003ePRT: 200 (events, nextCursor=null, hasMore=false)\\n\\n    Note over PRT: PRT guarda c2 como cursor para la próxima reconciliación\\n\",\"metadata\":{\"caso\":\"events-recovery-cursor\",\"categoria\":\"Operación\",\"contratos\":\"contratos-api.md §5 (events), §5.1 (cursor + nextCursor)\",\"mock-variantes\":\"[\\\"GET /events → paginated-cursor\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"16-liverpool-direct\",\"title\":\"liverpool direct\",\"category\":\"negocio\",\"pathLabel\":\"negocio/16-liverpool-direct.mmd\",\"source\":\"%% caso: liverpool-direct\\n%% categoria: Negocio\\n%% contratos: contratos-api.md §1 (X-Business=LVP), §3.2 (contentOwner)\\n%% mock-variantes: [\\\"GET /me/scopes → liverpool-direct\\\", \\\"POST /proposals → provider-mercaderias\\\"]\\n%% actualizado: 2026-10-22\\n\\nsequenceDiagram\\n    autonumber\\n    actor PRT as Mercaderías Liverpool\\n    participant API as PIM Partner API\\n    participant WFL as Workflows PIM\\n\\n    PRT-\u003e\u003eAPI: GET /me/scopes (X-Business: LVP)\\n    API--\u003e\u003ePRT: 200 (businesses=[LVP], scopes=[products:write, modifications:write], limits=comercio-directo)\\n\\n    PRT-\u003e\u003eAPI: POST /proposals (X-Business: LVP, sin brand allowlist)\\n    API--\u003e\u003ePRT: 202 (batchId, prioridad LVP)\\n\\n    rect rgb(240, 248, 255)\\n    WFL-\u003e\u003eWFL: valida sin reglas de marketplace\\n    end\\n\\n    API-\u003e\u003eAPI: publica directo al catálogo maestro\\n\\n    Note over PRT: contentOwner=liverpool-direct por default\\n\",\"metadata\":{\"caso\":\"liverpool-direct\",\"categoria\":\"Negocio\",\"contratos\":\"contratos-api.md §1 (X-Business=LVP), §3.2 (contentOwner)\",\"mock-variantes\":\"[\\\"GET /me/scopes → liverpool-direct\\\", \\\"POST /proposals → provider-mercaderias\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"17-marketplace-mirakl\",\"title\":\"marketplace mirakl\",\"category\":\"negocio\",\"pathLabel\":\"negocio/17-marketplace-mirakl.mmd\",\"source\":\"$9\",\"metadata\":{\"caso\":\"marketplace-mirakl\",\"categoria\":\"Negocio\",\"contratos\":\"contratos-api.md §1 (X-Business=MKP), §3.1 (miraklShopId), §3.5 (offer linking)\",\"mock-variantes\":\"[\\\"GET /me/scopes → marketplace-mirakl\\\", \\\"POST /offers → default\\\"]\",\"actualizado\":\"2026-10-22\"}},{\"slug\":\"18-marketplace-aggregator\",\"title\":\"marketplace aggregator\",\"category\":\"negocio\",\"pathLabel\":\"negocio/18-marketplace-aggregator.mmd\",\"source\":\"%% caso: marketplace-aggregator\\n%% categoria: Negocio\\n%% contratos: contratos-api.md §1 (X-Business=AGG), §2.7 (perSellerBatchIds)\\n%% mock-variantes: [\\\"POST /proposals → aggregator-fanout\\\", \\\"GET /batches/{id}/items → aggregator-filtered\\\"]\\n%% actualizado: 2026-10-22\\n\\nsequenceDiagram\\n    autonumber\\n    actor PRT as Agregador Multi-Seller\\n    participant API as PIM Partner API\\n    participant AGG as Workflows Agregador\\n\\n    Note over PRT,API: Un agregador gestiona N shops bajo un solo token (sellerIds)\\n\\n    PRT-\u003e\u003eAPI: POST /proposals (X-Business: AGG, body con sellerId por ítem)\\n\\n    rect rgb(240, 248, 255)\\n    API-\u003e\u003eAGG: fan-out por sellerId\\n    AGG-\u003e\u003eAGG: aplica scope y límites por seller\\n    end\\n\\n    API--\u003e\u003ePRT: 202 (batchId, perSellerBatchIds)\\n\\n    PRT-\u003e\u003eAPI: GET /batches/{id}/items?sellerId=s1\\n    API--\u003e\u003ePRT: 200 (items de s1)\\n\\n    Note over PRT: El agregador reconcilia resultados por seller y propaga al dashboard final\\n\",\"metadata\":{\"caso\":\"marketplace-aggregator\",\"categoria\":\"Negocio\",\"contratos\":\"contratos-api.md §1 (X-Business=AGG), §2.7 (perSellerBatchIds)\",\"mock-variantes\":\"[\\\"POST /proposals → aggregator-fanout\\\", \\\"GET /batches/{id}/items → aggregator-filtered\\\"]\",\"actualizado\":\"2026-10-22\"}}]}],null],null],null]},[null,[\"$\",\"$La\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\",\"diagramas\",\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$Lb\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"notFoundStyles\":\"$undefined\"}]],null]},[[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/nuevo-pim-storyboards/_next/static/css/47c29f15b7193bca.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"es\",\"className\":\"dark\",\"children\":[\"$\",\"body\",null,{\"className\":\"min-h-screen antialiased\",\"children\":[\"$\",\"$Lc\",null,{\"children\":[[\"$\",\"$Ld\",null,{}],[\"$\",\"main\",null,{\"children\":[\"$\",\"$La\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$Lb\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":\"404\"}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],\"notFoundStyles\":[]}]}],[\"$\",\"footer\",null,{\"className\":\"border-t border-ink-700 bg-ink-950 py-8\",\"children\":[\"$\",\"div\",null,{\"className\":\"container-page flex items-center justify-between gap-4\",\"children\":[[\"$\",\"span\",null,{\"className\":\"kicker\",\"children\":\"Nuevo PIM · Liverpool\"}],[\"$\",\"span\",null,{\"className\":\"font-mono text-[10px] uppercase tracking-[0.18em] text-neutral-600\",\"children\":\"Discovery\"}]]}]}]]}]}]}]],null],null],\"couldBeIntercepted\":false,\"initialHead\":[null,\"$Le\"],\"globalErrorComponent\":\"$f\",\"missingSlots\":\"$W10\"}]\n"])</script><script>self.__next_f.push([1,"e:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}],[\"$\",\"meta\",\"1\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"2\",{\"children\":\"Diagramas de secuencia · Nuevo PIM · Liverpool\"}],[\"$\",\"meta\",\"3\",{\"name\":\"description\",\"content\":\"19 recorridos del contrato de catalogación por API en Mermaid, renderizados en vivo. 1 general + 18 casos (Principales, Excepción, Error, Operación, Negocio).\"}],[\"$\",\"meta\",\"4\",{\"property\":\"og:title\",\"content\":\"Nuevo PIM · Liverpool · Catalogación por API\"}],[\"$\",\"meta\",\"5\",{\"property\":\"og:description\",\"content\":\"8 etapas · 37 endpoints · mock Postman en vivo. Simulador interactivo del contrato /partner/v1.\"}],[\"$\",\"meta\",\"6\",{\"property\":\"og:url\",\"content\":\"https://crruizp.github.io/nuevo-pim-storyboards/\"}],[\"$\",\"meta\",\"7\",{\"property\":\"og:site_name\",\"content\":\"Nuevo PIM · Liverpool\"}],[\"$\",\"meta\",\"8\",{\"property\":\"og:locale\",\"content\":\"es_MX\"}],[\"$\",\"meta\",\"9\",{\"property\":\"og:type\",\"content\":\"website\"}],[\"$\",\"meta\",\"10\",{\"name\":\"twitter:card\",\"content\":\"summary_large_image\"}],[\"$\",\"meta\",\"11\",{\"name\":\"twitter:title\",\"content\":\"Nuevo PIM · Liverpool · Catalogación por API\"}],[\"$\",\"meta\",\"12\",{\"name\":\"twitter:description\",\"content\":\"8 etapas · 37 endpoints · mock Postman en vivo. Simulador interactivo del contrato /partner/v1.\"}],[\"$\",\"link\",\"13\",{\"rel\":\"icon\",\"href\":\"/nuevo-pim-storyboards/icon.svg\"}]]\n3:null\n"])</script></body></html>
