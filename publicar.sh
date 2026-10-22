@@ -9,6 +9,25 @@ REPO="nuevo-pim-storyboards"
 
 cd "$(dirname "$0")"
 
+# Proteger los artefactos manuales que deben sobrevivir a cualquier regeneración.
+PROTECTED_PATHS=(
+  "flujo-guiado/index.html"
+  "flujo-guiado/presentacion.js"
+  "simulador/presentation-launcher.js"
+)
+
+for protected_path in "${PROTECTED_PATHS[@]}"; do
+  if [[ ! -f "$protected_path" ]]; then
+    echo "ERROR: falta el archivo protegido $protected_path"
+    exit 1
+  fi
+done
+
+echo "→ Validando colección y recorridos del simulador…"
+node scripts/validate-simulator.mjs
+echo "   ✓ Simulador y colección consistentes"
+echo
+
 echo "═══════════════════════════════════════════════════════════"
 echo "  Publicando $REPO en GitHub Pages"
 echo "═══════════════════════════════════════════════════════════"

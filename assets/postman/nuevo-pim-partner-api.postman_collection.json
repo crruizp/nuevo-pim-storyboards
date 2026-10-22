@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "a7f3b1c0-9d4e-4e8f-8c1a-1f3b7c9e5d20",
     "name": "Nuevo PIM · Catalogación por API (sandbox)",
-    "description": "Colección de la API de terceros del Nuevo PIM de Liverpool · `/partner/v1`\n\n**Qué contiene** · los 37 endpoints del ciclo de vida para catalogar (3 una sola vez + 6 por producto) + los flujos de corrección, lotes, imágenes, modificaciones post-publicación y recuperación de eventos. Cada request lleva un response de ejemplo tomado del §4 de la propuesta técnica.\n\n**Variables ligadas** · el `proposalId` que devuelve el paso 7 se usa en el paso 8 automáticamente; igual con `batchId`, `categoryId`, `suggestionId` y `webhookId` (vía test scripts).\n\n**MOCK EN VIVO** · hay un mock server público en Postman cloud que responde con los JSON del contrato. Para usarlo, cambia la variable `baseUrl` (y `idpUrl`) a:\n\n```\nhttps://75d6e481-577f-4f80-9431-f734b175ab8c.mock.pstmn.io\n```\n\nLos 37 requests incluyen su ejemplo contractual y están publicados y responden en este mock de Postman Cloud. Health-check: `GET /partner/v1/me` devuelve `partnerId: SELLER-DEMO-01`.\n\n**Qué NO es** · no es un contrato final. Hay 7 decisiones pendientes documentadas en https://crruizp.github.io/nuevo-pim-storyboards/decisiones-contrato-api.html\n\n**Playground visual** · https://crruizp.github.io/nuevo-pim-storyboards/playground.html",
+    "description": "Colección de la API de terceros del Nuevo PIM de Liverpool · `/partner/v1`\n\n**Qué contiene** · los 37 endpoints del ciclo de vida para catalogar (3 una sola vez + 6 por producto) + los flujos de corrección, lotes, imágenes, modificaciones post-publicación y recuperación de eventos. Cada request lleva un response de ejemplo tomado del §4 de la propuesta técnica.\n\n**Variables ligadas** · el `proposalId` que devuelve el paso 7 se usa en el paso 8 automáticamente; igual con `batchId`, `categoryId`, `suggestionId` y `webhookId` (vía test scripts).\n\n**MOCK EN VIVO** · hay un mock server público en Postman cloud que responde con los JSON del contrato. Para usarlo, cambia la variable `baseUrl` (y `idpUrl`) a:\n\n```\nhttps://75d6e481-577f-4f80-9431-f734b175ab8c.mock.pstmn.io\n```\n\nLos 37 requests incluyen su ejemplo contractual y están publicados y responden en este mock de Postman Cloud. Health-check: `GET /partner/v1/me` devuelve `partnerId: SELLER-DEMO-01`.\n\n**Qué NO es** · no es un contrato final. Hay 7 decisiones pendientes documentadas en https://crruizp.github.io/nuevo-pim-storyboards/decisiones-contrato-api.html\n\n**Playground visual** · https://crruizp.github.io/nuevo-pim-storyboards/playground.html\n\nIncluye fallback local para el simulador, respuestas de Provider LVP, recovery de canal y validación EAN.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -248,6 +248,39 @@
                 }
               ],
               "body": "{\n  \"success\": true,\n  \"data\": {\n    \"partnerId\": \"SELLER-DEMO-01\",\n    \"type\": \"SELLER\",\n    \"status\": \"ACTIVE\",\n    \"supplierId\": null,\n    \"shopIds\": [\"SHOP-DEMO-01\"],\n    \"businesses\": [\"MKP\"],\n    \"scopes\": [\n      \"catalog.read\",\n      \"suggestions.use\",\n      \"proposals.write\",\n      \"media.write\",\n      \"products.modify\",\n      \"webhooks.manage\"\n    ],\n    \"env\": \"SANDBOX\",\n    \"limits\": {\n      \"readsPerMinute\": 600,\n      \"writesPerMinute\": 60,\n      \"suggestionsPerMinute\": 30,\n      \"maxItemsPerBatch\": 1000,\n      \"maxBatchesInProcess\": 2,\n      \"newProductsPerDay\": 100\n    },\n    \"usage\": {\n      \"newProductsToday\": 0,\n      \"batchesInProcess\": 0\n    }\n  }\n}"
+            },
+            {
+              "name": "200 · provider LVP",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "me"
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"partnerId\": \"PROVIDER-LVP-01\",\n    \"type\": \"PROVIDER\",\n    \"status\": \"ACTIVE\",\n    \"supplierId\": \"SUP-LVP-01\",\n    \"shopIds\": [],\n    \"businesses\": [\n      \"LVP\"\n    ],\n    \"scopes\": [\n      \"catalog.read\",\n      \"suggestions.use\",\n      \"proposals.write\",\n      \"media.write\",\n      \"products.modify\",\n      \"webhooks.manage\"\n    ],\n    \"env\": \"SANDBOX\",\n    \"limits\": {\n      \"readsPerMinute\": 600,\n      \"writesPerMinute\": 60,\n      \"maxItemsPerBatch\": 1000\n    },\n    \"usage\": {\n      \"newProductsToday\": 0,\n      \"batchesInProcess\": 0\n    }\n  }\n}"
             }
           ]
         },
@@ -438,6 +471,50 @@
                 }
               ],
               "body": "{\n  \"success\": true,\n  \"data\": {\n    \"suggestionId\": \"SUG-DEMO-0001\",\n    \"results\": [\n      {\n        \"categoryId\": \"CAT-DEMO-0412\",\n        \"categoryName\": \"Baterías externas\",\n        \"domainId\": \"POWER_BANKS\",\n        \"confidence\": 0.91,\n        \"attributes\": [\n          { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" },\n          { \"id\": \"MODEL\", \"value_name\": \"PB-DEMO-20\" }\n        ]\n      },\n      {\n        \"categoryId\": \"CAT-DEMO-0415\",\n        \"categoryName\": \"Cargadores de pared\",\n        \"domainId\": \"WALL_CHARGERS\",\n        \"confidence\": 0.47,\n        \"attributes\": []\n      }\n    ],\n    \"itemGroup\": \"IG-DEMO-0101\",\n    \"webCategory\": \"Electrónica / Accesorios para celular\",\n    \"expiresAt\": \"2026-11-02T17:00:00Z\"\n  }\n}"
+            },
+            {
+              "name": "200 · categoría refrigeradores LVP",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/categories/discovery?business={{business}}&q=bateria portatil 20000 mAh",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "categories",
+                    "discovery"
+                  ],
+                  "query": [
+                    {
+                      "key": "business",
+                      "value": "{{business}}"
+                    },
+                    {
+                      "key": "q",
+                      "value": "bateria portatil 20000 mAh"
+                    }
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"suggestionId\": \"SUG-LVP-0001\",\n    \"results\": [\n      {\n        \"categoryId\": \"CAT-REF-LVP-01\",\n        \"categoryName\": \"Refrigeradores Top Mount\",\n        \"domainId\": \"REFRIGERATORS\",\n        \"confidence\": 0.96,\n        \"attributes\": [\n          {\n            \"id\": \"BRAND\",\n            \"value_id\": \"MARCA-LVP-01\"\n          }\n        ]\n      }\n    ],\n    \"itemGroup\": \"IG-LVP-REF\",\n    \"webCategory\": \"Línea blanca / Refrigeradores\",\n    \"expiresAt\": \"2026-11-02T17:00:00Z\"\n  }\n}"
             }
           ]
         },
@@ -683,6 +760,39 @@
               ],
               "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"TEMPLATE_VERSION_OUTDATED\",\n    \"message\": \"La versión de plantilla enviada ya no está vigente\",\n    \"correlationId\": \"c-tpl-001\",\n    \"details\": [\n      {\n        \"itemRef\": \"DEMO-PB20\",\n        \"sentVersion\": 5,\n        \"currentVersion\": 7,\n        \"newRequired\": [\n          \"TIPO_CONECTOR\"\n        ]\n      }\n    ]\n  }\n}",
               "_variant_cita": "catalogacion-por-api/contratos-api.md §1 códigos de error nuevos"
+            },
+            {
+              "name": "200 · GTIN inválido · EAN_CHECK_DIGIT",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/validations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "validations"
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"results\": [\n      {\n        \"externalRef\": \"DEMO-PB05\",\n        \"valid\": false,\n        \"outcome\": \"CORRECTION_REQUIRED\",\n        \"errors\": [\n          {\n            \"attribute\": \"GTIN\",\n            \"code\": \"EAN_CHECK_DIGIT\",\n            \"message\": \"El dígito verificador no corresponde a un EAN-13\",\n            \"value\": \"2000000000039X\"\n          }\n        ],\n        \"warnings\": []\n      }\n    ]\n  }\n}"
             }
           ]
         },
@@ -1336,6 +1446,39 @@
               ],
               "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"IDEMPOTENCY_MISMATCH\",\n    \"message\": \"El Idempotency-Key coincide con una solicitud previa pero el cuerpo cambió\",\n    \"correlationId\": \"c-idem-001\",\n    \"details\": [\n      {\n        \"idempotencyKey\": \"idem-abc-123\",\n        \"originalRequestId\": \"req-55a1\"\n      }\n    ]\n  }\n}",
               "_variant_cita": "catalogacion-por-api/contratos-api.md §1 códigos reutilizados"
+            },
+            {
+              "name": "201 · propuesta provider LVP",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals"
+                  ]
+                }
+              },
+              "status": "201",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"proposalId\": \"PROP-000123\",\n    \"externalRef\": \"LVP-REF-001\",\n    \"business\": \"LVP\",\n    \"status\": \"IN_APPROVAL\",\n    \"approvalArea\": \"COMPRAS\",\n    \"links\": {\n      \"self\": \"/partner/v1/proposals/PROP-000123\"\n    }\n  }\n}"
             }
           ]
         },
@@ -1397,6 +1540,40 @@
                 }
               ],
               "body": "{\n  \"success\": true,\n  \"data\": {\n    \"proposalId\": \"PROP-000123\",\n    \"externalRef\": \"DEMO-PB20\",\n    \"business\": \"MKP\",\n    \"status\": \"PUBLISHED\",\n    \"version\": 12,\n    \"correctionDueAt\": null,\n    \"reasons\": [],\n    \"requiredActions\": [],\n    \"variants\": [\n      { \"externalRef\": \"DEMO-PB20-NEG\", \"sku\": \"1000000001\", \"ean\": \"2000000000015\" },\n      { \"externalRef\": \"DEMO-PB20-BLA\", \"sku\": \"1000000002\", \"ean\": \"2000000000022\" }\n    ],\n    \"channels\": [\n      { \"channel\": \"STORE\", \"status\": \"PUBLISHED\", \"publishedAt\": \"2026-11-03T10:12:00Z\" },\n      { \"channel\": \"VENDOR_CENTER\", \"status\": \"PUBLISHED\", \"publishedAt\": \"2026-11-03T10:20:00Z\" }\n    ]\n  }\n}"
+            },
+            {
+              "name": "200 · PUBLISHED · provider LVP",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals",
+                    "{{proposalId}}"
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"proposalId\": \"PROP-000123\",\n    \"externalRef\": \"LVP-REF-001\",\n    \"business\": \"LVP\",\n    \"status\": \"PUBLISHED\",\n    \"version\": 4,\n    \"approvalArea\": \"COMPRAS\",\n    \"variants\": [\n      {\n        \"externalRef\": \"LVP-REF-001-INOX\",\n        \"sku\": \"1000001200\",\n        \"ean\": \"7501234567890\"\n      }\n    ],\n    \"channels\": [\n      {\n        \"channel\": \"STORE\",\n        \"status\": \"PUBLISHED\",\n        \"publishedAt\": \"2026-11-04T10:12:00Z\"\n      }\n    ]\n  }\n}"
             }
           ]
         }
@@ -1827,7 +2004,7 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/partner/v1/products/{{proposalId}}/permissions",
+              "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/permissions",
               "host": [
                 "{{baseUrl}}"
               ],
@@ -1835,7 +2012,7 @@
                 "partner",
                 "v1",
                 "products",
-                "{{proposalId}}",
+                "{{productId}}",
                 "permissions"
               ]
             },
@@ -1853,7 +2030,7 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{baseUrl}}/partner/v1/products/{{proposalId}}/permissions",
+                  "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/permissions",
                   "host": [
                     "{{baseUrl}}"
                   ],
@@ -1861,7 +2038,7 @@
                     "partner",
                     "v1",
                     "products",
-                    "{{proposalId}}",
+                    "{{productId}}",
                     "permissions"
                   ]
                 }
@@ -1888,7 +2065,7 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{baseUrl}}/partner/v1/products/{{proposalId}}/permissions",
+                  "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/permissions",
                   "host": [
                     "{{baseUrl}}"
                   ],
@@ -1896,7 +2073,7 @@
                     "partner",
                     "v1",
                     "products",
-                    "{{proposalId}}",
+                    "{{productId}}",
                     "permissions"
                   ]
                 },
@@ -1944,7 +2121,7 @@
               }
             },
             "url": {
-              "raw": "{{baseUrl}}/partner/v1/products/{{proposalId}}/modifications",
+              "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/modifications",
               "host": [
                 "{{baseUrl}}"
               ],
@@ -1952,7 +2129,7 @@
                 "partner",
                 "v1",
                 "products",
-                "{{proposalId}}",
+                "{{productId}}",
                 "modifications"
               ]
             }
@@ -1969,7 +2146,7 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{baseUrl}}/partner/v1/products/{{proposalId}}/modifications",
+                  "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/modifications",
                   "host": [
                     "{{baseUrl}}"
                   ],
@@ -1977,7 +2154,7 @@
                     "partner",
                     "v1",
                     "products",
-                    "{{proposalId}}",
+                    "{{productId}}",
                     "modifications"
                   ]
                 }
@@ -2021,7 +2198,7 @@
                   }
                 },
                 "url": {
-                  "raw": "{{baseUrl}}/partner/v1/products/{{proposalId}}/modifications",
+                  "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/modifications",
                   "host": [
                     "{{baseUrl}}"
                   ],
@@ -2029,7 +2206,7 @@
                     "partner",
                     "v1",
                     "products",
-                    "{{proposalId}}",
+                    "{{productId}}",
                     "modifications"
                   ]
                 }
@@ -2074,7 +2251,7 @@
                   }
                 },
                 "url": {
-                  "raw": "{{baseUrl}}/partner/v1/products/{{proposalId}}/modifications",
+                  "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/modifications",
                   "host": [
                     "{{baseUrl}}"
                   ],
@@ -2082,7 +2259,7 @@
                     "partner",
                     "v1",
                     "products",
-                    "{{proposalId}}",
+                    "{{productId}}",
                     "modifications"
                   ]
                 }
@@ -2381,6 +2558,39 @@
               ],
               "body": "{\n  \"success\": true,\n  \"data\": {\n    \"events\": [\n      {\n        \"eventId\": \"EVT-000105\",\n        \"type\": \"proposal.correction_required\",\n        \"occurredAt\": \"2026-11-03T15:03:02Z\",\n        \"payload\": {\n          \"proposalId\": \"prp-88412\",\n          \"errors\": [\n            {\n              \"attribute\": \"GTIN\",\n              \"code\": \"EAN_CHECK_DIGIT\"\n            }\n          ]\n        }\n      },\n      {\n        \"eventId\": \"EVT-000106\",\n        \"type\": \"proposal.validated\",\n        \"occurredAt\": \"2026-11-03T15:12:40Z\",\n        \"payload\": {\n          \"proposalId\": \"prp-88412\",\n          \"status\": \"VALIDATING\"\n        }\n      },\n      {\n        \"eventId\": \"EVT-000107\",\n        \"type\": \"proposal.accepted\",\n        \"occurredAt\": \"2026-11-03T15:18:05Z\",\n        \"payload\": {\n          \"proposalId\": \"prp-88412\",\n          \"status\": \"ACCEPTED\"\n        }\n      }\n    ],\n    \"nextCursor\": \"EVT-000107\",\n    \"hasMore\": true\n  }\n}",
               "_variant_cita": "catalogacion-por-api/contratos-api.md §5.11; ciclo-de-vida Etapa 8"
+            },
+            {
+              "name": "200 · product.publication_failed",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/events?cursor=EVT-000104",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "events"
+                  ]
+                }
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"events\": [\n      {\n        \"eventId\": \"EVT-FAIL-001\",\n        \"type\": \"product.publication_failed\",\n        \"occurredAt\": \"2026-10-20T13:05:00Z\",\n        \"payload\": {\n          \"productId\": \"PRD-20261103-7A4F2\",\n          \"channel\": \"VENDOR_CENTER\",\n          \"code\": \"CHANNEL_VALIDATION_ERROR\",\n          \"attribute\": \"warranty\"\n        }\n      }\n    ],\n    \"nextCursor\": \"EVT-FAIL-001\",\n    \"hasMore\": false\n  }\n}"
             }
           ]
         }
@@ -3128,6 +3338,42 @@
                 }
               ],
               "body": "{\n  \"productId\": \"PRD-20261103-7A4F2\",\n  \"channels\": [\n    { \"channel\": \"STORE\", \"status\": \"PUBLISHED\",\n      \"sentAt\": \"2026-11-04T10:08:33Z\", \"publishedAt\": \"2026-11-04T10:12:00Z\",\n      \"url\": \"https://www.liverpool.com.mx/tienda/pdp/refrigerador-mabe-300l/PRD-20261103-7A4F2\" }\n  ]\n}"
+            },
+            {
+              "name": "200 · STORE publicado · VENDOR_CENTER falló",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/products/{{productId}}/channels",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "products",
+                    "{{productId}}",
+                    "channels"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "200",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"productId\": \"PRD-20261103-7A4F2\",\n    \"channels\": [\n      {\n        \"channel\": \"STORE\",\n        \"status\": \"PUBLISHED\",\n        \"publishedAt\": \"2026-11-04T10:12:00Z\"\n      },\n      {\n        \"channel\": \"VENDOR_CENTER\",\n        \"status\": \"FAILED\",\n        \"failedAt\": \"2026-11-04T10:13:00Z\",\n        \"error\": {\n          \"code\": \"CHANNEL_VALIDATION_ERROR\",\n          \"attribute\": \"warranty\",\n          \"message\": \"Atributo requerido por el canal\"\n        }\n      }\n    ]\n  }\n}"
             }
           ]
         },
@@ -3858,6 +4104,29 @@
           ]
         }
       ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "id": "contract-baseline",
+        "type": "text/javascript",
+        "exec": [
+          "pm.test('Código HTTP documentado', () => pm.expect(pm.response.code).to.be.oneOf([200, 201, 202, 204, 400, 401, 403, 404, 409, 422, 429]));",
+          "if (pm.response.code !== 204) {",
+          "  pm.test('Respuesta JSON válida', () => pm.response.json());",
+          "  const body = pm.response.json();",
+          "  if (body.success === false) {",
+          "    pm.test('Error con código y correlationId', () => {",
+          "      pm.expect(body.error).to.be.an('object');",
+          "      pm.expect(body.error.code).to.be.a('string').and.not.empty;",
+          "      pm.expect(body.error.correlationId).to.be.a('string').and.not.empty;",
+          "    });",
+          "  }",
+          "}"
+        ]
+      }
     }
   ]
 }
