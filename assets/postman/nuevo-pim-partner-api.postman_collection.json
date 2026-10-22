@@ -583,6 +583,106 @@
                 }
               ],
               "body": "{\n  \"success\": true,\n  \"data\": {\n    \"results\": [\n      {\n        \"externalRef\": \"DEMO-PB20\",\n        \"valid\": true,\n        \"outcome\": \"WOULD_CREATE\",\n        \"completeness\": 0.95,\n        \"photoResponsibility\": \"SUPPLIER\",\n        \"categoryVersion\": 7,\n        \"calculated\": { \"TITULO_WEB\": \"Batería externa Marca Demo PB-DEMO-20\" },\n        \"errors\": [],\n        \"warnings\": [\n          { \"attribute\": \"MATERIAL\", \"code\": \"RECOMMENDED_MISSING\", \"message\": \"Recomendado para esta plantilla\" }\n        ]\n      }\n    ]\n  }\n}"
+            },
+            {
+              "name": "429 · RATE_LIMITED",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"business\": \"{{business}}\",\n  \"items\": [\n    {\n      \"externalRef\": \"{{externalRef}}\",\n      \"categoryId\": \"{{categoryId}}\",\n      \"categoryVersion\": 7,\n      \"title\": \"PB-DEMO-20 Marca Demo\",\n      \"attributes\": [\n        { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" },\n        { \"id\": \"CAPACIDAD\", \"value_name\": \"20000 mAh\", \"value_struct\": { \"number\": 20000, \"unit\": \"MAH\" } },\n        { \"id\": \"TIPO_CONECTOR\", \"value_id\": \"USB_C\", \"value_name\": \"USB-C\" }\n      ],\n      \"variations\": [\n        { \"externalRef\": \"DEMO-PB20-NEG\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"NEGRO\", \"value_name\": \"Negro\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000015\" } ] },\n        { \"externalRef\": \"DEMO-PB20-BLA\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"BLANCO\", \"value_name\": \"Blanco\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000022\" } ] }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/validations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "validations"
+                  ]
+                },
+                "description": "Hasta 100 productos. Devuelve errores campo por campo y qué pasaría al mandarlo."
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Retry-After",
+                  "value": "60"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"RATE_LIMITED\",\n    \"message\": \"Se alcanzó el límite por minuto para este consumidor\",\n    \"correlationId\": \"c-rate-001\",\n    \"details\": [\n      {\n        \"limitPerMinute\": 60,\n        \"retryAfterSeconds\": 60\n      }\n    ]\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §1 códigos de error nuevos"
+            },
+            {
+              "name": "422 · TEMPLATE_VERSION_OUTDATED",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"business\": \"{{business}}\",\n  \"items\": [\n    {\n      \"externalRef\": \"{{externalRef}}\",\n      \"categoryId\": \"{{categoryId}}\",\n      \"categoryVersion\": 7,\n      \"title\": \"PB-DEMO-20 Marca Demo\",\n      \"attributes\": [\n        { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" },\n        { \"id\": \"CAPACIDAD\", \"value_name\": \"20000 mAh\", \"value_struct\": { \"number\": 20000, \"unit\": \"MAH\" } },\n        { \"id\": \"TIPO_CONECTOR\", \"value_id\": \"USB_C\", \"value_name\": \"USB-C\" }\n      ],\n      \"variations\": [\n        { \"externalRef\": \"DEMO-PB20-NEG\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"NEGRO\", \"value_name\": \"Negro\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000015\" } ] },\n        { \"externalRef\": \"DEMO-PB20-BLA\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"BLANCO\", \"value_name\": \"Blanco\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000022\" } ] }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/validations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "validations"
+                  ]
+                },
+                "description": "Hasta 100 productos. Devuelve errores campo por campo y qué pasaría al mandarlo."
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"TEMPLATE_VERSION_OUTDATED\",\n    \"message\": \"La versión de plantilla enviada ya no está vigente\",\n    \"correlationId\": \"c-tpl-001\",\n    \"details\": [\n      {\n        \"itemRef\": \"DEMO-PB20\",\n        \"sentVersion\": 5,\n        \"currentVersion\": 7,\n        \"newRequired\": [\n          \"TIPO_CONECTOR\"\n        ]\n      }\n    ]\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §1 códigos de error nuevos"
             }
           ]
         },
@@ -784,6 +884,458 @@
                 }
               ],
               "body": "{\n  \"success\": true,\n  \"data\": {\n    \"proposalId\": \"PROP-000123\",\n    \"externalRef\": \"DEMO-PB20\",\n    \"status\": \"IN_APPROVAL\",\n    \"correctionDueAt\": null,\n    \"links\": { \"self\": \"/partner/v1/proposals/PROP-000123\" }\n  }\n}"
+            },
+            {
+              "name": "409 · ALREADY_EXISTS · MULTI_OFFER",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "00000000-0000-4000-8000-000000000002"
+                  },
+                  {
+                    "key": "X-Request-Id",
+                    "value": "REQ-DEMO-0002"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"business\": \"{{business}}\",\n  \"externalRef\": \"{{externalRef}}\",\n  \"categoryId\": \"{{categoryId}}\",\n  \"categoryVersion\": 7,\n  \"acceptedSuggestionId\": \"{{suggestionId}}\",\n  \"title\": \"PB-DEMO-20 Marca Demo\",\n  \"description\": \"Batería portátil de 20,000 mAh con carga rápida USB-C y dos puertos\",\n  \"attributes\": [\n    { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" },\n    { \"id\": \"MODEL\", \"value_name\": \"PB-DEMO-20\" },\n    { \"id\": \"CAPACIDAD\", \"value_name\": \"20000 mAh\", \"value_struct\": { \"number\": 20000, \"unit\": \"MAH\" } },\n    { \"id\": \"TIPO_CONECTOR\", \"value_id\": \"USB_C\", \"value_name\": \"USB-C\" }\n  ],\n  \"variations\": [\n    { \"externalRef\": \"DEMO-PB20-NEG\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"NEGRO\", \"value_name\": \"Negro\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000015\" } ], \"pictures\": [ { \"source\": \"https://{host-del-seller}/imagenes/pb-demo-20-neg-1.jpg\" } ] },\n    { \"externalRef\": \"DEMO-PB20-BLA\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"BLANCO\", \"value_name\": \"Blanco\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000022\" } ] }\n  ],\n  \"logistics\": {\n    \"package\": { \"heightCm\": 3, \"widthCm\": 8, \"lengthCm\": 15, \"grossWeightKg\": 0.45, \"netWeightKg\": 0.4 }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals"
+                  ]
+                },
+                "description": "Síncrono. Devuelve 201 con `proposalId` y estado `IN_APPROVAL`."
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"ALREADY_EXISTS\",\n    \"message\": \"El producto ya está en el catálogo\",\n    \"correlationId\": \"c-5b2e\",\n    \"details\": [\n      {\n        \"itemRef\": \"SEL-001-PB20\",\n        \"code\": \"ALREADY_EXISTS\",\n        \"matchType\": \"EAN\",\n        \"allowedAction\": \"MULTI_OFFER\",\n        \"sku\": \"1000000002\",\n        \"links\": {\n          \"offerTarget\": \"/partner/v1/offer-targets/1000000002\"\n        }\n      }\n    ]\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §2.1 Response 409"
+            },
+            {
+              "name": "422 · VALIDATION_ERROR · falta obligatorio",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "00000000-0000-4000-8000-000000000002"
+                  },
+                  {
+                    "key": "X-Request-Id",
+                    "value": "REQ-DEMO-0002"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"business\": \"{{business}}\",\n  \"externalRef\": \"{{externalRef}}\",\n  \"categoryId\": \"{{categoryId}}\",\n  \"categoryVersion\": 7,\n  \"acceptedSuggestionId\": \"{{suggestionId}}\",\n  \"title\": \"PB-DEMO-20 Marca Demo\",\n  \"description\": \"Batería portátil de 20,000 mAh con carga rápida USB-C y dos puertos\",\n  \"attributes\": [\n    { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" },\n    { \"id\": \"MODEL\", \"value_name\": \"PB-DEMO-20\" },\n    { \"id\": \"CAPACIDAD\", \"value_name\": \"20000 mAh\", \"value_struct\": { \"number\": 20000, \"unit\": \"MAH\" } },\n    { \"id\": \"TIPO_CONECTOR\", \"value_id\": \"USB_C\", \"value_name\": \"USB-C\" }\n  ],\n  \"variations\": [\n    { \"externalRef\": \"DEMO-PB20-NEG\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"NEGRO\", \"value_name\": \"Negro\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000015\" } ], \"pictures\": [ { \"source\": \"https://{host-del-seller}/imagenes/pb-demo-20-neg-1.jpg\" } ] },\n    { \"externalRef\": \"DEMO-PB20-BLA\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"BLANCO\", \"value_name\": \"Blanco\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000022\" } ] }\n  ],\n  \"logistics\": {\n    \"package\": { \"heightCm\": 3, \"widthCm\": 8, \"lengthCm\": 15, \"grossWeightKg\": 0.45, \"netWeightKg\": 0.4 }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals"
+                  ]
+                },
+                "description": "Síncrono. Devuelve 201 con `proposalId` y estado `IN_APPROVAL`."
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"message\": \"La propuesta no cumple la plantilla\",\n    \"correlationId\": \"c-5b2f\",\n    \"details\": [\n      {\n        \"itemRef\": \"SEL-001-PB20\",\n        \"variantRef\": null,\n        \"path\": \"/attributes\",\n        \"attribute\": \"TIPO_CONECTOR\",\n        \"code\": \"REQUIRED\",\n        \"value\": null\n      },\n      {\n        \"itemRef\": \"SEL-001-PB20\",\n        \"variantRef\": null,\n        \"path\": \"/attributes\",\n        \"attribute\": \"CAPACIDAD\",\n        \"code\": \"OUT_OF_RANGE\",\n        \"value\": 1000000,\n        \"constraint\": {\n          \"min\": 100,\n          \"max\": 100000,\n          \"unit\": \"MAH\"\n        }\n      }\n    ]\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §2.1 Response 422"
+            },
+            {
+              "name": "422 · BRAND_BLOCKED",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "00000000-0000-4000-8000-000000000002"
+                  },
+                  {
+                    "key": "X-Request-Id",
+                    "value": "REQ-DEMO-0002"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"business\": \"{{business}}\",\n  \"externalRef\": \"{{externalRef}}\",\n  \"categoryId\": \"{{categoryId}}\",\n  \"categoryVersion\": 7,\n  \"acceptedSuggestionId\": \"{{suggestionId}}\",\n  \"title\": \"PB-DEMO-20 Marca Demo\",\n  \"description\": \"Batería portátil de 20,000 mAh con carga rápida USB-C y dos puertos\",\n  \"attributes\": [\n    { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" },\n    { \"id\": \"MODEL\", \"value_name\": \"PB-DEMO-20\" },\n    { \"id\": \"CAPACIDAD\", \"value_name\": \"20000 mAh\", \"value_struct\": { \"number\": 20000, \"unit\": \"MAH\" } },\n    { \"id\": \"TIPO_CONECTOR\", \"value_id\": \"USB_C\", \"value_name\": \"USB-C\" }\n  ],\n  \"variations\": [\n    { \"externalRef\": \"DEMO-PB20-NEG\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"NEGRO\", \"value_name\": \"Negro\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000015\" } ], \"pictures\": [ { \"source\": \"https://{host-del-seller}/imagenes/pb-demo-20-neg-1.jpg\" } ] },\n    { \"externalRef\": \"DEMO-PB20-BLA\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"BLANCO\", \"value_name\": \"Blanco\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000022\" } ] }\n  ],\n  \"logistics\": {\n    \"package\": { \"heightCm\": 3, \"widthCm\": 8, \"lengthCm\": 15, \"grossWeightKg\": 0.45, \"netWeightKg\": 0.4 }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals"
+                  ]
+                },
+                "description": "Síncrono. Devuelve 201 con `proposalId` y estado `IN_APPROVAL`."
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"BRAND_BLOCKED\",\n    \"message\": \"La marca está en la blacklist para este negocio\",\n    \"correlationId\": \"c-blk-001\",\n    \"details\": [\n      {\n        \"itemRef\": \"SEL-001-PB20\",\n        \"code\": \"BRAND_BLOCKED\",\n        \"brandCode\": \"MARCA-NO-APROBADA\",\n        \"business\": \"MKP\"\n      }\n    ]\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §1 códigos de error nuevos"
+            },
+            {
+              "name": "403 · SCOPE_MISSING",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "00000000-0000-4000-8000-000000000002"
+                  },
+                  {
+                    "key": "X-Request-Id",
+                    "value": "REQ-DEMO-0002"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"business\": \"{{business}}\",\n  \"externalRef\": \"{{externalRef}}\",\n  \"categoryId\": \"{{categoryId}}\",\n  \"categoryVersion\": 7,\n  \"acceptedSuggestionId\": \"{{suggestionId}}\",\n  \"title\": \"PB-DEMO-20 Marca Demo\",\n  \"description\": \"Batería portátil de 20,000 mAh con carga rápida USB-C y dos puertos\",\n  \"attributes\": [\n    { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" },\n    { \"id\": \"MODEL\", \"value_name\": \"PB-DEMO-20\" },\n    { \"id\": \"CAPACIDAD\", \"value_name\": \"20000 mAh\", \"value_struct\": { \"number\": 20000, \"unit\": \"MAH\" } },\n    { \"id\": \"TIPO_CONECTOR\", \"value_id\": \"USB_C\", \"value_name\": \"USB-C\" }\n  ],\n  \"variations\": [\n    { \"externalRef\": \"DEMO-PB20-NEG\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"NEGRO\", \"value_name\": \"Negro\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000015\" } ], \"pictures\": [ { \"source\": \"https://{host-del-seller}/imagenes/pb-demo-20-neg-1.jpg\" } ] },\n    { \"externalRef\": \"DEMO-PB20-BLA\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"BLANCO\", \"value_name\": \"Blanco\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000022\" } ] }\n  ],\n  \"logistics\": {\n    \"package\": { \"heightCm\": 3, \"widthCm\": 8, \"lengthCm\": 15, \"grossWeightKg\": 0.45, \"netWeightKg\": 0.4 }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals"
+                  ]
+                },
+                "description": "Síncrono. Devuelve 201 con `proposalId` y estado `IN_APPROVAL`."
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"SCOPE_MISSING\",\n    \"message\": \"El token no incluye el alcance proposals.write\",\n    \"correlationId\": \"c-scope-001\",\n    \"details\": [\n      {\n        \"requiredScope\": \"proposals.write\",\n        \"tokenScopes\": [\n          \"catalog.read\"\n        ]\n      }\n    ]\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §1 códigos de error nuevos"
+            },
+            {
+              "name": "403 · BUSINESS_NOT_ALLOWED",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "00000000-0000-4000-8000-000000000002"
+                  },
+                  {
+                    "key": "X-Request-Id",
+                    "value": "REQ-DEMO-0002"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"business\": \"{{business}}\",\n  \"externalRef\": \"{{externalRef}}\",\n  \"categoryId\": \"{{categoryId}}\",\n  \"categoryVersion\": 7,\n  \"acceptedSuggestionId\": \"{{suggestionId}}\",\n  \"title\": \"PB-DEMO-20 Marca Demo\",\n  \"description\": \"Batería portátil de 20,000 mAh con carga rápida USB-C y dos puertos\",\n  \"attributes\": [\n    { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" },\n    { \"id\": \"MODEL\", \"value_name\": \"PB-DEMO-20\" },\n    { \"id\": \"CAPACIDAD\", \"value_name\": \"20000 mAh\", \"value_struct\": { \"number\": 20000, \"unit\": \"MAH\" } },\n    { \"id\": \"TIPO_CONECTOR\", \"value_id\": \"USB_C\", \"value_name\": \"USB-C\" }\n  ],\n  \"variations\": [\n    { \"externalRef\": \"DEMO-PB20-NEG\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"NEGRO\", \"value_name\": \"Negro\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000015\" } ], \"pictures\": [ { \"source\": \"https://{host-del-seller}/imagenes/pb-demo-20-neg-1.jpg\" } ] },\n    { \"externalRef\": \"DEMO-PB20-BLA\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"BLANCO\", \"value_name\": \"Blanco\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000022\" } ] }\n  ],\n  \"logistics\": {\n    \"package\": { \"heightCm\": 3, \"widthCm\": 8, \"lengthCm\": 15, \"grossWeightKg\": 0.45, \"netWeightKg\": 0.4 }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals"
+                  ]
+                },
+                "description": "Síncrono. Devuelve 201 con `proposalId` y estado `IN_APPROVAL`."
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"BUSINESS_NOT_ALLOWED\",\n    \"message\": \"El consumidor no tiene habilitado el negocio solicitado\",\n    \"correlationId\": \"c-biz-001\",\n    \"details\": [\n      {\n        \"requestedBusiness\": \"LVP\",\n        \"allowedBusinesses\": [\n          \"MKP\"\n        ]\n      }\n    ]\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §1 códigos de error nuevos"
+            },
+            {
+              "name": "429 · DAILY_QUOTA_EXCEEDED",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "00000000-0000-4000-8000-000000000002"
+                  },
+                  {
+                    "key": "X-Request-Id",
+                    "value": "REQ-DEMO-0002"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"business\": \"{{business}}\",\n  \"externalRef\": \"{{externalRef}}\",\n  \"categoryId\": \"{{categoryId}}\",\n  \"categoryVersion\": 7,\n  \"acceptedSuggestionId\": \"{{suggestionId}}\",\n  \"title\": \"PB-DEMO-20 Marca Demo\",\n  \"description\": \"Batería portátil de 20,000 mAh con carga rápida USB-C y dos puertos\",\n  \"attributes\": [\n    { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" },\n    { \"id\": \"MODEL\", \"value_name\": \"PB-DEMO-20\" },\n    { \"id\": \"CAPACIDAD\", \"value_name\": \"20000 mAh\", \"value_struct\": { \"number\": 20000, \"unit\": \"MAH\" } },\n    { \"id\": \"TIPO_CONECTOR\", \"value_id\": \"USB_C\", \"value_name\": \"USB-C\" }\n  ],\n  \"variations\": [\n    { \"externalRef\": \"DEMO-PB20-NEG\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"NEGRO\", \"value_name\": \"Negro\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000015\" } ], \"pictures\": [ { \"source\": \"https://{host-del-seller}/imagenes/pb-demo-20-neg-1.jpg\" } ] },\n    { \"externalRef\": \"DEMO-PB20-BLA\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"BLANCO\", \"value_name\": \"Blanco\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000022\" } ] }\n  ],\n  \"logistics\": {\n    \"package\": { \"heightCm\": 3, \"widthCm\": 8, \"lengthCm\": 15, \"grossWeightKg\": 0.45, \"netWeightKg\": 0.4 }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals"
+                  ]
+                },
+                "description": "Síncrono. Devuelve 201 con `proposalId` y estado `IN_APPROVAL`."
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Retry-After",
+                  "value": "3600"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"DAILY_QUOTA_EXCEEDED\",\n    \"message\": \"Se alcanzó el tope diario de productos nuevos para este consumidor\",\n    \"correlationId\": \"c-quota-001\",\n    \"details\": [\n      {\n        \"quota\": 500,\n        \"used\": 500,\n        \"windowResetAt\": \"2026-10-23T00:00:00Z\"\n      }\n    ]\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §1 códigos de error nuevos"
+            },
+            {
+              "name": "409 · EXTERNAL_REF_EXISTS",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "00000000-0000-4000-8000-000000000002"
+                  },
+                  {
+                    "key": "X-Request-Id",
+                    "value": "REQ-DEMO-0002"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"business\": \"{{business}}\",\n  \"externalRef\": \"{{externalRef}}\",\n  \"categoryId\": \"{{categoryId}}\",\n  \"categoryVersion\": 7,\n  \"acceptedSuggestionId\": \"{{suggestionId}}\",\n  \"title\": \"PB-DEMO-20 Marca Demo\",\n  \"description\": \"Batería portátil de 20,000 mAh con carga rápida USB-C y dos puertos\",\n  \"attributes\": [\n    { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" },\n    { \"id\": \"MODEL\", \"value_name\": \"PB-DEMO-20\" },\n    { \"id\": \"CAPACIDAD\", \"value_name\": \"20000 mAh\", \"value_struct\": { \"number\": 20000, \"unit\": \"MAH\" } },\n    { \"id\": \"TIPO_CONECTOR\", \"value_id\": \"USB_C\", \"value_name\": \"USB-C\" }\n  ],\n  \"variations\": [\n    { \"externalRef\": \"DEMO-PB20-NEG\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"NEGRO\", \"value_name\": \"Negro\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000015\" } ], \"pictures\": [ { \"source\": \"https://{host-del-seller}/imagenes/pb-demo-20-neg-1.jpg\" } ] },\n    { \"externalRef\": \"DEMO-PB20-BLA\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"BLANCO\", \"value_name\": \"Blanco\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000022\" } ] }\n  ],\n  \"logistics\": {\n    \"package\": { \"heightCm\": 3, \"widthCm\": 8, \"lengthCm\": 15, \"grossWeightKg\": 0.45, \"netWeightKg\": 0.4 }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals"
+                  ]
+                },
+                "description": "Síncrono. Devuelve 201 con `proposalId` y estado `IN_APPROVAL`."
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"EXTERNAL_REF_EXISTS\",\n    \"message\": \"Ya existe una propuesta con ese externalRef para este consumidor\",\n    \"correlationId\": \"c-ext-001\",\n    \"details\": [\n      {\n        \"externalRef\": \"SEL-001-PB20\",\n        \"existingProposalId\": \"prp-88412\"\n      }\n    ]\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §1 códigos reutilizados; §3.2 MS-02 externalRef único por tercero"
+            },
+            {
+              "name": "409 · IDEMPOTENCY_MISMATCH",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "00000000-0000-4000-8000-000000000002"
+                  },
+                  {
+                    "key": "X-Request-Id",
+                    "value": "REQ-DEMO-0002"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"business\": \"{{business}}\",\n  \"externalRef\": \"{{externalRef}}\",\n  \"categoryId\": \"{{categoryId}}\",\n  \"categoryVersion\": 7,\n  \"acceptedSuggestionId\": \"{{suggestionId}}\",\n  \"title\": \"PB-DEMO-20 Marca Demo\",\n  \"description\": \"Batería portátil de 20,000 mAh con carga rápida USB-C y dos puertos\",\n  \"attributes\": [\n    { \"id\": \"BRAND\", \"value_id\": \"MARCADEMO\", \"value_name\": \"Marca Demo\" },\n    { \"id\": \"MODEL\", \"value_name\": \"PB-DEMO-20\" },\n    { \"id\": \"CAPACIDAD\", \"value_name\": \"20000 mAh\", \"value_struct\": { \"number\": 20000, \"unit\": \"MAH\" } },\n    { \"id\": \"TIPO_CONECTOR\", \"value_id\": \"USB_C\", \"value_name\": \"USB-C\" }\n  ],\n  \"variations\": [\n    { \"externalRef\": \"DEMO-PB20-NEG\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"NEGRO\", \"value_name\": \"Negro\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000015\" } ], \"pictures\": [ { \"source\": \"https://{host-del-seller}/imagenes/pb-demo-20-neg-1.jpg\" } ] },\n    { \"externalRef\": \"DEMO-PB20-BLA\", \"attribute_combinations\": [ { \"id\": \"COLOR\", \"value_id\": \"BLANCO\", \"value_name\": \"Blanco\" } ], \"attributes\": [ { \"id\": \"GTIN\", \"value_name\": \"2000000000022\" } ] }\n  ],\n  \"logistics\": {\n    \"package\": { \"heightCm\": 3, \"widthCm\": 8, \"lengthCm\": 15, \"grossWeightKg\": 0.45, \"netWeightKg\": 0.4 }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals"
+                  ]
+                },
+                "description": "Síncrono. Devuelve 201 con `proposalId` y estado `IN_APPROVAL`."
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"IDEMPOTENCY_MISMATCH\",\n    \"message\": \"El Idempotency-Key coincide con una solicitud previa pero el cuerpo cambió\",\n    \"correlationId\": \"c-idem-001\",\n    \"details\": [\n      {\n        \"idempotencyKey\": \"idem-abc-123\",\n        \"originalRequestId\": \"req-55a1\"\n      }\n    ]\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §1 códigos reutilizados"
             }
           ]
         },
@@ -1012,6 +1564,53 @@
                 }
               ],
               "body": "{\n  \"success\": true,\n  \"data\": {\n    \"batchId\": \"BATCH-000045\",\n    \"status\": \"COMPLETED\",\n    \"counts\": { \"received\": 3, \"created\": 2, \"correction_required\": 1, \"failed\": 0 },\n    \"items\": [\n      { \"externalRef\": \"DEMO-PB20\", \"proposalId\": \"PROP-000123\", \"outcome\": \"CREATED\", \"status\": \"IN_APPROVAL\" },\n      { \"externalRef\": \"DEMO-PB10\", \"proposalId\": \"PROP-000124\", \"outcome\": \"CREATED\", \"status\": \"IN_APPROVAL\" },\n      {\n        \"externalRef\": \"DEMO-PB05\",\n        \"proposalId\": null,\n        \"outcome\": \"CORRECTION_REQUIRED\",\n        \"status\": \"CORRECTION_REQUIRED\",\n        \"errors\": [\n          { \"variantRef\": \"DEMO-PB05-BLA\", \"attribute\": \"GTIN\", \"code\": \"EAN_CHECK_DIGIT\", \"message\": \"El dígito verificador no corresponde a un EAN-13\", \"value\": \"2000000000039X\" }\n        ]\n      }\n    ]\n  }\n}"
+            },
+            {
+              "name": "200 · lote-4-mix (CREATED+CORRECTION_REQUIRED+REJECTED+ALREADY_EXISTS)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/batches/{{batchId}}/items?page=1&size=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "batches",
+                    "{{batchId}}",
+                    "items"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    }
+                  ]
+                },
+                "description": "Cada producto queda ligado a su `externalRef`, no a su posición. Lo que falló se reenvía con la misma referencia."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"batchId\": \"BATCH-000045\",\n    \"items\": [\n      {\n        \"externalRef\": \"DEMO-PB20\",\n        \"result\": \"CREATED\",\n        \"proposalId\": \"prp-88412\",\n        \"status\": \"IN_APPROVAL\"\n      },\n      {\n        \"externalRef\": \"DEMO-PB10\",\n        \"result\": \"CORRECTION_REQUIRED\",\n        \"errors\": [\n          {\n            \"attribute\": \"GTIN\",\n            \"code\": \"EAN_CHECK_DIGIT\",\n            \"value\": \"2000000000039X\"\n          }\n        ]\n      },\n      {\n        \"externalRef\": \"DEMO-PB05\",\n        \"result\": \"REJECTED\",\n        \"errors\": [\n          {\n            \"code\": \"BRAND_BLOCKED\",\n            \"brandCode\": \"MARCA-NO-APROBADA\"\n          }\n        ]\n      },\n      {\n        \"externalRef\": \"DEMO-PB02\",\n        \"result\": \"ALREADY_EXISTS\",\n        \"allowedAction\": \"MULTI_OFFER\",\n        \"sku\": \"1000000002\",\n        \"links\": {\n          \"offerTarget\": \"/partner/v1/offer-targets/1000000002\"\n        }\n      }\n    ]\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §2.2 Resultado de un lote"
             }
           ]
         }
@@ -1100,6 +1699,120 @@
                 }
               ],
               "body": "{\n  \"success\": true,\n  \"data\": {\n    \"proposalId\": \"PROP-000123\",\n    \"status\": \"IN_APPROVAL\",\n    \"version\": 5,\n    \"correctionDueAt\": null\n  }\n}"
+            },
+            {
+              "name": "409 · VERSION_CONFLICT",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/merge-patch+json"
+                  },
+                  {
+                    "key": "If-Match",
+                    "value": "\"4\""
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "00000000-0000-4000-8000-000000000004"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Batería externa de 20,000 mAh con carga rápida USB-C\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals",
+                    "{{proposalId}}"
+                  ]
+                },
+                "description": "Merge Patch (RFC 7396). Solo los campos a cambiar. Si alguien cambió la propuesta antes, responde 409."
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"VERSION_CONFLICT\",\n    \"message\": \"La propuesta ya cambió desde que leíste la versión\",\n    \"correlationId\": \"c-ver-001\",\n    \"details\": [\n      {\n        \"sentIfMatch\": 7,\n        \"currentVersion\": 11\n      }\n    ]\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §1 códigos reutilizados"
+            },
+            {
+              "name": "409 · NOT_EDITABLE_IN_STATUS",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/merge-patch+json"
+                  },
+                  {
+                    "key": "If-Match",
+                    "value": "\"4\""
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "00000000-0000-4000-8000-000000000004"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Batería externa de 20,000 mAh con carga rápida USB-C\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/proposals/{{proposalId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "proposals",
+                    "{{proposalId}}"
+                  ]
+                },
+                "description": "Merge Patch (RFC 7396). Solo los campos a cambiar. Si alguien cambió la propuesta antes, responde 409."
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"NOT_EDITABLE_IN_STATUS\",\n    \"message\": \"La propuesta ya pasó a ACCEPTED; no se puede editar\",\n    \"correlationId\": \"c-stt-001\",\n    \"details\": [\n      {\n        \"currentStatus\": \"ACCEPTED\",\n        \"editableStatuses\": [\n          \"IN_APPROVAL\",\n          \"CORRECTION_REQUIRED\"\n        ]\n      }\n    ]\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §1 códigos reutilizados"
             }
           ]
         },
@@ -1163,6 +1876,43 @@
                 }
               ],
               "body": "{\n  \"success\": true,\n  \"data\": {\n    \"isContentOwner\": true,\n    \"fieldGroups\": [\n      { \"group\": \"TEXTOS\", \"access\": \"editable\" },\n      { \"group\": \"ATRIBUTOS\", \"access\": \"requiresApproval\" },\n      { \"group\": \"SKU_EAN_NEGOCIO\", \"access\": \"readOnly\" }\n    ],\n    \"actions\": [\"ADD_VARIANT\", \"CHANGE_MEDIA\"]\n  }\n}"
+            },
+            {
+              "name": "200 · contentOwner=false",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/products/{{proposalId}}/permissions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "products",
+                    "{{proposalId}}",
+                    "permissions"
+                  ]
+                },
+                "description": "Matriz de qué es editable, qué pide aprobación y qué es de solo lectura."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"productId\": \"PRD-20261103-7A4F2\",\n    \"isContentOwner\": false,\n    \"groups\": {\n      \"TEXTOS\": {\n        \"editable\": false,\n        \"readOnly\": true,\n        \"requiresApproval\": false\n      },\n      \"IMAGENES\": {\n        \"editable\": false,\n        \"readOnly\": true,\n        \"requiresApproval\": false\n      },\n      \"ATRIBUTOS\": {\n        \"editable\": true,\n        \"readOnly\": false,\n        \"requiresApproval\": true\n      },\n      \"VARIANTES_NUEVAS\": {\n        \"editable\": true,\n        \"readOnly\": false,\n        \"requiresApproval\": true\n      },\n      \"IDENTIFICADORES\": {\n        \"editable\": false,\n        \"readOnly\": true,\n        \"requiresApproval\": false\n      }\n    },\n    \"allowedActions\": [\n      \"PROPOSE_ATTRIBUTE_CHANGE\",\n      \"ADD_VARIANT\"\n    ]\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §3.2 MS-02 workflow/capabilities; DUD-22"
             }
           ]
         },
@@ -1242,6 +1992,112 @@
                 }
               ],
               "body": "{\n  \"success\": true,\n  \"data\": {\n    \"modificationId\": \"MOD-DEMO-0001\",\n    \"status\": \"IN_APPROVAL\",\n    \"links\": { \"self\": \"/partner/v1/modifications/MOD-DEMO-0001\" }\n  }\n}"
+            },
+            {
+              "name": "202 · pending[] + applied[]",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "00000000-0000-4000-8000-000000000007"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"changes\": {\n    \"description\": \"Batería portátil de 20,000 mAh con dos puertos USB-C de carga rápida y protección contra sobrecarga.\",\n    \"attributes\": [\n      { \"id\": \"MATERIAL\", \"value_id\": \"ALUMINIO\", \"value_name\": \"Aluminio\" }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/products/{{proposalId}}/modifications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "products",
+                    "{{proposalId}}",
+                    "modifications"
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"modificationId\": \"MOD-DEMO-0001\",\n    \"productId\": \"PRD-20261103-7A4F2\",\n    \"applied\": [\n      {\n        \"path\": \"/longDescription\",\n        \"op\": \"replace\",\n        \"appliedAt\": \"2026-11-03T15:03:02Z\"\n      }\n    ],\n    \"pending\": [\n      {\n        \"path\": \"/attributes/TIPO_CONECTOR\",\n        \"op\": \"replace\",\n        \"needs\": \"QA\",\n        \"etaHours\": 24\n      }\n    ]\n  }\n}",
+              "_variant_cita": "ciclo-de-vida Etapa 7; contratos-api §3.2 workflow/capabilities"
+            },
+            {
+              "name": "403 · NOT_CONTENT_OWNER",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Idempotency-Key",
+                    "value": "00000000-0000-4000-8000-000000000007"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"changes\": {\n    \"description\": \"Batería portátil de 20,000 mAh con dos puertos USB-C de carga rápida y protección contra sobrecarga.\",\n    \"attributes\": [\n      { \"id\": \"MATERIAL\", \"value_id\": \"ALUMINIO\", \"value_name\": \"Aluminio\" }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/products/{{proposalId}}/modifications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "products",
+                    "{{proposalId}}",
+                    "modifications"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"NOT_CONTENT_OWNER\",\n    \"message\": \"No eres el dueño del contenido; el campo TEXTOS está en modo readOnly para este consumidor\",\n    \"correlationId\": \"c-own-001\",\n    \"details\": [\n      {\n        \"group\": \"TEXTOS\",\n        \"ownerType\": \"LIVERPOOL\"\n      }\n    ]\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §1 códigos reutilizados; DUD-22"
             }
           ]
         }
@@ -1480,6 +2336,51 @@
                 }
               ],
               "body": "{\n  \"success\": true,\n  \"data\": {\n    \"events\": [\n      { \"eventId\": \"EVT-000105\", \"type\": \"proposal.accepted\", \"occurredAt\": \"2026-11-02T18:00:00Z\", \"partnerId\": \"SELLER-DEMO-01\", \"business\": \"MKP\", \"proposalId\": \"PROP-000123\", \"externalRef\": \"DEMO-PB20\", \"status\": \"ACCEPTED\", \"previousStatus\": \"IN_APPROVAL\", \"version\": 6 },\n      { \"eventId\": \"EVT-000106\", \"type\": \"product.sku_created\", \"occurredAt\": \"2026-11-02T18:12:40Z\", \"partnerId\": \"SELLER-DEMO-01\", \"business\": \"MKP\", \"proposalId\": \"PROP-000123\", \"externalRef\": \"DEMO-PB20\", \"status\": \"SKU_CREATED\", \"previousStatus\": \"ACCEPTED\", \"version\": 7 }\n    ],\n    \"nextCursor\": \"EVT-000106\"\n  }\n}"
+            },
+            {
+              "name": "200 · paginado con nextCursor",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/events?cursor=EVT-000104&types=proposal.accepted,product.sku_created",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "events"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "EVT-000104"
+                    },
+                    {
+                      "key": "types",
+                      "value": "proposal.accepted,product.sku_created"
+                    }
+                  ]
+                },
+                "description": "Lista los últimos 30 días desde el cursor. Es el respaldo cuando el webhook no llegó."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"events\": [\n      {\n        \"eventId\": \"EVT-000105\",\n        \"type\": \"proposal.correction_required\",\n        \"occurredAt\": \"2026-11-03T15:03:02Z\",\n        \"payload\": {\n          \"proposalId\": \"prp-88412\",\n          \"errors\": [\n            {\n              \"attribute\": \"GTIN\",\n              \"code\": \"EAN_CHECK_DIGIT\"\n            }\n          ]\n        }\n      },\n      {\n        \"eventId\": \"EVT-000106\",\n        \"type\": \"proposal.validated\",\n        \"occurredAt\": \"2026-11-03T15:12:40Z\",\n        \"payload\": {\n          \"proposalId\": \"prp-88412\",\n          \"status\": \"VALIDATING\"\n        }\n      },\n      {\n        \"eventId\": \"EVT-000107\",\n        \"type\": \"proposal.accepted\",\n        \"occurredAt\": \"2026-11-03T15:18:05Z\",\n        \"payload\": {\n          \"proposalId\": \"prp-88412\",\n          \"status\": \"ACCEPTED\"\n        }\n      }\n    ],\n    \"nextCursor\": \"EVT-000107\",\n    \"hasMore\": true\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §5.11; ciclo-de-vida Etapa 8"
             }
           ]
         }
@@ -2589,6 +3490,42 @@
                 }
               ],
               "body": "{\n  \"requestId\": \"req-20261103-000045\",\n  \"idempotencyKey\": \"prp-mabe-20261103-001\",\n  \"operation\": \"POST /partner/v1/proposals\",\n  \"status\": 201,\n  \"resourceId\": \"prp-20261103-7A4F2\",\n  \"receivedAt\": \"2026-11-03T15:04:00Z\",\n  \"respondedAt\": \"2026-11-03T15:04:00Z\"\n}"
+            },
+            {
+              "name": "200 · recibo encontrado con resourceId",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJSUzI1NiIs…"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/partner/v1/receipts/{{requestId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "partner",
+                    "v1",
+                    "receipts",
+                    "{{requestId}}"
+                  ]
+                },
+                "description": "Ejemplo incorporado desde el contrato para completar la cobertura del mock."
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"requestId\": \"REQ-DEMO-0001\",\n    \"idempotencyKey\": \"idem-abc-123\",\n    \"status\": \"APPLIED\",\n    \"originalStatus\": 201,\n    \"resourceId\": \"prp-88412\",\n    \"firstSeenAt\": \"2026-11-03T14:30:00Z\",\n    \"lastSeenAt\": \"2026-11-03T14:30:05Z\",\n    \"retryCount\": 2\n  }\n}",
+              "_variant_cita": "catalogacion-por-api/contratos-api.md §1; ciclo-de-vida Etapa 8"
             }
           ]
         },
